@@ -12,6 +12,7 @@ public class MainMenu implements Screen {
     private static final int BUTTON_WIDTH = 200;
     private static final int BUTTON_HEIGHT = 100;
     private static final int BUTTON_Y = 100;
+    private static final int MIDDLE = PiazzaPanic.V_WIDTH/2 - BUTTON_WIDTH/2;
     PiazzaPanic game;
     Texture PlayButtonActive;
     Texture PlayButtonInactive;
@@ -34,23 +35,23 @@ public class MainMenu implements Screen {
         Gdx.gl.glClearColor(100, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
-        if(Gdx.input.getX() > 100 && Gdx.input.getX() < 300 && Gdx.input.getY() < 300 && Gdx.input.getY() > 200 ){
-            game.batch.draw(PlayButtonActive,PiazzaPanic.V_WIDTH/2 - BUTTON_WIDTH/2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
+        if(Gdx.input.getX() > MIDDLE - BUTTON_WIDTH*2 && Gdx.input.getX() < MIDDLE - BUTTON_WIDTH && Gdx.input.getY() < PiazzaPanic.V_HEIGHT - BUTTON_Y && Gdx.input.getY() > PiazzaPanic.V_HEIGHT - BUTTON_Y*2 ){
+            game.batch.draw(PlayButtonActive,MIDDLE - BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
             if(Gdx.input.isTouched()){
                 game.setScreen(new PlayScreen(game));
             }
         }
         else{
-            game.batch.draw(PlayButtonInactive,PiazzaPanic.V_WIDTH/2 - BUTTON_WIDTH/2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
+            game.batch.draw(PlayButtonInactive,MIDDLE - BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
         }
-        if(Gdx.input.getX() > 500 && Gdx.input.getX() < 700 && Gdx.input.getY() < 300 && Gdx.input.getY() > 200 ){
-            game.batch.draw(ExitButtonActive,PiazzaPanic.V_WIDTH + BUTTON_WIDTH/2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
+        if(Gdx.input.getX() > MIDDLE + BUTTON_WIDTH*2 && Gdx.input.getX() < MIDDLE + BUTTON_WIDTH*3 && Gdx.input.getY() < PiazzaPanic.V_HEIGHT - BUTTON_Y && Gdx.input.getY() > PiazzaPanic.V_HEIGHT - BUTTON_Y*2 ){
+            game.batch.draw(ExitButtonActive,MIDDLE + BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
             if(Gdx.input.isTouched()){
                 Gdx.app.exit();
             }
         }
         else{
-            game.batch.draw(ExitButtonInactive,PiazzaPanic.V_WIDTH + BUTTON_WIDTH/2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
+            game.batch.draw(ExitButtonInactive,MIDDLE + BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
         }
 
         game.batch.end();
