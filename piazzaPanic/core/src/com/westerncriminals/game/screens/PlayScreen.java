@@ -33,7 +33,7 @@ public class PlayScreen implements Screen{
 		hud = new Hud(game.batch);
 		
 		maploader = new TmxMapLoader();
-        map = maploader.load("kitchenTestTwo.tmx");
+        map = maploader.load("kitchenTest.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() /2, 0);
         
