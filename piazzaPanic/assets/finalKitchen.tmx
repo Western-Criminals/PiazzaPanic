@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="10" height="9" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" source="kitchenCabnets.tsx"/>
+ <tileset firstgid="73" source="kitchenTiles.tsx"/>
+ <layer id="2" name="bg1" width="10" height="9">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+85,85,85,85,85,85,85,85,85,85,
+85,85,85,85,85,85,85,85,85,85,
+85,85,85,85,85,85,85,85,85,85,
+85,85,85,85,85,85,85,85,85,85,
+85,85,85,85,85,85,85,85,85,85,
+85,85,85,85,85,85,85,85,85,85,
+85,85,85,85,85,85,85,85,85,85,
+85,85,85,85,85,85,85,85,85,85
+</data>
+ </layer>
+ <layer id="1" name="bg2" width="10" height="9">
+  <data encoding="csv">
+49,51,50,2,18,49,49,49,8,56,
+57,59,58,10,26,11,11,11,16,64,
+57,0,0,0,0,0,0,0,0,64,
+57,0,0,0,0,0,0,0,0,64,
+57,0,0,0,0,0,0,0,0,64,
+57,0,0,0,0,0,0,0,0,64,
+57,0,0,0,0,0,0,0,0,64,
+72,0,0,0,0,0,0,0,0,72,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

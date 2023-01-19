@@ -16,14 +16,16 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 
 public class PiazzaPanic extends Game {
-	public static final int V_WIDTH = 1400;
-	public static final int V_HEIGHT = 800;
+	public static final int PPM = 32;
+	
+	public static final int V_WIDTH =320;
+	public static final int V_HEIGHT = 280;
 	public SpriteBatch batch;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new MainMenu(this));
+		setScreen(new PlayScreen(this));
 	}
 
 	@Override

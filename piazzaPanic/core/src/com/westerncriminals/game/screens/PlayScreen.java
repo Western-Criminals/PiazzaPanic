@@ -27,15 +27,15 @@ public class PlayScreen implements Screen{
 	public PlayScreen(PiazzaPanic game) {
 		this.game = game;
 		gamecam = new OrthographicCamera();
-		gamePort = new FitViewport(PiazzaPanic.V_WIDTH,PiazzaPanic.V_HEIGHT, gamecam);
+		gamePort = new FitViewport(PiazzaPanic.V_WIDTH /2 ,PiazzaPanic.V_HEIGHT /2  , gamecam);
 		//gamePort.setToOrtho(false, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2)
 		gamePort.apply();
 		hud = new Hud(game.batch);
 		
 		maploader = new TmxMapLoader();
-        map = maploader.load("kitchenTest.tmx");
+        map = maploader.load("finalKitchen.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-        gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() /2, 0);
+        gamecam.position.set(gamePort.getWorldWidth() / 2 , gamePort.getWorldHeight() / 2 , 0);
         
 	}
 
@@ -71,7 +71,7 @@ public class PlayScreen implements Screen{
 	@Override
 	public void resize(int width, int height) {
 		gamePort.update(width, height);
-		gamecam.setToOrtho(false,width,height);
+		gamecam.setToOrtho(false,PiazzaPanic.V_WIDTH  ,PiazzaPanic.V_HEIGHT );
 		
 	}
 
