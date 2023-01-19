@@ -1,6 +1,7 @@
 package com.westerncriminals.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -30,7 +31,6 @@ public class PlayScreen implements Screen{
 	private OrthographicCamera gamecam;
 	private Viewport gamePort;
 	private Hud hud;
-	private String hello;
 	private Chef chefOne;
 	
 	
@@ -44,15 +44,14 @@ public class PlayScreen implements Screen{
 	public PlayScreen(PiazzaPanic game) {
 		this.game = game;
 		gamecam = new OrthographicCamera();
-		gamePort = new FitViewport(PiazzaPanic.V_WIDTH /2 ,PiazzaPanic.V_HEIGHT /2  , gamecam);
-		//gamePort.setToOrtho(false, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2)
+		gamePort = new FitViewport(PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,PiazzaPanic.V_HEIGHT /  PiazzaPanic.PPM , gamecam);
 		gamePort.apply();
 		hud = new Hud(game.batch);
 		
 		
 		maploader = new TmxMapLoader();
         map = maploader.load("finalKitchen.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map);
+        renderer = new OrthogonalTiledMapRenderer(map, 1f/ PiazzaPanic.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2 , gamePort.getWorldHeight() / 2 , 0);
         
         world = new World(new Vector2(0,0), true);
@@ -68,11 +67,11 @@ public class PlayScreen implements Screen{
         	Rectangle rect = ((RectangleMapObject) object).getRectangle();
         	
         	bdef.type = BodyDef.BodyType.StaticBody;
-        	bdef.position.set(rect.getX() + rect.getWidth() /2, rect.getY() + rect.getHeight() /2);
+        	bdef.position.set((rect.getX() + rect.getWidth() /2) / PiazzaPanic.PPM, (rect.getY() + rect.getHeight() /2) / PiazzaPanic.PPM);
         	
         	body = world.createBody(bdef);
         	
-        	shape.setAsBox(rect.getWidth()/ 2, rect.getHeight()/ 2);
+        	shape.setAsBox(rect.getWidth()/ 2 / PiazzaPanic.PPM, rect.getHeight()/ 2 / PiazzaPanic.PPM);
         	fdef.shape = shape;
         	body.createFixture(fdef);
         }
@@ -81,11 +80,11 @@ public class PlayScreen implements Screen{
         	Rectangle rect = ((RectangleMapObject) object).getRectangle();
         	
         	bdef.type = BodyDef.BodyType.StaticBody;
-        	bdef.position.set(rect.getX() + rect.getWidth() /2, rect.getY() + rect.getHeight() /2);
+        	bdef.position.set((rect.getX() + rect.getWidth() /2) / PiazzaPanic.PPM, (rect.getY() + rect.getHeight() /2)/ PiazzaPanic.PPM);
         	
         	body = world.createBody(bdef);
         	
-        	shape.setAsBox(rect.getWidth()/ 2, rect.getHeight()/ 2);
+        	shape.setAsBox(rect.getWidth()/ 2 / PiazzaPanic.PPM, rect.getHeight()/ 2 / PiazzaPanic.PPM);
         	fdef.shape = shape;
         	body.createFixture(fdef);
         }
@@ -108,8 +107,17 @@ public class PlayScreen implements Screen{
 	}
 
 	private void handleInput() {
-		// TODO Auto-generated method stub
-		hello = "lol";
+		float velX = 0, velY = 0;
+	    if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+	        velY = 10.0f ;
+	    } else if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+	        velX = 10.0f;
+	    } else if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+	        velY = -10.0f;
+	    } else if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+	         velX = -10.0f;
+	    }
+	    chefOne.b2body.setLinearVelocity(new Vector2(velX, velY));;
 	}
 
 	@Override
@@ -129,7 +137,7 @@ public class PlayScreen implements Screen{
 	@Override
 	public void resize(int width, int height) {
 		gamePort.update(width, height);
-		gamecam.setToOrtho(false,PiazzaPanic.V_WIDTH  ,PiazzaPanic.V_HEIGHT );
+		gamecam.setToOrtho(false,PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,PiazzaPanic.V_HEIGHT / PiazzaPanic.PPM);
 		
 	}
 
