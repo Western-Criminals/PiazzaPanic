@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.westerncriminals.game.PiazzaPanic;
+import com.westerncriminals.game.screens.ButtonResponse;
 
 public class Button extends PiazzaPanic {
     private static PiazzaPanic game;
@@ -14,7 +15,8 @@ public class Button extends PiazzaPanic {
     private static int MIDDLE;
     private static Texture t_active;
     private static Texture t_inactive;
-    public Button(PiazzaPanic g, Texture t_a, Texture t_i) {
+    private static ButtonResponse response;
+    public Button(PiazzaPanic g, Texture t_a, Texture t_i, ButtonResponse r) {
         game = g;
         BUTTON_WIDTH = 200;
         BUTTON_HEIGHT = 100;
@@ -22,8 +24,9 @@ public class Button extends PiazzaPanic {
         MIDDLE = PiazzaPanic.V_WIDTH/2 - BUTTON_WIDTH/2;
         t_active = t_a;
         t_inactive = t_i;
+        response = r;
     }
-    public Button(PiazzaPanic g, int w, int h, int y, Texture t_a, Texture t_i) {
+    public Button(PiazzaPanic g, int w, int h, int y, Texture t_a, Texture t_i, ButtonResponse r) {
         game = g;
         BUTTON_WIDTH = w;
         BUTTON_HEIGHT = h;
@@ -31,6 +34,7 @@ public class Button extends PiazzaPanic {
         MIDDLE = PiazzaPanic.V_WIDTH/2 - BUTTON_WIDTH/2;
         t_active = t_a;
         t_inactive = t_i;
+        response = r;
     }
     @Override
     public void render() {
@@ -40,7 +44,7 @@ public class Button extends PiazzaPanic {
         if(Gdx.input.getX() > MIDDLE - BUTTON_WIDTH*2 && Gdx.input.getX() < MIDDLE - BUTTON_WIDTH && Gdx.input.getY() < PiazzaPanic.V_HEIGHT - BUTTON_Y && Gdx.input.getY() > PiazzaPanic.V_HEIGHT - BUTTON_Y*2 ){
             game.batch.draw(t_active,MIDDLE - BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
             if(Gdx.input.isTouched()){
-                game.setScreen(new PlayScreen(game));
+                response.execute();
             }
         }
         else{
