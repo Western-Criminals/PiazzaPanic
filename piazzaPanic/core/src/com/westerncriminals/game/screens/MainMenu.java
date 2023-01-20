@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.westerncriminals.game.PiazzaPanic;
 import com.badlogic.gdx.Game;
+import com.westerncriminals.game.screens.ButtonResponse;
 
 public class MainMenu implements Screen {
 
@@ -18,43 +19,29 @@ public class MainMenu implements Screen {
     Texture PlayButtonInactive;
     Texture ExitButtonActive;
     Texture ExitButtonInactive;
-    public MainMenu(PiazzaPanic game){
+    Button PlayButton;
+    Button ExitButton;
+    public MainMenu(PiazzaPanic game) {
         this.game = game;
         PlayButtonActive = new Texture("playbuttonactive.png");
         PlayButtonInactive = new Texture("playbuttoninactive.png");
         ExitButtonActive = new Texture("exitbuttonactive.png");
         ExitButtonInactive = new Texture("exitbuttoninactive.png");
+        PlayButton = new Button(game, PlayButtonActive, PlayButtonInactive, new GameStart());
+        ExitButton = new Button(game, ExitButtonActive, ExitButtonInactive, new GameExit());
     }
     @Override
     public void show() {
-
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(100, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.begin();
-        if(Gdx.input.getX() > MIDDLE - BUTTON_WIDTH*2 && Gdx.input.getX() < MIDDLE - BUTTON_WIDTH && Gdx.input.getY() < PiazzaPanic.V_HEIGHT - BUTTON_Y && Gdx.input.getY() > PiazzaPanic.V_HEIGHT - BUTTON_Y*2 ){
-            game.batch.draw(PlayButtonActive,MIDDLE - BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
-            if(Gdx.input.isTouched()){
-                game.setScreen(new PlayScreen(game));
-            }
-        }
-        else{
-            game.batch.draw(PlayButtonInactive,MIDDLE - BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
-        }
-        if(Gdx.input.getX() > MIDDLE + BUTTON_WIDTH*2 && Gdx.input.getX() < MIDDLE + BUTTON_WIDTH*3 && Gdx.input.getY() < PiazzaPanic.V_HEIGHT - BUTTON_Y && Gdx.input.getY() > PiazzaPanic.V_HEIGHT - BUTTON_Y*2 ){
-            game.batch.draw(ExitButtonActive,MIDDLE + BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
-            if(Gdx.input.isTouched()){
-                Gdx.app.exit();
-            }
-        }
-        else{
-            game.batch.draw(ExitButtonInactive,MIDDLE + BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
-        }
-
-        game.batch.end();
+        //game.batch.begin();
+        PlayButton.render();
+        ExitButton.render();
+        //game.batch.end();
     }
 
     @Override
