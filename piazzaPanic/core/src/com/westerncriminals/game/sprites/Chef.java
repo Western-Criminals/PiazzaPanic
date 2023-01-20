@@ -1,4 +1,4 @@
-package sprites;
+package com.westerncriminals.game.sprites;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -19,13 +19,13 @@ public class Chef extends Sprite{
 		super(screen.getAtlas().findRegion("Chef A1"));
 		this.world = world;
 		defineChef();
-		chefIdle = new TextureRegion(getTexture(), 6, 3, 3,3); // 6 , 3 , 3 , 3 
-		setBounds(0, 0, 3  / PiazzaPanic.PPM , 3 / PiazzaPanic.PPM);
+		chefIdle = new TextureRegion(getTexture(), 21, 10, 10,17); // 6 , 3 , 3 , 3
+		setBounds(0, 0, 20f/PiazzaPanic.PPM, 34f/PiazzaPanic.PPM);
 		setRegion(chefIdle);
 	}
 	
 	public void update(float dt) {
-		setPosition(b2body.getPosition().x - getWidth() /2, b2body.getPosition().y - getHeight());
+		setPosition(b2body.getPosition().x - getWidth() /2, b2body.getPosition().y - getHeight()/4);
 	}
 	
 	public void defineChef() {
@@ -36,7 +36,7 @@ public class Chef extends Sprite{
 		
 		FixtureDef fdef = new FixtureDef();
 		CircleShape shape = new CircleShape();
-		shape.setRadius(15f/ PiazzaPanic.PPM);
+		shape.setRadius(10f/ PiazzaPanic.PPM);
 		
 		fdef.shape = shape;
 		b2body.createFixture(fdef);
