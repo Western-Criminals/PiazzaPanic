@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.westerncriminals.game.PiazzaPanic;
 import com.badlogic.gdx.Game;
+import com.westerncriminals.game.screens.ButtonResponse;
 
 public class MainMenu implements Screen {
 
@@ -18,16 +19,16 @@ public class MainMenu implements Screen {
     Texture PlayButtonInactive;
     Texture ExitButtonActive;
     Texture ExitButtonInactive;
-    public MainMenu(PiazzaPanic game){
+    Button PlayButton;
+    Button ExitButton;
+    public MainMenu(PiazzaPanic game) {
         this.game = game;
         PlayButtonActive = new Texture("playbuttonactive.png");
         PlayButtonInactive = new Texture("playbuttoninactive.png");
         ExitButtonActive = new Texture("exitbuttonactive.png");
         ExitButtonInactive = new Texture("exitbuttoninactive.png");
-        Button PlayButton = new Button(game, PlayButtonActive, PlayButtonInactive);
-        Button ExitButton = new Button(game, ExitButtonActive, ExitButtonInactive);
-        PlayButton.render();
-        ExitButton.render();
+        PlayButton = new Button(game, PlayButtonActive, PlayButtonInactive, new GameStart());
+        ExitButton = new Button(game, ExitButtonActive, ExitButtonInactive, new GameExit());
     }
     @Override
     public void show() {
@@ -35,6 +36,12 @@ public class MainMenu implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(100, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //game.batch.begin();
+        PlayButton.render();
+        ExitButton.render();
+        //game.batch.end();
     }
 
     @Override
