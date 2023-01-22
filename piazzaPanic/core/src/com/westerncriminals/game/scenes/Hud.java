@@ -17,11 +17,21 @@ public class Hud implements Disposable{
 	private Viewport viewport;
 	
 	private Integer scoreCount;
+	private Integer bCount;
+	private Integer saladCount;
+
 	
 	Label scoreLabel;
+	Label bLabelNum;
+	Label burgLabel;
+	Label timeLabel;
+	Label saladLabel;
+	Label sLabel;
 	
 	public Hud(SpriteBatch sb) {
 		scoreCount = 0;
+		bCount = 0;
+		saladCount = 0;
 		
 		viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, sb);
@@ -30,9 +40,23 @@ public class Hud implements Disposable{
 		table.bottom();
 		table.setFillParent(true);
 		
-		scoreLabel = new Label(String.format("%06d",scoreCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		burgLabel = new Label("Burgers", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		saladLabel = new Label("Salads", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		
-		table.add(scoreLabel).padTop(10);
+		table.add(timeLabel).expandX();
+		table.add(burgLabel).expandX();
+		table.add(saladLabel).expandX();
+		
+		table.row();
+		
+		scoreLabel = new Label(String.format("%06d",scoreCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		bLabelNum = new Label(String.format("%01d", bCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		sLabel = new Label(String.format("%01d", saladCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		
+		table.add(scoreLabel).expandX();//.padTop(10);
+		table.add(bLabelNum).expandX();//.padTop(10);
+		table.add(sLabel);
 		
 		stage.addActor(table);
 		

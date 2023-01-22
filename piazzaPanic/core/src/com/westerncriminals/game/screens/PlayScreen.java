@@ -21,14 +21,17 @@ import com.westerncriminals.game.tools.B2WorldCreator;
 import com.westerncriminals.game.sprites.Chef;
 
 public class PlayScreen implements Screen{
+	
 	private PiazzaPanic game;
 	private TextureAtlas atlas;
 	
 	private OrthographicCamera gamecam;
 	private Viewport gamePort;
 	private Hud hud;
-	private Chef chefOne;
 	
+	private Chef chefOne;
+	private Chef chefTwo;
+	private int chefControlled;
 	
 	private TmxMapLoader maploader;
     private TiledMap map;
@@ -36,6 +39,7 @@ public class PlayScreen implements Screen{
     
     private World world;
     private Box2DDebugRenderer b2dr;
+    
 	
 	public PlayScreen(PiazzaPanic game) {
 		atlas = new TextureAtlas("chefAtlas.txt");
@@ -45,6 +49,7 @@ public class PlayScreen implements Screen{
 		gamePort = new FitViewport(PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,PiazzaPanic.V_HEIGHT /  PiazzaPanic.PPM , gamecam);
 		gamePort.apply();
 		hud = new Hud(game.batch);
+		chefControlled = 1;
 		
 		
 		maploader = new TmxMapLoader();
@@ -57,7 +62,8 @@ public class PlayScreen implements Screen{
         
         new B2WorldCreator(world,map);
         
-        chefOne = new Chef(world, this);
+        chefOne = new Chef(world, this, 1);
+        chefTwo = new Chef(world, this, 2);
 	}
 	
 	public TextureAtlas getAtlas(){
@@ -74,6 +80,7 @@ public class PlayScreen implements Screen{
 	public void update(float dt) {
 		handleInput();
 		chefOne.update(dt);
+		chefTwo.update(dt);
 		world.step(1/60f, 6, 2);
 		
 		gamecam.update();
@@ -82,6 +89,9 @@ public class PlayScreen implements Screen{
 
 	private void handleInput() {
 		float velX = 0, velY = 0;
+		
+		if (Gdx.input.isKeyPressed(Input.Keys.Q))
+				chefControlled = 3 - chefControlled;
 	    if(Gdx.input.isKeyPressed(Input.Keys.W)) {
 	        velY = 10.0f ;
 	    } else if(Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -91,7 +101,10 @@ public class PlayScreen implements Screen{
 	    } else if(Gdx.input.isKeyPressed(Input.Keys.A)) {
 	         velX = -10.0f;
 	    }
-	    chefOne.b2body.setLinearVelocity(new Vector2(velX, velY));;
+	    if (chefControlled == 1)
+	    	chefOne.b2body.setLinearVelocity(new Vector2(velX, velY));
+	    else
+	    	chefTwo.b2body.setLinearVelocity(new Vector2(velX, velY));
 	}
 
 	@Override
@@ -107,6 +120,7 @@ public class PlayScreen implements Screen{
 		 game.batch.setProjectionMatrix(gamecam.combined);
 		 game.batch.begin();
 		 chefOne.draw(game.batch);
+		 chefTwo.draw(game.batch);
 		 game.batch.end();
 		
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
@@ -116,7 +130,6 @@ public class PlayScreen implements Screen{
 	@Override
 	public void resize(int width, int height) {
 		gamePort.update(width, height);
-		//gamecam.setToOrtho(false,PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,PiazzaPanic.V_HEIGHT / PiazzaPanic.PPM);
 		
 	}
 

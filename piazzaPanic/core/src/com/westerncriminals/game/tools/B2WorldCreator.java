@@ -12,6 +12,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.westerncriminals.game.PiazzaPanic;
 
 public class B2WorldCreator {
+	final short CATEGORY_COUNTER = 0X0002;
+	final short CATEGORY_STATION_ONE = 0X0004;
+	
 	public B2WorldCreator(World world, TiledMap map){
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
@@ -28,6 +31,8 @@ public class B2WorldCreator {
         	
         	shape.setAsBox(rect.getWidth()/ 2 / PiazzaPanic.PPM, rect.getHeight()/ 2 / PiazzaPanic.PPM);
         	fdef.shape = shape;
+        	fdef.filter.categoryBits = CATEGORY_COUNTER;
+    		fdef.filter.maskBits = -1;
         	body.createFixture(fdef);
         }
         
@@ -41,6 +46,8 @@ public class B2WorldCreator {
         	
         	shape.setAsBox(rect.getWidth()/ 2 / PiazzaPanic.PPM, rect.getHeight()/ 2 / PiazzaPanic.PPM);
         	fdef.shape = shape;
+        	fdef.filter.categoryBits = CATEGORY_STATION_ONE;
+    		fdef.filter.maskBits = -1;
         	body.createFixture(fdef);
         }
 	}
