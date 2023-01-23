@@ -18,6 +18,7 @@ import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 
 public abstract class InteractiveTileObject {
+	final short CATEGORY_STATION_ONE = 0X0004;
 	protected World world;
     protected TiledMap map;
     protected Rectangle bounds;
@@ -28,11 +29,12 @@ public abstract class InteractiveTileObject {
     protected Fixture fixture;
 
     public InteractiveTileObject(World world, TiledMap map, Rectangle bounds) {
+    	
     	this.world = world;
     	this.map = map;
     	this.bounds = bounds;
-    	/*
-    	 * BodyDef bdef = new BodyDef();
+    	
+    	BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
     	
@@ -45,9 +47,9 @@ public abstract class InteractiveTileObject {
     	fdef.shape = shape;
     	fdef.filter.categoryBits = CATEGORY_STATION_ONE;
 		fdef.filter.maskBits = -1;
-    	body.createFixture(fdef);
+    	fixture = body.createFixture(fdef);
     	
-    	^^^^^^ THIS MAY BE ADDED AFTER SOME MORE REFACTORING 
-    	 */
     }
+    
+    public abstract void onInteraction();
 }
