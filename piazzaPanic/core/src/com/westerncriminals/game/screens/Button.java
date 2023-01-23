@@ -23,8 +23,8 @@ public class Button extends PiazzaPanic {
         game = g;
         BUTTON_WIDTH = 200;
         BUTTON_HEIGHT = 100;
-        BUTTON_Y = MainMenu.gamecam.position.y/2 + ypos;
-        MIDDLE = MainMenu.gamecam.position.x + xpos;
+        BUTTON_Y = MainMenu.height/2 - BUTTON_HEIGHT/2 + ypos;
+        MIDDLE = MainMenu.width/2 + xpos;
         t_active = t_a;
         t_inactive = t_i;
         response = r;
@@ -33,8 +33,8 @@ public class Button extends PiazzaPanic {
         game = g;
         BUTTON_WIDTH = w;
         BUTTON_HEIGHT = h;
-        BUTTON_Y = MainMenu.gamecam.position.y/2 + ypos;
-        MIDDLE = MainMenu.gamecam.position.x + xpos;
+        BUTTON_Y = MainMenu.height/2 - BUTTON_HEIGHT/2 + ypos;
+        MIDDLE = MainMenu.width/2 + xpos;
         t_active = t_a;
         t_inactive = t_i;
         response = r;
@@ -42,7 +42,7 @@ public class Button extends PiazzaPanic {
     public void render(PiazzaPanic game) {
         this.game=game;
         game.batch.begin();
-        if(Gdx.input.getX() > MIDDLE - BUTTON_WIDTH/2 && Gdx.input.getX() < MIDDLE + BUTTON_WIDTH/2 && Gdx.input.getY() < MainMenu.gamecam.position.y*2 - BUTTON_Y && Gdx.input.getY() > MainMenu.gamecam.position.y*2 - BUTTON_Y - BUTTON_HEIGHT){
+        if(Gdx.input.getX() > MIDDLE - BUTTON_WIDTH/2 && Gdx.input.getX() < MIDDLE + BUTTON_WIDTH/2 && Gdx.input.getY() < MainMenu.height - BUTTON_Y && Gdx.input.getY() > MainMenu.height - BUTTON_Y - BUTTON_HEIGHT){
             game.batch.draw(t_active,MIDDLE - BUTTON_WIDTH/2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT);
             if(Gdx.input.isTouched()){
                 response.run(game);

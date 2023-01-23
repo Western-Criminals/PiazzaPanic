@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ee870e6-4c89-47d3-9329-b37235e90363" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/piazzaPanic/core/src/com/westerncriminals/game/PiazzaPanic.java" beforeDir="false" afterPath="$PROJECT_DIR$/piazzaPanic/core/src/com/westerncriminals/game/PiazzaPanic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/piazzaPanic/core/src/com/westerncriminals/game/screens/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/piazzaPanic/core/src/com/westerncriminals/game/screens/Button.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/piazzaPanic/core/src/com/westerncriminals/game/screens/ButtonResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/piazzaPanic/core/src/com/westerncriminals/game/screens/ButtonResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/piazzaPanic/core/src/com/westerncriminals/game/screens/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/piazzaPanic/core/src/com/westerncriminals/game/screens/MainMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +72,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "vue.rearranger.settings.migration": "true"
   }
@@ -117,6 +120,7 @@
       <updated>1674481045504</updated>
       <workItem from="1674481046555" duration="259000" />
       <workItem from="1674481323170" duration="5374000" />
+      <workItem from="1674506844187" duration="1964000" />
     </task>
     <servers />
   </component>
