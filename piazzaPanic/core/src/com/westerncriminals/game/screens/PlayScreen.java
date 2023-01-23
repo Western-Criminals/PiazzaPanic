@@ -48,9 +48,12 @@ public class PlayScreen implements Screen{
 		gamecam = new OrthographicCamera();
 		gamePort = new FitViewport(PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,PiazzaPanic.V_HEIGHT /  PiazzaPanic.PPM , gamecam);
 		gamePort.apply();
-		hud = new Hud(game.batch);
 		chefControlled = 1;
+<<<<<<< Updated upstream
 		
+=======
+		hud = new Hud(game.batch);
+>>>>>>> Stashed changes
 		
 		maploader = new TmxMapLoader();
         map = maploader.load("finalKitchen.tmx");
@@ -62,10 +65,16 @@ public class PlayScreen implements Screen{
         
         new B2WorldCreator(world,map);
         
+<<<<<<< Updated upstream
         chefOne = new Chef(world, this, 1, 55);
         chefTwo = new Chef(world, this, 2, 250);
         
         world.setContactListener(new WorldContactListener());
+=======
+        chefOne = new Chef(world, this, 1, 32);
+        chefTwo = new Chef(world, this, 2, 300);
+        
+>>>>>>> Stashed changes
 	}
 	
 	public TextureAtlas getAtlas(){
@@ -83,6 +92,7 @@ public class PlayScreen implements Screen{
 		handleInput();
 		chefOne.update(dt);
 		chefTwo.update(dt);
+		hud.update(dt);
 		world.step(1/60f, 6, 2);
 		gamecam.update();
 		renderer.setView(gamecam);
@@ -126,6 +136,7 @@ public class PlayScreen implements Screen{
 		
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 		hud.stage.draw();
+		
 	}
 
 	@Override

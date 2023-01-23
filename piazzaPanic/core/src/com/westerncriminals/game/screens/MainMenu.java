@@ -13,6 +13,10 @@ import com.badlogic.gdx.Game;
 import com.westerncriminals.game.screens.ButtonResponse;
 
 public class MainMenu implements Screen {
+
+
+    public static OrthographicCamera gamecam;
+    public static Viewport gamePort;
     private static final int BUTTON_WIDTH = 200;
     private static final int BUTTON_HEIGHT = 100;
     private static final int BUTTON_Y = 100;
@@ -24,18 +28,22 @@ public class MainMenu implements Screen {
     Texture ExitButtonInactive;
     Button PlayButton;
     Button ExitButton;
-    public static int width;
-    public static int height;
+    Stage stage;
     public MainMenu(PiazzaPanic game) {
         this.game = game;
-        width = 1200;
-        height = 900;
+        stage = new Stage();
+
+        gamecam = new OrthographicCamera();
+        gamePort = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, gamecam);
+        gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight()/2,0);
+
+        Gdx.input.setInputProcessor(stage);
         PlayButtonActive = new Texture("playbuttonactive.png");
         PlayButtonInactive = new Texture("playbuttoninactive.png");
         ExitButtonActive = new Texture("exitbuttonactive.png");
         ExitButtonInactive = new Texture("exitbuttoninactive.png");
-        ExitButton = new Button(game, 200, -200, ExitButtonActive, ExitButtonInactive, new GameExit());
-        PlayButton = new Button(game, -200,-200, PlayButtonActive, PlayButtonInactive,  new GameStart());
+        ExitButton = new Button(game, 200, 100, ExitButtonActive, ExitButtonInactive, new GameExit());
+        PlayButton = new Button(game, -200,100, PlayButtonActive, PlayButtonInactive,  new GameStart());
     }
     @Override
     public void show() {
@@ -53,13 +61,12 @@ public class MainMenu implements Screen {
     }
 
     private void update() {
-
+        gamecam.update();
     }
 
     @Override
-    public void resize(int w, int h) {
-        this.width = w;
-        this.height = h;
+    public void resize(int width, int height) {
+        gamePort.update(width, height);
     }
 
     @Override
