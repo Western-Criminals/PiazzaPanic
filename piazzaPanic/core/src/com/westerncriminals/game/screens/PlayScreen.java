@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.scenes.Hud;
 import com.westerncriminals.game.tools.B2WorldCreator;
-
+import com.westerncriminals.game.tools.WorldContactListener;
 import com.westerncriminals.game.sprites.Chef;
 
 public class PlayScreen implements Screen{
@@ -32,7 +32,6 @@ public class PlayScreen implements Screen{
 	private Chef chefOne;
 	private Chef chefTwo;
 	private int chefControlled;
-	//private int orderTimer;
 	
 	private TmxMapLoader maploader;
     private TiledMap map;
@@ -51,7 +50,6 @@ public class PlayScreen implements Screen{
 		gamePort.apply();
 		hud = new Hud(game.batch);
 		chefControlled = 1;
-		//orderTimer = 0;
 		
 		
 		maploader = new TmxMapLoader();
@@ -64,8 +62,10 @@ public class PlayScreen implements Screen{
         
         new B2WorldCreator(world,map);
         
-        chefOne = new Chef(world, this, 1);
-        chefTwo = new Chef(world, this, 2);
+        chefOne = new Chef(world, this, 1, 55);
+        chefTwo = new Chef(world, this, 2, 250);
+        
+        world.setContactListener(new WorldContactListener());
 	}
 	
 	public TextureAtlas getAtlas(){
@@ -81,12 +81,6 @@ public class PlayScreen implements Screen{
 	
 	public void update(float dt) {
 		handleInput();
-		//orderTimer += 1;
-		/*
-		if (orderTimer == 3)
-				genOrder();
-				hud = new Hud(game.batch);
-		*/
 		chefOne.update(dt);
 		chefTwo.update(dt);
 		world.step(1/60f, 6, 2);
@@ -94,12 +88,6 @@ public class PlayScreen implements Screen{
 		renderer.setView(gamecam);
 	}
 	
-	/*
-	private void genOrder() {
-		int currentBcount = hud.getbCount();
-		hud.setbCount(currentBcount);
-	}
-	*/
 
 	private void handleInput() {
 		float velX = 0, velY = 0;

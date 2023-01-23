@@ -21,13 +21,10 @@ public class Chef extends Sprite{
 	public Body b2body; 
 	private TextureRegion chefIdle;
 	
-	public Chef(World world, PlayScreen screen, int chefNum) {
+	public Chef(World world, PlayScreen screen, int chefNum, float xPos) {
 		super(screen.getAtlas().findRegion("Chef A1"));
 		this.world = world;
-		if (chefNum == 1)
-			defineChef(32, 32);
-		else
-			defineChef(300, 32);
+		defineChef(xPos, 50);
 		chefIdle = new TextureRegion(getTexture(), 21, 10, 10,17); // 6 , 3 , 3 , 3
 		setBounds(0, 0, 20f/PiazzaPanic.PPM, 34f/PiazzaPanic.PPM);
 		setRegion(chefIdle);
@@ -45,8 +42,8 @@ public class Chef extends Sprite{
 		
 		fdef.shape = shape;
 		fdef.filter.categoryBits = CATEGORY_PLAYER;
-		// fdef.filter.maskBits = MASK_PLAYER;
-		b2body.createFixture(fdef);
+		fdef.filter.maskBits = MASK_PLAYER;
+		b2body.createFixture(fdef).setUserData("ChefBody");
 		
 	}
 	public void update(float dt) {
