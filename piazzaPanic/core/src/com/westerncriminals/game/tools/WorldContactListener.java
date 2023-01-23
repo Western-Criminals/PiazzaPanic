@@ -1,6 +1,6 @@
 package com.westerncriminals.game.tools;
 
-<<<<<<< Updated upstream
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -47,8 +47,4 @@ public class WorldContactListener implements ContactListener{
 		// TODO Auto-generated method stub
 		
 	}
-=======
-public class WorldContactListener {
->>>>>>> Stashed changes
-
 }

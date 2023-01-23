@@ -49,11 +49,7 @@ public class PlayScreen implements Screen{
 		gamePort = new FitViewport(PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,PiazzaPanic.V_HEIGHT /  PiazzaPanic.PPM , gamecam);
 		gamePort.apply();
 		chefControlled = 1;
-<<<<<<< Updated upstream
-		
-=======
 		hud = new Hud(game.batch);
->>>>>>> Stashed changes
 		
 		maploader = new TmxMapLoader();
         map = maploader.load("finalKitchen.tmx");
@@ -65,16 +61,11 @@ public class PlayScreen implements Screen{
         
         new B2WorldCreator(world,map);
         
-<<<<<<< Updated upstream
-        chefOne = new Chef(world, this, 1, 55);
-        chefTwo = new Chef(world, this, 2, 250);
+        chefOne = new Chef(world, this, 1, 55, 55);
+        chefTwo = new Chef(world, this, 2, 250, 55);
         
         world.setContactListener(new WorldContactListener());
-=======
-        chefOne = new Chef(world, this, 1, 32);
-        chefTwo = new Chef(world, this, 2, 300);
-        
->>>>>>> Stashed changes
+
 	}
 	
 	public TextureAtlas getAtlas(){

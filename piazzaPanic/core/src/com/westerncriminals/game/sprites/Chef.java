@@ -28,34 +28,22 @@ public class Chef extends Sprite{
 	public Stack ingrediantStack;
 	private TextureRegion chefIdle;
 	
-<<<<<<< Updated upstream
-	public Chef(World world, PlayScreen screen, int chefNum, float xPos) {
-		super(screen.getAtlas().findRegion("Chef A1"));
-		this.world = world;
-		defineChef(xPos, 50);
-=======
-	Label stackLabel;
 	
-	public Chef(World world, PlayScreen screen, int chefNum, int xPos) {
+	public Chef(World world, PlayScreen screen, int chefNum, float x, float y) {
 		super(screen.getAtlas().findRegion("Chef A1"));
 		this.world = world;
 		ingrediantStack = new Stack();
-		defineChef(xPos);
->>>>>>> Stashed changes
+		defineChef(x, y);
 		chefIdle = new TextureRegion(getTexture(), 21, 10, 10,17); // 6 , 3 , 3 , 3
 		setBounds(0, 0, 20f/PiazzaPanic.PPM, 34f/PiazzaPanic.PPM);
 		setRegion(chefIdle);
 	}
 	
-<<<<<<< Updated upstream
-	public void defineChef(float x, float y) {
+
+	public void defineChef(float x, float y ) {
 		BodyDef bdef = new BodyDef();
 		bdef.position.set(x/ PiazzaPanic.PPM,y/ PiazzaPanic.PPM);
-=======
-	public void defineChef(int xPos) {
-		BodyDef bdef = new BodyDef();
-		bdef.position.set(xPos / PiazzaPanic.PPM,32/ PiazzaPanic.PPM);
->>>>>>> Stashed changes
+
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		
@@ -70,10 +58,6 @@ public class Chef extends Sprite{
 		// may need to create a new fixture for contact, maybe
 		
 	}
-<<<<<<< Updated upstream
-=======
-	
->>>>>>> Stashed changes
 	public void update(float dt) {
 		setPosition(b2body.getPosition().x - getWidth() /2, b2body.getPosition().y - getHeight()/2);
 	}
