@@ -42,8 +42,8 @@ public class MainMenu implements Screen {
         PlayButtonInactive = new Texture("playbuttoninactive.png");
         ExitButtonActive = new Texture("exitbuttonactive.png");
         ExitButtonInactive = new Texture("exitbuttoninactive.png");
-        ExitButton = new Button(game, ExitButtonActive, ExitButtonInactive, 400,100, new GameExit());
-        PlayButton = new Button(game, PlayButtonActive, PlayButtonInactive, 0,100, new GameStart());
+        ExitButton = new Button(game, 200, 100, ExitButtonActive, ExitButtonInactive, new GameExit());
+        PlayButton = new Button(game, -200,100, PlayButtonActive, PlayButtonInactive,  new GameStart());
     }
     @Override
     public void show() {
@@ -54,10 +54,10 @@ public class MainMenu implements Screen {
         update();
         Gdx.gl.glClearColor(100, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.begin();
-        ExitButton.render();
-        PlayButton.render();
-        game.batch.end();
+        //game.batch.begin();
+        ExitButton.render(game);
+        PlayButton.render(game);
+        //game.batch.end();
     }
 
     private void update() {
