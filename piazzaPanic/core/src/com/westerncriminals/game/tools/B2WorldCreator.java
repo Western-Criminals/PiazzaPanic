@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -34,7 +35,7 @@ public class B2WorldCreator {
         	fdef.shape = shape;
         	fdef.filter.categoryBits = CATEGORY_COUNTER;
     		fdef.filter.maskBits = -1;
-        	body.createFixture(fdef);
+        	body.createFixture(fdef).setUserData("counter");
         }
         
         for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){

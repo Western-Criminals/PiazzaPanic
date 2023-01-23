@@ -43,7 +43,8 @@ public class Chef extends Sprite{
 		fdef.shape = shape;
 		fdef.filter.categoryBits = CATEGORY_PLAYER;
 		fdef.filter.maskBits = MASK_PLAYER;
-		b2body.createFixture(fdef).setUserData("ChefBody");
+		b2body.createFixture(fdef).setUserData("chefBody");
+		// may need to create a new fixture for contact, maybe
 		
 	}
 	public void update(float dt) {
