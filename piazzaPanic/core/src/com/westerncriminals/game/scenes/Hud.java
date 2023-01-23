@@ -30,7 +30,7 @@ public class Hud implements Disposable{
 	
 	public Hud(SpriteBatch sb) {
 		scoreCount = 0;
-		bCount = 0;
+		setbCount(0);
 		saladCount = 0;
 		
 		viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
@@ -51,7 +51,7 @@ public class Hud implements Disposable{
 		table.row();
 		
 		scoreLabel = new Label(String.format("%06d",scoreCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		bLabelNum = new Label(String.format("%01d", bCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		bLabelNum = new Label(String.format("%01d", getbCount()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		sLabel = new Label(String.format("%01d", saladCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		
 		table.add(scoreLabel).expandX();//.padTop(10);
@@ -68,5 +68,13 @@ public class Hud implements Disposable{
 		stage.dispose();
 		
 		
+	}
+
+	public Integer getbCount() {
+		return bCount;
+	}
+
+	public void setbCount(Integer bCount) {
+		this.bCount = bCount;
 	}
 }

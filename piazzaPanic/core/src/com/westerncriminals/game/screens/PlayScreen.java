@@ -32,6 +32,7 @@ public class PlayScreen implements Screen{
 	private Chef chefOne;
 	private Chef chefTwo;
 	private int chefControlled;
+	//private int orderTimer;
 	
 	private TmxMapLoader maploader;
     private TiledMap map;
@@ -50,6 +51,7 @@ public class PlayScreen implements Screen{
 		gamePort.apply();
 		hud = new Hud(game.batch);
 		chefControlled = 1;
+		//orderTimer = 0;
 		
 		
 		maploader = new TmxMapLoader();
@@ -79,13 +81,25 @@ public class PlayScreen implements Screen{
 	
 	public void update(float dt) {
 		handleInput();
+		//orderTimer += 1;
+		/*
+		if (orderTimer == 3)
+				genOrder();
+				hud = new Hud(game.batch);
+		*/
 		chefOne.update(dt);
 		chefTwo.update(dt);
 		world.step(1/60f, 6, 2);
-		
 		gamecam.update();
 		renderer.setView(gamecam);
 	}
+	
+	/*
+	private void genOrder() {
+		int currentBcount = hud.getbCount();
+		hud.setbCount(currentBcount);
+	}
+	*/
 
 	private void handleInput() {
 		float velX = 0, velY = 0;
@@ -115,13 +129,12 @@ public class PlayScreen implements Screen{
 		
 		renderer.render();
 		
-		 b2dr.render(world, gamecam.combined);
-		 
-		 game.batch.setProjectionMatrix(gamecam.combined);
-		 game.batch.begin();
-		 chefOne.draw(game.batch);
-		 chefTwo.draw(game.batch);
-		 game.batch.end();
+		b2dr.render(world, gamecam.combined);
+		game.batch.setProjectionMatrix(gamecam.combined);
+		game.batch.begin();
+		chefOne.draw(game.batch);
+		chefTwo.draw(game.batch);
+		game.batch.end();
 		
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 		hud.stage.draw();
