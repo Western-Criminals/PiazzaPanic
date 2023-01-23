@@ -24,7 +24,7 @@ public class PiazzaPanic extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new MainMenu(this));
+		setScreen(new PlayScreen(this));
 	}
 
 	@Override
