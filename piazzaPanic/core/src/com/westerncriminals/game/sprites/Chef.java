@@ -25,17 +25,17 @@ public class Chef extends Sprite{
 		super(screen.getAtlas().findRegion("Chef A1"));
 		this.world = world;
 		if (chefNum == 1)
-			defineChef();
+			defineChef(32, 32);
 		else
-			defineChefTwo();
+			defineChef(300, 32);
 		chefIdle = new TextureRegion(getTexture(), 21, 10, 10,17); // 6 , 3 , 3 , 3
 		setBounds(0, 0, 20f/PiazzaPanic.PPM, 34f/PiazzaPanic.PPM);
 		setRegion(chefIdle);
 	}
 	
-	public void defineChef() {
+	public void defineChef(float x, float y) {
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(32/ PiazzaPanic.PPM,32/ PiazzaPanic.PPM);
+		bdef.position.set(x/ PiazzaPanic.PPM,y/ PiazzaPanic.PPM);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		
@@ -45,28 +45,10 @@ public class Chef extends Sprite{
 		
 		fdef.shape = shape;
 		fdef.filter.categoryBits = CATEGORY_PLAYER;
-		fdef.filter.maskBits = MASK_PLAYER;
+		// fdef.filter.maskBits = MASK_PLAYER;
 		b2body.createFixture(fdef);
 		
 	}
-	
-	private void defineChefTwo() {
-		BodyDef bdef = new BodyDef();
-		bdef.position.set(300/ PiazzaPanic.PPM,32/ PiazzaPanic.PPM);
-		bdef.type = BodyDef.BodyType.DynamicBody;
-		b2body = world.createBody(bdef);
-		
-		FixtureDef fdef = new FixtureDef();
-		CircleShape shape = new CircleShape();
-		shape.setRadius(10f/ PiazzaPanic.PPM);
-		
-		fdef.shape = shape;
-		fdef.filter.categoryBits = CATEGORY_PLAYER;
-		b2body.createFixture(fdef);
-		
-	}
-	
-	
 	public void update(float dt) {
 		setPosition(b2body.getPosition().x - getWidth() /2, b2body.getPosition().y - getHeight()/4);
 	}
