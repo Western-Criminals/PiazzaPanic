@@ -1,0 +1,12 @@
+{
+    "dishes": {
+        "0": {
+            "name": "Burgers",
+            "duration": 3
+        },
+        "1": {
+            "name": "Salads",
+            "duration": 2
+        }
+    }
+}
