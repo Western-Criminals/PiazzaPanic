@@ -44,6 +44,7 @@ public class PlayScreen implements Screen{
 	private Chef chefTwo;
 	private int chefControlled;
 	private Dish burger;
+	private Dish salad;
 	
 	private TmxMapLoader maploader;
     private TiledMap map;
@@ -55,7 +56,7 @@ public class PlayScreen implements Screen{
 	
 	public PlayScreen(PiazzaPanic game) {
 		try {
-			String contents = new String(Files.readString(Paths.get("../settings.json")));
+			String contents = new String(Files.readString(Paths.get("./settings.json")));
 			settings = new JSONObject(contents);
 			dishes = settings.getJSONObject("dishes");
 		}
@@ -85,6 +86,7 @@ public class PlayScreen implements Screen{
         chefOne = new Chef(world, this, 1, 55);
         chefTwo = new Chef(world, this, 2, 250);
 		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"));
+		salad = new Dish(dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"));
         
         world.setContactListener(new WorldContactListener());
 	}
