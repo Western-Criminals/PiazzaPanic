@@ -22,7 +22,6 @@ import com.westerncriminals.game.tools.WorldContactListener;
 import com.westerncriminals.game.sprites.Chef;
 import com.westerncriminals.game.sprites.Dish;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -85,13 +84,13 @@ public class PlayScreen implements Screen{
         
         chefOne = new Chef(world, this, 1, 55);
         chefTwo = new Chef(world, this, 2, 250);
-		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"));
-		salad = new Dish(dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"));
+		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
+		salad = new Dish(dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
         
         world.setContactListener(new WorldContactListener());
 	}
 	
-	public TextureAtlas getAtlas(){
+	public TextureAtlas getAtlas() {
 		return atlas;
 	}
 	
@@ -183,7 +182,4 @@ public class PlayScreen implements Screen{
 		b2dr.dispose();
 		hud.dispose();
 	}
-	
-
-	
 }
