@@ -1,5 +1,6 @@
 package com.westerncriminals.game.screens;
 
+// import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -19,8 +20,18 @@ import com.westerncriminals.game.scenes.Hud;
 import com.westerncriminals.game.tools.B2WorldCreator;
 import com.westerncriminals.game.tools.WorldContactListener;
 import com.westerncriminals.game.sprites.Chef;
+import com.westerncriminals.game.sprites.Dish;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class PlayScreen implements Screen{
+	JSONObject settings;
+	JSONObject dishes;
 	
 	private PiazzaPanic game;
 	private TextureAtlas atlas;
@@ -32,6 +43,7 @@ public class PlayScreen implements Screen{
 	private Chef chefOne;
 	private Chef chefTwo;
 	private int chefControlled;
+	private Dish burger;
 	
 	private TmxMapLoader maploader;
     private TiledMap map;
@@ -42,6 +54,15 @@ public class PlayScreen implements Screen{
     
 	
 	public PlayScreen(PiazzaPanic game) {
+		try {
+			String contents = new String(Files.readString(Paths.get("../settings.json")));
+			settings = new JSONObject(contents);
+			dishes = settings.getJSONObject("dishes");
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+
 		atlas = new TextureAtlas("chefAtlas.txt");
 		
 		this.game = game;
@@ -50,8 +71,7 @@ public class PlayScreen implements Screen{
 		gamePort.apply();
 		hud = new Hud(game.batch);
 		chefControlled = 1;
-		
-		
+
 		maploader = new TmxMapLoader();
         map = maploader.load("finalKitchen.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1f/ PiazzaPanic.PPM);
@@ -64,6 +84,7 @@ public class PlayScreen implements Screen{
         
         chefOne = new Chef(world, this, 1, 55);
         chefTwo = new Chef(world, this, 2, 250);
+		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"));
         
         world.setContactListener(new WorldContactListener());
 	}
