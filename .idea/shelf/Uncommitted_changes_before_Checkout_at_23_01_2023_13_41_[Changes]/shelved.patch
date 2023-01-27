@@ -1,0 +1,174 @@
+Index: piazzaPanic/core/src/com/westerncriminals/game/screens/Button.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.westerncriminals.game.screens;\r\n\r\nimport com.badlogic.gdx.Gdx;\r\nimport com.badlogic.gdx.Screen;\r\nimport com.badlogic.gdx.graphics.GL20;\r\nimport com.badlogic.gdx.graphics.Texture;\r\nimport com.westerncriminals.game.PiazzaPanic;\r\nimport com.westerncriminals.game.screens.ButtonResponse;\r\n\r\npublic class Button extends PiazzaPanic {\r\n    private static PiazzaPanic game;\r\n    private static int BUTTON_WIDTH;\r\n    private static int BUTTON_HEIGHT;\r\n    private static int BUTTON_Y;\r\n    private static int MIDDLE;\r\n    private static Texture t_active;\r\n    private static Texture t_inactive;\r\n    private static ButtonResponse response;\r\n    public Button(PiazzaPanic g, Texture t_a, Texture t_i, ButtonResponse r) {\r\n        game = g;\r\n        BUTTON_WIDTH = 200;\r\n        BUTTON_HEIGHT = 100;\r\n        BUTTON_Y = 100;\r\n        MIDDLE = PiazzaPanic.V_WIDTH/2 - BUTTON_WIDTH/2;\r\n        t_active = t_a;\r\n        t_inactive = t_i;\r\n        response = r;\r\n    }\r\n    public Button(PiazzaPanic g, int w, int h, int y, Texture t_a, Texture t_i, ButtonResponse r) {\r\n        game = g;\r\n        BUTTON_WIDTH = w;\r\n        BUTTON_HEIGHT = h;\r\n        BUTTON_Y = y;\r\n        MIDDLE = PiazzaPanic.V_WIDTH/2 - BUTTON_WIDTH/2;\r\n        t_active = t_a;\r\n        t_inactive = t_i;\r\n        response = r;\r\n    }\r\n    @Override\r\n    public void render() {\r\n        Gdx.gl.glClearColor(100, 0, 0, 1);\r\n        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);\r\n        game.batch.begin();\r\n        if(Gdx.input.getX() > MIDDLE - BUTTON_WIDTH*2 && Gdx.input.getX() < MIDDLE - BUTTON_WIDTH && Gdx.input.getY() < PiazzaPanic.V_HEIGHT - BUTTON_Y && Gdx.input.getY() > PiazzaPanic.V_HEIGHT - BUTTON_Y*2 ){\r\n            game.batch.draw(t_active,MIDDLE - BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );\r\n            if(Gdx.input.isTouched()){\r\n                response.execute();\r\n            }\r\n        }\r\n        else{\r\n            game.batch.draw(t_inactive,MIDDLE - BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );\r\n        }\r\n        game.batch.end();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/piazzaPanic/core/src/com/westerncriminals/game/screens/Button.java b/piazzaPanic/core/src/com/westerncriminals/game/screens/Button.java
+--- a/piazzaPanic/core/src/com/westerncriminals/game/screens/Button.java	
++++ b/piazzaPanic/core/src/com/westerncriminals/game/screens/Button.java	
+@@ -40,7 +40,7 @@
+     public void render() {
+         Gdx.gl.glClearColor(100, 0, 0, 1);
+         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+-        game.batch.begin();
++        //game.batch.begin();
+         if(Gdx.input.getX() > MIDDLE - BUTTON_WIDTH*2 && Gdx.input.getX() < MIDDLE - BUTTON_WIDTH && Gdx.input.getY() < PiazzaPanic.V_HEIGHT - BUTTON_Y && Gdx.input.getY() > PiazzaPanic.V_HEIGHT - BUTTON_Y*2 ){
+             game.batch.draw(t_active,MIDDLE - BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
+             if(Gdx.input.isTouched()){
+@@ -50,6 +50,6 @@
+         else{
+             game.batch.draw(t_inactive,MIDDLE - BUTTON_WIDTH*2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT );
+         }
+-        game.batch.end();
++        //game.batch.end();
+     }
+ }
+Index: piazzaPanic/core/src/com/westerncriminals/game/screens/MainMenu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.westerncriminals.game.screens;\r\n\r\nimport com.badlogic.gdx.Gdx;\r\nimport com.badlogic.gdx.Screen;\r\nimport com.badlogic.gdx.graphics.GL20;\r\nimport com.badlogic.gdx.graphics.Texture;\r\nimport com.westerncriminals.game.PiazzaPanic;\r\nimport com.badlogic.gdx.Game;\r\nimport com.westerncriminals.game.screens.ButtonResponse;\r\n\r\npublic class MainMenu implements Screen {\r\n\r\n    private static final int BUTTON_WIDTH = 200;\r\n    private static final int BUTTON_HEIGHT = 100;\r\n    private static final int BUTTON_Y = 100;\r\n    private static final int MIDDLE = PiazzaPanic.V_WIDTH/2 - BUTTON_WIDTH/2;\r\n    PiazzaPanic game;\r\n    Texture PlayButtonActive;\r\n    Texture PlayButtonInactive;\r\n    Texture ExitButtonActive;\r\n    Texture ExitButtonInactive;\r\n    Button PlayButton;\r\n    Button ExitButton;\r\n    public MainMenu(PiazzaPanic game) {\r\n        this.game = game;\r\n        PlayButtonActive = new Texture(\"playbuttonactive.png\");\r\n        PlayButtonInactive = new Texture(\"playbuttoninactive.png\");\r\n        ExitButtonActive = new Texture(\"exitbuttonactive.png\");\r\n        ExitButtonInactive = new Texture(\"exitbuttoninactive.png\");\r\n        PlayButton = new Button(game, PlayButtonActive, PlayButtonInactive, new GameStart());\r\n        ExitButton = new Button(game, ExitButtonActive, ExitButtonInactive, new GameExit());\r\n    }\r\n    @Override\r\n    public void show() {\r\n    }\r\n\r\n    @Override\r\n    public void render(float delta) {\r\n        Gdx.gl.glClearColor(100, 0, 0, 1);\r\n        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);\r\n        //game.batch.begin();\r\n        PlayButton.render();\r\n        ExitButton.render();\r\n        //game.batch.end();\r\n    }\r\n\r\n    @Override\r\n    public void resize(int width, int height) {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void pause() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void resume() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void hide() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void dispose() {\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/piazzaPanic/core/src/com/westerncriminals/game/screens/MainMenu.java b/piazzaPanic/core/src/com/westerncriminals/game/screens/MainMenu.java
+--- a/piazzaPanic/core/src/com/westerncriminals/game/screens/MainMenu.java	
++++ b/piazzaPanic/core/src/com/westerncriminals/game/screens/MainMenu.java	
+@@ -38,10 +38,10 @@
+     public void render(float delta) {
+         Gdx.gl.glClearColor(100, 0, 0, 1);
+         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+-        //game.batch.begin();
++        game.batch.begin();
+         PlayButton.render();
+         ExitButton.render();
+-        //game.batch.end();
++        game.batch.end();
+     }
+ 
+     @Override
+Index: piazzaPanic/core/src/com/westerncriminals/game/PiazzaPanic.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.westerncriminals.game;\r\n\r\nimport com.badlogic.gdx.ApplicationAdapter;\r\nimport com.badlogic.gdx.Gdx;\r\nimport com.badlogic.gdx.graphics.Texture;\r\nimport com.badlogic.gdx.graphics.g2d.SpriteBatch;\r\nimport com.badlogic.gdx.utils.ScreenUtils;\r\nimport com.westerncriminals.game.screens.*;\r\n\r\nimport com.badlogic.gdx.Game;\r\nimport com.badlogic.gdx.graphics.Texture;\r\nimport com.badlogic.gdx.graphics.g2d.SpriteBatch;\r\nimport com.badlogic.gdx.utils.ScreenUtils;\r\n\r\n\r\n\r\n\r\npublic class PiazzaPanic extends Game {\r\n\tpublic static final int PPM = 20;\r\n\tpublic static final int V_WIDTH = 320;\r\n\tpublic static final int V_HEIGHT = 280;\r\n\tpublic SpriteBatch batch;\r\n\t\r\n\t@Override\r\n\tpublic void create () {\r\n\t\tbatch = new SpriteBatch();\r\n\t\tsetScreen(new PlayScreen(this));\r\n\t}\r\n\r\n\t@Override\r\n\tpublic void render () { super.render(); }\r\n\t\r\n\t@Override\r\n\tpublic void dispose () {\r\n\t\tbatch.dispose();\r\n\t}\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/piazzaPanic/core/src/com/westerncriminals/game/PiazzaPanic.java b/piazzaPanic/core/src/com/westerncriminals/game/PiazzaPanic.java
+--- a/piazzaPanic/core/src/com/westerncriminals/game/PiazzaPanic.java	
++++ b/piazzaPanic/core/src/com/westerncriminals/game/PiazzaPanic.java	
+@@ -24,7 +24,7 @@
+ 	@Override
+ 	public void create () {
+ 		batch = new SpriteBatch();
+-		setScreen(new PlayScreen(this));
++		setScreen(new MainMenu(this));
+ 	}
+ 
+ 	@Override
+Index: .idea/modules.xml
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/modules.xml	
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/piazzaPanic.iml" filepath="$PROJECT_DIR$/.idea/piazzaPanic.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/vcs.xml	
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/misc.xml	
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ExternalStorageConfigurationManager" enabled="true" />
++  <component name="FrameworkDetectionExcludesConfiguration">
++    <file type="web" url="file://$PROJECT_DIR$/piazzaPanic" />
++  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="18" project-jdk-type="JavaSDK" />
++</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	
++++ b/.idea/.gitignore	
+@@ -0,0 +1,8 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
+Index: .idea/gradle.xml
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/gradle.xml	
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="GradleSettings">
++    <option name="linkedExternalProjectsSettings">
++      <GradleProjectSettings>
++        <option name="distributionType" value="DEFAULT_WRAPPED" />
++        <option name="externalProjectPath" value="$PROJECT_DIR$/piazzaPanic" />
++        <option name="gradleJvm" value="#JAVA_HOME" />
++        <option name="modules">
++          <set>
++            <option value="$PROJECT_DIR$/piazzaPanic" />
++            <option value="$PROJECT_DIR$/piazzaPanic/core" />
++            <option value="$PROJECT_DIR$/piazzaPanic/desktop" />
++          </set>
++        </option>
++      </GradleProjectSettings>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/piazzaPanic.iml
+===================================================================
+diff --git a/.idea/piazzaPanic.iml b/.idea/piazzaPanic.iml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/piazzaPanic.iml	
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file

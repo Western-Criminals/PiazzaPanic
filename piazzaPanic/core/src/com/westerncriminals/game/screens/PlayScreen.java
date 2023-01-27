@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.scenes.Hud;
 import com.westerncriminals.game.tools.B2WorldCreator;
-
+import com.westerncriminals.game.tools.WorldContactListener;
 import com.westerncriminals.game.sprites.Chef;
 
 public class PlayScreen implements Screen{
@@ -62,8 +62,10 @@ public class PlayScreen implements Screen{
         
         new B2WorldCreator(world,map);
         
-        chefOne = new Chef(world, this, 1);
-        chefTwo = new Chef(world, this, 2);
+        chefOne = new Chef(world, this, 1, 55);
+        chefTwo = new Chef(world, this, 2, 250);
+        
+        world.setContactListener(new WorldContactListener());
 	}
 	
 	public TextureAtlas getAtlas(){
@@ -82,10 +84,10 @@ public class PlayScreen implements Screen{
 		chefOne.update(dt);
 		chefTwo.update(dt);
 		world.step(1/60f, 6, 2);
-		
 		gamecam.update();
 		renderer.setView(gamecam);
 	}
+	
 
 	private void handleInput() {
 		float velX = 0, velY = 0;
@@ -115,13 +117,12 @@ public class PlayScreen implements Screen{
 		
 		renderer.render();
 		
-		 b2dr.render(world, gamecam.combined);
-		 
-		 game.batch.setProjectionMatrix(gamecam.combined);
-		 game.batch.begin();
-		 chefOne.draw(game.batch);
-		 chefTwo.draw(game.batch);
-		 game.batch.end();
+		b2dr.render(world, gamecam.combined);
+		game.batch.setProjectionMatrix(gamecam.combined);
+		game.batch.begin();
+		chefOne.draw(game.batch);
+		chefTwo.draw(game.batch);
+		game.batch.end();
 		
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 		hud.stage.draw();
