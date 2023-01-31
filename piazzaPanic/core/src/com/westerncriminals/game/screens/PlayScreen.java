@@ -21,6 +21,7 @@ import com.westerncriminals.game.tools.B2WorldCreator;
 import com.westerncriminals.game.tools.WorldContactListener;
 import com.westerncriminals.game.sprites.Chef;
 import com.westerncriminals.game.sprites.Dish;
+import com.westerncriminals.game.screens.Inventory;
 
 import org.json.JSONObject;
 
