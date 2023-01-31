@@ -88,8 +88,8 @@ public class PlayScreen implements Screen{
         chefOne = new Chef(world, this, 1, 55);
         chefTwo = new Chef(world, this, 2, 250);
 		new B2WorldCreator(world, map, chefOne, chefTwo);
-		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
-		salad = new Dish(dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
+		burger = new Dish(world, dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
+		salad = new Dish(world, dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
         
         world.setContactListener(new WorldContactListener());
 	}
