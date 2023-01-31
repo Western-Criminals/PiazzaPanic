@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class PlayScreen implements Screen{
 	JSONObject settings;
@@ -39,7 +40,8 @@ public class PlayScreen implements Screen{
 	private OrthographicCamera gamecam;
 	private Viewport gamePort;
 	private Hud hud;
-	
+
+	private Inventory inv;
 	private Chef chefOne;
 	private Chef chefTwo;
 	private int chefControlled;
@@ -74,6 +76,7 @@ public class PlayScreen implements Screen{
 		chefControlled = 1;
 
 		maploader = new TmxMapLoader();
+		inv = new Inventory(this.game, 200, 200, 0, 0, new ArrayList<String>());
         map = maploader.load("finalKitchen.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1f/ PiazzaPanic.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2 , gamePort.getWorldHeight() / 2 , 0);
@@ -130,6 +133,9 @@ public class PlayScreen implements Screen{
 	    	chefOne.b2body.setLinearVelocity(new Vector2(velX, velY));
 	    else
 	    	chefTwo.b2body.setLinearVelocity(new Vector2(velX, velY));
+		if (Gdx.input.isKeyPressed(Input.Keys.I))
+			// inv.setInv(stuff);
+			inv.setVisibility(!(inv.getVisibility()));
 	}
 
 	@Override
@@ -146,6 +152,10 @@ public class PlayScreen implements Screen{
 		chefOne.draw(game.batch);
 		chefTwo.draw(game.batch);
 		game.batch.end();
+
+		if (inv.getVisibility()) {
+			inv.stage.draw();
+		}
 		
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 		hud.stage.draw();
@@ -182,5 +192,6 @@ public class PlayScreen implements Screen{
 		world.dispose();
 		b2dr.dispose();
 		hud.dispose();
+		inv.dispose();
 	}
 }
