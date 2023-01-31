@@ -43,7 +43,7 @@ public class Inventory extends PiazzaPanic {
         this.game = game;
         INV_WIDTH = w;
         INV_HEIGHT = h;
-        MIDDLE = new Pair<Integer, Integer> (MainMenu.width/2 + xpos, MainMenu.height/2 + ypos);
+        MIDDLE = new Pair<Integer, Integer> (PiazzaPanic.V_WIDTH/2 + xpos, PiazzaPanic.V_HEIGHT/2 + ypos);
         this.inv_lst = inv_lst;
         updateLabels(inv_lst);
 

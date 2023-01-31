@@ -125,7 +125,7 @@ public class PlayScreen implements Screen{
 	private void handleInput() {
 		float velX = 0, velY = 0;
 		
-		if (Gdx.input.isKeyPressed(Input.Keys.Q))
+		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
 				chefControlled = 3 - chefControlled;
 	    if(Gdx.input.isKeyPressed(Input.Keys.W)) {
 	        velY = 10.0f ;
@@ -143,7 +143,7 @@ public class PlayScreen implements Screen{
 		if (Gdx.input.isKeyPressed(Input.Keys.I) && chefOne.itemStack.notEmpty()) {
 			inv.setVisibility(!(inv.getVisibility()));
 			if (inv.getVisibility()) {
-				Gdx.app.log("I", (String) chefOne.itemStack.pop());
+				Gdx.app.log("I", (String) chefOne.itemStack.peek());
 				List<String> inv_lst = new ArrayList<String>();
 				while (chefOne.itemStack.notEmpty()) {
 					inv_lst.add(chefOne.itemStack.pop().toString());
