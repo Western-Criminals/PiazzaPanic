@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayScreen implements Screen{
 	JSONObject settings;
@@ -87,8 +88,8 @@ public class PlayScreen implements Screen{
         chefOne = new Chef(world, this, 1, 55);
         chefTwo = new Chef(world, this, 2, 250);
 		new B2WorldCreator(world, map, chefOne, chefTwo);
-		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
-		salad = new Dish(dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
+		burger = new Dish(world, dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
+		salad = new Dish(world, dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
         
         world.setContactListener(new WorldContactListener());
 	}
@@ -136,7 +137,11 @@ public class PlayScreen implements Screen{
 			inv.setVisibility(!(inv.getVisibility()));
 			if (inv.getVisibility()) {
 				Gdx.app.log("I", (String) chefOne.itemStack.pop());
-				//inv.setInv(new ArrayList<String>()); // Fill dis shit up bruh
+				List<String> inv_lst = new ArrayList<String>();
+				while (chefOne.itemStack.notEmpty()) {
+					inv_lst.add(chefOne.itemStack.pop().toString());
+				}
+				inv.setInv(inv_lst);
 			}
 		}
 	}
