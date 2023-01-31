@@ -1,5 +1,8 @@
 package com.westerncriminals.game.sprites;
 
+
+import java.util.Stack;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -7,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 
@@ -16,7 +20,7 @@ public class Chef extends Sprite{
 	final short CATEGORY_STATION_ONE = 0X0004;
 	final short MASK_PLAYER = CATEGORY_COUNTER | CATEGORY_STATION_ONE;
 	
-	
+	public Array<Object> itemStack;
 	public World world;
 	public Body b2body; 
 	private TextureRegion chefIdle;
@@ -27,7 +31,9 @@ public class Chef extends Sprite{
 		defineChef(xPos, 50);
 		chefIdle = new TextureRegion(getTexture(), 21, 10, 10,17); // 6 , 3 , 3 , 3
 		setBounds(0, 0, 20f/PiazzaPanic.PPM, 34f/PiazzaPanic.PPM);
-		setRegion(chefIdle);
+		setRegion(chefIdle); 
+		itemStack = new Array<Object>();
+		itemStack.add("Hello");
 	}
 	
 	public void defineChef(float x, float y) {
@@ -43,7 +49,12 @@ public class Chef extends Sprite{
 		fdef.shape = shape;
 		fdef.filter.categoryBits = CATEGORY_PLAYER;
 		fdef.filter.maskBits = MASK_PLAYER;
-		b2body.createFixture(fdef).setUserData("chefBody");
+		
+		if (x == 55)
+			b2body.createFixture(fdef).setUserData("chefOne");
+		else
+			b2body.createFixture(fdef).setUserData("chefTwo");
+				
 		// may need to create a new fixture for contact, maybe
 		
 	}
