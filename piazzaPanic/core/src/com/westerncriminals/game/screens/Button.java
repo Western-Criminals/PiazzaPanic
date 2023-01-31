@@ -41,16 +41,16 @@ public class Button extends PiazzaPanic {
     }
     public void render(PiazzaPanic game) {
         this.game=game;
-        game.batch.begin();
+        this.game.batch.begin();
         if(Gdx.input.getX() > MIDDLE - BUTTON_WIDTH/2 && Gdx.input.getX() < MIDDLE + BUTTON_WIDTH/2 && Gdx.input.getY() < MainMenu.height - BUTTON_Y && Gdx.input.getY() > MainMenu.height - BUTTON_Y - BUTTON_HEIGHT){
-            game.batch.draw(t_active,MIDDLE - BUTTON_WIDTH/2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT);
+            this.game.batch.draw(t_active,MIDDLE - BUTTON_WIDTH/2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT);
             if(Gdx.input.isTouched()){
-                response.run(game);
+                response.run(this.game);
             }
         }
         else{
-            game.batch.draw(t_inactive,MIDDLE - BUTTON_WIDTH/2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT);
+            this.game.batch.draw(t_inactive,MIDDLE - BUTTON_WIDTH/2,BUTTON_Y,BUTTON_WIDTH,BUTTON_HEIGHT);
         }
-        game.batch.end();
+        this.game.batch.end();
     }
 }
