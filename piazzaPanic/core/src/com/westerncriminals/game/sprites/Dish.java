@@ -27,9 +27,9 @@ public class Dish extends Sprite {
         ingredients = i;
         this.world = world;
         defineDish(50, 50);
-        dishIdle = new TextureRegion(getTexture(), 21, 10, 10,17); // 6 , 3 , 3 , 3
+        // dishIdle = new TextureRegion(getTexture(), 21, 10, 10,17); // 6 , 3 , 3 , 3
         setBounds(0, 0, 20f/PiazzaPanic.PPM, 34f/PiazzaPanic.PPM);
-        setRegion(dishIdle);
+        // setRegion(dishIdle);
     }
 
     public void setDishName(String name) {
