@@ -29,7 +29,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import  java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class PlayScreen implements Screen{
 	JSONObject settings;
@@ -48,6 +50,7 @@ public class PlayScreen implements Screen{
 	private int chefControlled;
 	private Dish burger;
 	private Dish salad;
+	private List<Dish> orders = new ArrayList<Dish>();
 	
 	private TmxMapLoader maploader;
     private TiledMap map;
@@ -90,6 +93,10 @@ public class PlayScreen implements Screen{
 		new B2WorldCreator(world, map, chefOne, chefTwo);
 		burger = new Dish(world, dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
 		salad = new Dish(world, dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
+		List<Dish> menu = new ArrayList<Dish>(Arrays.asList(burger, salad));
+		for (int i = 0; i < 5; i++) {
+			orders.add(menu.get(new Random().nextInt(menu.size())));
+		}
         
         world.setContactListener(new WorldContactListener());
 	}
