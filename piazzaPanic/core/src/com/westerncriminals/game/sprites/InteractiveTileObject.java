@@ -18,7 +18,7 @@ import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 
 public abstract class InteractiveTileObject {
-	final short CATEGORY_STATION_ONE = 0X0004;
+	final short CATEGORY_STATION_ONE = 0x0004;
 	protected World world;
     protected TiledMap map;
     protected Rectangle bounds;
@@ -51,5 +51,8 @@ public abstract class InteractiveTileObject {
     	
     }
     
-    public abstract void onInteraction();
+    
+
+	public abstract void onInteraction(Fixture chefBody);
+
 }

@@ -41,6 +41,7 @@ public class PlayScreen implements Screen{
 	private Viewport gamePort;
 	private Hud hud;
 
+
 	private Inventory inv;
 	private Chef chefOne;
 	private Chef chefTwo;
@@ -51,7 +52,6 @@ public class PlayScreen implements Screen{
 	private TmxMapLoader maploader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-    
     private World world;
     private Box2DDebugRenderer b2dr;
     
@@ -84,10 +84,11 @@ public class PlayScreen implements Screen{
         world = new World(new Vector2(0,0), true);
         b2dr = new Box2DDebugRenderer();
         
-        new B2WorldCreator(world,map);
+        
         
         chefOne = new Chef(world, this, 1, 55);
         chefTwo = new Chef(world, this, 2, 250);
+        new B2WorldCreator(world, map, chefOne, chefTwo);
 		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
 		salad = new Dish(dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
         
@@ -120,6 +121,9 @@ public class PlayScreen implements Screen{
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.Q))
 				chefControlled = 3 - chefControlled;
+		if (Gdx.input.isKeyPressed(Input.Keys.I) && chefOne.itemStack.notEmpty()) {
+			Gdx.app.log("I", (String) chefOne.itemStack.pop());
+		}
 	    if(Gdx.input.isKeyPressed(Input.Keys.W)) {
 	        velY = 10.0f ;
 	    } else if(Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -141,6 +145,7 @@ public class PlayScreen implements Screen{
 	@Override
 	public void render(float delta) {
 		update(delta);
+		hud.update(delta);
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
