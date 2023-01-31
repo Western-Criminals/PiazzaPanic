@@ -21,7 +21,7 @@ import com.westerncriminals.game.tools.B2WorldCreator;
 import com.westerncriminals.game.tools.WorldContactListener;
 import com.westerncriminals.game.sprites.Chef;
 import com.westerncriminals.game.sprites.Dish;
-import com.westerncriminals.game.screens.Inventory;
+import com.westerncriminals.game.scenes.Inventory;
 
 import org.json.JSONObject;
 
@@ -41,10 +41,9 @@ public class PlayScreen implements Screen{
 	private Viewport gamePort;
 	private Hud hud;
 
-
 	private Inventory inv;
-	private Chef chefOne;
-	private Chef chefTwo;
+	public Chef chefOne;
+	public Chef chefTwo;
 	private int chefControlled;
 	private Dish burger;
 	private Dish salad;
@@ -52,6 +51,7 @@ public class PlayScreen implements Screen{
 	private TmxMapLoader maploader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
+    
     private World world;
     private Box2DDebugRenderer b2dr;
     
@@ -84,11 +84,9 @@ public class PlayScreen implements Screen{
         world = new World(new Vector2(0,0), true);
         b2dr = new Box2DDebugRenderer();
         
-        
-        
         chefOne = new Chef(world, this, 1, 55);
         chefTwo = new Chef(world, this, 2, 250);
-        new B2WorldCreator(world, map, chefOne, chefTwo);
+		new B2WorldCreator(world, map, chefOne, chefTwo);
 		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
 		salad = new Dish(dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
         
@@ -121,9 +119,6 @@ public class PlayScreen implements Screen{
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.Q))
 				chefControlled = 3 - chefControlled;
-		if (Gdx.input.isKeyPressed(Input.Keys.I) && chefOne.itemStack.notEmpty()) {
-			Gdx.app.log("I", (String) chefOne.itemStack.pop());
-		}
 	    if(Gdx.input.isKeyPressed(Input.Keys.W)) {
 	        velY = 10.0f ;
 	    } else if(Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -137,9 +132,13 @@ public class PlayScreen implements Screen{
 	    	chefOne.b2body.setLinearVelocity(new Vector2(velX, velY));
 	    else
 	    	chefTwo.b2body.setLinearVelocity(new Vector2(velX, velY));
-		if (Gdx.input.isKeyPressed(Input.Keys.I))
-			// inv.setInv(stuff);
+		if (Gdx.input.isKeyPressed(Input.Keys.I) && chefOne.itemStack.notEmpty()) {
 			inv.setVisibility(!(inv.getVisibility()));
+			if (inv.getVisibility()) {
+				Gdx.app.log("I", (String) chefOne.itemStack.pop());
+				//inv.setInv(new ArrayList<String>()); // Fill dis shit up bruh
+			}
+		}
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package com.westerncriminals.game.screens;
+package com.westerncriminals.game.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.westerncriminals.game.PiazzaPanic;
 
+import com.westerncriminals.game.screens.MainMenu;
 import org.javatuples.Pair;
 
 import java.util.ArrayList;
@@ -48,6 +49,13 @@ public class Inventory extends PiazzaPanic {
 
         viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, this.game.batch);
+        invTable.top();
+        invTable.setFillParent(true);
+        for (Label itemLabel : this.invLabels) {
+            invTable.add(itemLabel).expandY();
+            invTable.row();
+        }
+        stage.addActor(invTable);
     }
     public void setInv(List<String> inv_lst) {
         this.inv_lst = inv_lst;
@@ -68,14 +76,6 @@ public class Inventory extends PiazzaPanic {
         shapeRenderer.setColor(0, 0, 0, 255);
         shapeRenderer.rect(MIDDLE.getValue0(), MIDDLE.getValue1(), INV_WIDTH, INV_HEIGHT);
         shapeRenderer.end();
-
-        invTable.top();
-        invTable.setFillParent(true);
-        for (Label itemLabel : this.invLabels) {
-            invTable.add(itemLabel).expandY();
-            invTable.row();
-        }
-        stage.addActor(invTable);
 
         this.game.batch.end();
     }
