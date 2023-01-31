@@ -33,7 +33,6 @@ public class Chef extends Sprite {
 		setBounds(0, 0, 20f/PiazzaPanic.PPM, 34f/PiazzaPanic.PPM);
 		setRegion(chefIdle); 
 		itemStack = new Array<Object>();
-		itemStack.add("Hello");
 	}
 	
 	public void defineChef(float x, float y) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="10" height="9" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="13">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="10" height="9" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="44">
  <tileset firstgid="1" source="kitchenCabnets.tsx"/>
  <tileset firstgid="73" source="kitchenTiles.tsx"/>
  <layer id="2" name="bg1" width="10" height="9">
@@ -32,17 +32,25 @@
   <object id="9" x="0" y="32" width="32" height="224"/>
   <object id="10" x="288" y="32" width="32" height="224"/>
   <object id="12" x="-32" y="256" width="384" height="64"/>
-  <object id="14" x="160" y="12" width="96" height="43"/>
+  <object id="38" x="160" y="32" width="96" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="stationOne">
-  <object id="4" x="256" y="12" width="32" height="43"/>
+  <object id="37" x="256" y="0" width="32" height="64"/>
  </objectgroup>
  <objectgroup id="6" name="stationTwo">
-  <object id="6" x="128" y="12" width="32" height="43"/>
-  <object id="7" x="64" y="12" width="32" height="43"/>
-  <object id="8" x="32" y="12" width="32" height="43"/>
+  <object id="33" x="96" y="0" width="32" height="64"/>
+ </objectgroup>
+ <objectgroup id="6" name="stationFour">
+  <object id="35" x="64" y="0" width="32" height="64"/>
  </objectgroup>
  <objectgroup id="13" name="stationThree">
-   <object id="13" x="96" y="12" width="32" height="43"/>
+  <object id="36" x="32" y="0" width="32" height="64"/>
+  <object id="43" x="128" y="0" width="32" height="64"/>
+ </objectgroup>
+ <objectgroup id="7" name="stationFive">
+  <object id="41" x="36" y="5" width="28" height="59"/>
+ </objectgroup>
+ <objectgroup id="8" name="testicles">
+  <object id="40" x="-64" y="-57" width="81" height="25"/>
  </objectgroup>
 </map>

@@ -24,12 +24,21 @@ public class Pantry extends InteractiveTileObject{
 	public void onInteraction(Fixture chefBody) {
 		if (chefBody.getUserData() == "chefOne") 
 		{
-			Gdx.app.log("Chef","This is here sink");
+			Gdx.app.log("Chef","This is pantry");
 			//if (chefOne.itemStack.notEmpty())
 				//example = (String) chefOne.itemStack.pop();
 				//Gdx.app.log("Tester", example);
+			if (chefOne.itemStack.contains("Patty", true) || chefOne.itemStack.contains("Burger", true))
+				Gdx.app.log("No", "Already contains patty");
+			else
+				chefOne.itemStack.insert(0, "Patty");
 			
-			chefOne.itemStack.add("Patty");
+			if (chefOne.itemStack.contains("Lettuce", true)|| chefOne.itemStack.contains("Burger", true)) {
+				Gdx.app.log("No", "Already contains lettuce");
+			}
+			else {
+				chefOne.itemStack.add("Lettuce");
+			}
 		}
 		else 
 		{

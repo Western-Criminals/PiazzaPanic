@@ -47,11 +47,11 @@ public class B2WorldCreator {
         	Rectangle rect = ((RectangleMapObject) object).getRectangle();
         	new BurgerFryer(world, map, rect, chefOne, chefTwo);
         }
-		for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+		for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			new ChoppingArea(world, map, rect, chefOne, chefTwo);
 		}
-		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+		for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			new Pantry(world, map, rect, chefOne, chefTwo);
 		}

@@ -19,6 +19,7 @@ import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.scenes.Hud;
 import com.westerncriminals.game.tools.B2WorldCreator;
 import com.westerncriminals.game.tools.WorldContactListener;
+import com.westerncriminals.game.sprites.BurgerFryer;
 import com.westerncriminals.game.sprites.Chef;
 import com.westerncriminals.game.sprites.Dish;
 import com.westerncriminals.game.screens.Inventory;
@@ -76,8 +77,8 @@ public class PlayScreen implements Screen{
 		chefControlled = 1;
 
 		maploader = new TmxMapLoader();
-		inv = new Inventory(this.game, 200, 200, 0, 0, new ArrayList<String>());
-        map = maploader.load("finalKitchen.tmx");
+		//inv = new Inventory(this.game, 200, 200, 0, 0, new ArrayList<String>());
+        map = maploader.load("finalKitchenFr.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1f/ PiazzaPanic.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2 , gamePort.getWorldHeight() / 2 , 0);
         
@@ -109,6 +110,7 @@ public class PlayScreen implements Screen{
 	public void update(float dt) {
 		handleInput();
 		chefOne.update(dt);
+		hud.update(dt);
 		chefTwo.update(dt);
 		world.step(1/60f, 6, 2);
 		gamecam.update();
@@ -122,7 +124,8 @@ public class PlayScreen implements Screen{
 		if (Gdx.input.isKeyPressed(Input.Keys.Q))
 				chefControlled = 3 - chefControlled;
 		if (Gdx.input.isKeyPressed(Input.Keys.I) && chefOne.itemStack.notEmpty()) {
-			Gdx.app.log("I", (String) chefOne.itemStack.pop());
+			Gdx.app.log("I", (String) chefOne.itemStack.toString());
+			Gdx.app.log("Amount", String.format("%03d", chefOne.itemStack.size));
 		}
 	    if(Gdx.input.isKeyPressed(Input.Keys.W)) {
 	        velY = 10.0f ;
@@ -137,15 +140,15 @@ public class PlayScreen implements Screen{
 	    	chefOne.b2body.setLinearVelocity(new Vector2(velX, velY));
 	    else
 	    	chefTwo.b2body.setLinearVelocity(new Vector2(velX, velY));
-		if (Gdx.input.isKeyPressed(Input.Keys.I))
+		//if (Gdx.input.isKeyPressed(Input.Keys.I))
 			// inv.setInv(stuff);
-			inv.setVisibility(!(inv.getVisibility()));
+			//inv.setVisibility(!(inv.getVisibility()));
 	}
 
 	@Override
 	public void render(float delta) {
 		update(delta);
-		hud.update(delta);
+		;
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -158,9 +161,9 @@ public class PlayScreen implements Screen{
 		chefTwo.draw(game.batch);
 		game.batch.end();
 
-		if (inv.getVisibility()) {
-			inv.stage.draw();
-		}
+		//if (inv.getVisibility()) {
+			//inv.stage.draw();
+		//}
 		
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 		hud.stage.draw();

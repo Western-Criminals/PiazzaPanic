@@ -26,9 +26,11 @@ public class ChoppingArea extends InteractiveTileObject
 		if (chefBody.getUserData() == "chefOne") 
 		{
 			Gdx.app.log("Chef","This is here chop1");
-			if (chefOne.itemStack.notEmpty())
-				example = (String) chefOne.itemStack.pop();
-				Gdx.app.log("Tester", example);
+			if (chefOne.itemStack.notEmpty() && chefOne.itemStack.contains("Lettuce", true)) {
+				chefOne.itemStack.removeValue("Lettuce", true);
+				chefOne.itemStack.add("Chopped Lettuce");
+				chefOne.itemStack.add("Bun");
+			}
 		}
 		else 
 		{

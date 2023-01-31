@@ -49,6 +49,10 @@ public class MainMenu implements Screen {
         //game.batch.begin();
         ExitButton.render(game);
         PlayButton.render(game);
+        game.batch.begin();
+        game.batch.end();
+        
+        
         //game.batch.end();
     }
 
