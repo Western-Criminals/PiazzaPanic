@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 
-public class Chef extends Sprite{
+public class Chef extends Sprite {
 	final short CATEGORY_PLAYER = 0x0001;
 	final short CATEGORY_COUNTER = 0X0002;
 	final short CATEGORY_STATION_ONE = 0X0004;
