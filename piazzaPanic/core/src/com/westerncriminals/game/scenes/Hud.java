@@ -19,8 +19,10 @@ public class Hud implements Disposable{
 	private Integer scoreCount;
 	private Integer bCount;
 	private Integer saladCount;
+	private float timeCount;
+	private Integer worldTime;
 
-	
+	Label timerLabel;
 	Label scoreLabel;
 	Label bLabelNum;
 	Label burgLabel;
@@ -32,6 +34,8 @@ public class Hud implements Disposable{
 		scoreCount = 0;
 		setbCount(0);
 		saladCount = 0;
+		worldTime = 0;
+		timeCount = 0;
 		
 		viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, sb);
@@ -51,16 +55,27 @@ public class Hud implements Disposable{
 		table.row();
 		
 		scoreLabel = new Label(String.format("%06d",scoreCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		timerLabel = new Label(String.format("%06d",worldTime), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		bLabelNum = new Label(String.format("%01d", getbCount()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		sLabel = new Label(String.format("%01d", saladCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		
-		table.add(scoreLabel).expandX();//.padTop(10);
+		table.add(timerLabel).expandX();//.padTop(10);
+		//.padTop(10);
 		table.add(bLabelNum).expandX();//.padTop(10);
 		table.add(sLabel);
 		
 		stage.addActor(table);
 		
 		
+	}
+	
+	public void update(float dt) {
+		timeCount += dt;
+		if(timeCount >= 1) {
+			worldTime++;
+			timerLabel.setText(String.format("%06d",(worldTime)));
+			timeCount = 0;
+		}
 	}
 
 	@Override

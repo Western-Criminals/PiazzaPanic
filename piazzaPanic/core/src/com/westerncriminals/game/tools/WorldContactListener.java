@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.westerncriminals.game.sprites.InteractiveTileObject;
+import com.westerncriminals.game.sprites.BurgerFryer;
 
 public class WorldContactListener implements ContactListener{
 
@@ -17,15 +18,23 @@ public class WorldContactListener implements ContactListener{
 		Fixture fixA = contact.getFixtureA();
 		Fixture fixB = contact.getFixtureB();
 		
-		if(fixA.getUserData() == "chefBody" || fixB.getUserData() == "chefBody") {
-			Fixture chefBody = fixA.getUserData() == "chefBody" ? fixA : fixB;
+		if(fixA.getUserData() == "chefOne" || fixB.getUserData() == "chefOne") {
+			Fixture chefBody = fixA.getUserData() == "chefOne" ? fixA : fixB;
 			Fixture object = chefBody == fixA ? fixB : fixA;
 			
 			if (object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())){
-				( (InteractiveTileObject) object.getUserData()).onInteraction();
+				( (InteractiveTileObject) object.getUserData()).onInteraction(chefBody);
+			}
+		}
+		
+		if(fixA.getUserData() == "chefTwo" || fixB.getUserData() == "chefTwo") {
+			Fixture chefBody = fixA.getUserData() == "chefTwo" ? fixA : fixB;
+			Fixture object = chefBody == fixA ? fixB : fixA;
+			
+			if (object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())){
+				( (InteractiveTileObject) object.getUserData()).onInteraction(chefBody);
 			}
 		} 
-		
 		
 	}
 

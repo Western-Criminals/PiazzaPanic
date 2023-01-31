@@ -11,18 +11,22 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.sprites.BurgerFryer;
+import com.westerncriminals.game.sprites.Chef;
 import com.westerncriminals.game.sprites.ChoppingArea;
-import com.westerncriminals.game.sprites.SinkArea;
+import com.westerncriminals.game.sprites.Pantry;
 
 public class B2WorldCreator {
 	final short CATEGORY_COUNTER = 0X0002;
+	public Chef chefOne;
+	public Chef chefTwo;
 	
-	
-	public B2WorldCreator(World world, TiledMap map){
+	public B2WorldCreator(World world, TiledMap map, Chef chefOne, Chef chefTwo){
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
         Body body;
+        this.chefOne = chefOne;
+        this.chefTwo = chefTwo;
         
         for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
         	Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -41,15 +45,15 @@ public class B2WorldCreator {
         
         for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
         	Rectangle rect = ((RectangleMapObject) object).getRectangle();
-        	new BurgerFryer(world, map, rect);
+        	new BurgerFryer(world, map, rect, chefOne, chefTwo);
         }
 		for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			new ChoppingArea(world, map, rect);
+			new ChoppingArea(world, map, rect, chefOne, chefTwo);
 		}
 		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			new SinkArea(world, map, rect);
+			new Pantry(world, map, rect, chefOne, chefTwo);
 		}
 	}
 
