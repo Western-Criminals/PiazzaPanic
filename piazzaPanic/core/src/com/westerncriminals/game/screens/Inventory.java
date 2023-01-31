@@ -1,7 +1,8 @@
 package com.westerncriminals.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.westerncriminals.game.PiazzaPanic;
 
 import org.javatuples.Pair;
@@ -9,6 +10,7 @@ import org.javatuples.Pair;
 import java.util.List;
 
 public class Inventory extends PiazzaPanic {
+    private ShapeRenderer shapeRenderer;
     private PiazzaPanic game;
     private int INV_WIDTH;
     private int INV_HEIGHT;
@@ -28,6 +30,16 @@ public class Inventory extends PiazzaPanic {
     public void render(PiazzaPanic game) {
         this.game = game;
         this.game.batch.begin();
+        if (Gdx.input.isKeyPressed(Input.Keys.I)) {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(0, 0, 0, 255);
+            shapeRenderer.rect(MIDDLE.getValue0(), MIDDLE.getValue1(), INV_WIDTH, INV_HEIGHT);
+            shapeRenderer.end();
+        }
         this.game.batch.end();
+    }
+    @Override
+    public void dispose () {
+        shapeRenderer.dispose();
     }
 }
