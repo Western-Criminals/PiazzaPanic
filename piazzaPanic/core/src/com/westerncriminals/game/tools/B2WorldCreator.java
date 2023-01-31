@@ -6,12 +6,13 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.sprites.BurgerFryer;
+import com.westerncriminals.game.sprites.ChoppingArea;
+import com.westerncriminals.game.sprites.SinkArea;
 
 public class B2WorldCreator {
 	final short CATEGORY_COUNTER = 0X0002;
@@ -42,6 +43,14 @@ public class B2WorldCreator {
         	Rectangle rect = ((RectangleMapObject) object).getRectangle();
         	new BurgerFryer(world, map, rect);
         }
+		for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+			Rectangle rect = ((RectangleMapObject) object).getRectangle();
+			new ChoppingArea(world, map, rect);
+		}
+		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+			Rectangle rect = ((RectangleMapObject) object).getRectangle();
+			new SinkArea(world, map, rect);
+		}
 	}
 
 }
