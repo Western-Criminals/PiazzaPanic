@@ -103,8 +103,8 @@ public class PlayScreen implements Screen {
 			orders.add(menu.get(new Random().nextInt(menu.size())));
 		}
 
-		customer = new Customer(world, this, customers.getString("img"));
-		hud = new Hud(game.batch, customer, orders);
+		customer = new Customer(this, (float) 100f, (float) 50f, customers.getString("img"));
+		hud = new Hud(game.batch, customer, this, orders);
         
         world.setContactListener(new WorldContactListener());
 	}
@@ -205,6 +205,9 @@ public class PlayScreen implements Screen {
 
 	public Chef getChefTwo() {
 		return chefTwo;
+	}
+	public Customer getCustomer() {
+		return customer;
 	}
 
 	@Override
