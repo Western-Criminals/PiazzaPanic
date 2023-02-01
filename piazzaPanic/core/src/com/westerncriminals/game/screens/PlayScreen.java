@@ -36,6 +36,8 @@ import java.util.ArrayList;
 public class PlayScreen implements Screen{
 	JSONObject settings;
 	JSONObject dishes;
+	JSONObject chefs;
+	JSONObject customers;
 	
 	private PiazzaPanic game;
 	private TextureAtlas atlas;
@@ -70,6 +72,8 @@ public class PlayScreen implements Screen{
 			String contents = new String(Files.readString(Paths.get("./settings.json")));
 			settings = new JSONObject(contents);
 			dishes = settings.getJSONObject("dishes");
+			chefs = settings.getJSONObject("chefs");
+			customers = settings.getJSONObject("customers");
 		}
 		catch(IOException e) {
 			e.printStackTrace(); 
@@ -103,8 +107,8 @@ public class PlayScreen implements Screen{
         creator = new B2WorldCreator(this);
         
         
-		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
-		salad = new Dish(dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
+	// burger = new Dish(world, dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"), dishes.getJSONObject("0").getString("img"));
+	// salad = new Dish(world, dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"), dishes.getJSONObject("1").getString("img"));
         
         world.setContactListener(new WorldContactListener());
 	}
