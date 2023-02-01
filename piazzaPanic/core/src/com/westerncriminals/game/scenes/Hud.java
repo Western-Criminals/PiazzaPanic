@@ -38,7 +38,6 @@ public class Hud implements Disposable{
 	Label saladLabel;
 	Label sLabel;
 
-	boolean customerFlag;
 	private Customer customer;
 	private PlayScreen screen;
 
@@ -57,7 +56,6 @@ public class Hud implements Disposable{
 		saladCount = 0;
 		worldTime = 0;
 		timeCount = 0;
-		this.customerFlag = false;
 
 		viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, sb);
@@ -99,7 +97,6 @@ public class Hud implements Disposable{
 			timeCount = 0;
 			if (worldTime  == first) {
 				if (numOrders <= orders.size() + 1) {
-					customer.customerPresent = true;
 					addOrder();
 				}
 				else {
