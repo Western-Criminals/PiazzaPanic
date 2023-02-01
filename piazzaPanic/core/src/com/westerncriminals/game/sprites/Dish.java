@@ -1,6 +1,9 @@
 package com.westerncriminals.game.sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -19,7 +22,10 @@ public class Dish extends Sprite {
     private JSONArray ingredients;
     public World world;
     public Body b2body;
+    private Texture burgerTexture = new Texture(Gdx.files.internal("borger.png"));
+    private Texture saladTexture = new Texture(Gdx.files.internal("saladFromHell.jpeg"));
     private TextureRegion dishIdle;
+    private SpriteBatch batch = new SpriteBatch();
 
     public Dish(World world, String n, int d, JSONArray i) {
         name = n;
