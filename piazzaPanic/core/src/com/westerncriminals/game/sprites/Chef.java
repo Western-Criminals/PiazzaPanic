@@ -22,8 +22,8 @@ public class Chef extends Sprite {
 	public Body b2body; 
 	private TextureRegion chefIdle;
 	
-	public Chef(PlayScreen screen, float xPos) {
-		super(screen.getAtlas().findRegion("Chef A1"));
+	public Chef(PlayScreen screen, float xPos, String imgPath) {
+		super(screen.getAtlas().findRegion(imgPath));
 		this.world = screen.getWorld();
 		defineChef(xPos, 200);
 		chefIdle = new TextureRegion(getTexture(), 21, 10, 10,17); // 6 , 3 , 3 , 3

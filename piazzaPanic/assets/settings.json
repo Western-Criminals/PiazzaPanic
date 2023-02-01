@@ -3,12 +3,22 @@
         "0": {
             "name": "Burgers",
             "duration": 3,
-            "ingredients": ["bun", "lettuce", "meat"]
+            "ingredients": ["bun", "lettuce", "meat"],
+            "img": "borger"
         },
         "1": {
             "name": "Salads",
             "duration": 2,
-            "ingredients": ["lettuce", "tomato", "onion"]
+            "ingredients": ["lettuce", "tomato", "onion"],
+            "img": "saladFromHell"
         }
+    },
+    "chefs": {
+        "name": [],
+        "img": "Chef A1"
+    },
+    "customers": {
+        "name": [],
+        "img": "customer"
     }
 }
