@@ -33,7 +33,7 @@ public abstract class InteractiveTileObject {
     	this.world = world;
     	this.map = map;
     	this.bounds = bounds;
-    	
+   
     	BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();

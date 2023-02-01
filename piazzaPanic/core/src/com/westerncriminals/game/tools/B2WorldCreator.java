@@ -10,10 +10,13 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.westerncriminals.game.PiazzaPanic;
+import com.westerncriminals.game.sprites.AssemblyStation;
+import com.westerncriminals.game.sprites.BunBox;
 import com.westerncriminals.game.sprites.BurgerFryer;
 import com.westerncriminals.game.sprites.Chef;
 import com.westerncriminals.game.sprites.ChoppingArea;
 import com.westerncriminals.game.sprites.Pantry;
+import com.westerncriminals.game.sprites.SaladGenerator;
 
 public class B2WorldCreator {
 	final short CATEGORY_COUNTER = 0X0002;
@@ -47,13 +50,30 @@ public class B2WorldCreator {
         	Rectangle rect = ((RectangleMapObject) object).getRectangle();
         	new BurgerFryer(world, map, rect, chefOne, chefTwo);
         }
-		for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
-			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			new ChoppingArea(world, map, rect, chefOne, chefTwo);
-		}
-		for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
+        
+        for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        	Rectangle rect = ((RectangleMapObject) object).getRectangle();
+        	new SaladGenerator(world, map, rect, chefOne, chefTwo);
+        }
+        
+		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			new Pantry(world, map, rect, chefOne, chefTwo);
+		}
+		
+		for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
+			Rectangle rect = ((RectangleMapObject) object).getRectangle();
+			new BunBox(world, map, rect, chefOne, chefTwo);
+		}
+		
+		for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
+			Rectangle rect = ((RectangleMapObject) object).getRectangle();
+			new AssemblyStation(world, map, rect, chefOne, chefTwo);
+		}
+		
+		for(MapObject object: map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
+			Rectangle rect = ((RectangleMapObject) object).getRectangle();
+			new ChoppingArea(world, map, rect, chefOne, chefTwo);
 		}
 	}
 

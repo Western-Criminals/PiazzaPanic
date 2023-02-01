@@ -18,7 +18,7 @@ public class Chef extends Sprite {
 	final short CATEGORY_PLAYER = 0x0001;
 	final short CATEGORY_COUNTER = 0X0002;
 	final short CATEGORY_STATION_ONE = 0X0004;
-	final short MASK_PLAYER = CATEGORY_COUNTER | CATEGORY_STATION_ONE;
+	final short MASK_PLAYER = CATEGORY_COUNTER | CATEGORY_STATION_ONE| -1; // -1 for now;
 	
 	public Array<Object> itemStack;
 	public World world;
@@ -28,7 +28,7 @@ public class Chef extends Sprite {
 	public Chef(World world, PlayScreen screen, int chefNum, float xPos) {
 		super(screen.getAtlas().findRegion("Chef A1"));
 		this.world = world;
-		defineChef(xPos, 50);
+		defineChef(xPos, 200);
 		chefIdle = new TextureRegion(getTexture(), 21, 10, 10,17); // 6 , 3 , 3 , 3
 		setBounds(0, 0, 20f/PiazzaPanic.PPM, 34f/PiazzaPanic.PPM);
 		setRegion(chefIdle); 
