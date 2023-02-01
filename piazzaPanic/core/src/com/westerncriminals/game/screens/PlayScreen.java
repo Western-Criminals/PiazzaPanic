@@ -23,6 +23,7 @@ import com.westerncriminals.game.sprites.BurgerFryer;
 import com.westerncriminals.game.sprites.Chef;
 import com.westerncriminals.game.sprites.Customer;
 import com.westerncriminals.game.sprites.Dish;
+import com.westerncriminals.game.sprites.NPC;
 import com.westerncriminals.game.screens.Inventory;
 
 import org.json.JSONObject;
@@ -58,6 +59,7 @@ public class PlayScreen implements Screen{
     private OrthogonalTiledMapRenderer renderer;
     private World world;
     private Box2DDebugRenderer b2dr;
+    private B2WorldCreator creator;
     
 	
 	public PlayScreen(PiazzaPanic game) {
@@ -87,13 +89,15 @@ public class PlayScreen implements Screen{
         
         world = new World(new Vector2(0,0), true);
         b2dr = new Box2DDebugRenderer();
-        
-        customer = new Customer(this, (float) 100f, (float) 50f);
+       
 	
         chefOne = new Chef(this, 55);
         chefTwo = new Chef(this, 250); 
         hud = new Hud(game.batch, customer, this);
-        new B2WorldCreator(this);
+        
+        creator = new B2WorldCreator(this);
+        
+        
 		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
 		salad = new Dish(dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
         
@@ -116,7 +120,8 @@ public class PlayScreen implements Screen{
 		hud.update(dt);
 		chefOne.update(dt);
 		chefTwo.update(dt);
-		customer.update(dt); 
+		for(NPC npc : creator.getCustomers())
+			npc.update(dt);
 		world.step(1/60f, 6, 2);
 		gamecam.update();
 		renderer.setView(gamecam);
@@ -164,7 +169,8 @@ public class PlayScreen implements Screen{
 		game.batch.begin();
 		chefOne.draw(game.batch);
 		chefTwo.draw(game.batch);
-		customer.draw(game.batch);
+		for(NPC npc : creator.getCustomers())
+			npc.draw(game.batch);
 		game.batch.end();
 
 		//if (inv.getVisibility()) {

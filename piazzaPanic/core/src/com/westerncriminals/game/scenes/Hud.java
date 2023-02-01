@@ -95,7 +95,6 @@ public class Hud implements Disposable{
 			if (worldTime  == first) {
 				if (numOrders < 6) {
 					addOrder();
-					customer.customerPresent = true;
 				}
 			}
 		}

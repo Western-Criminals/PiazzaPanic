@@ -20,9 +20,10 @@ public class Customer extends NPC{
 	public Array<Object> itemStack;
 	private TextureRegion chefIdle;
 	public boolean customerPresent;
-
+	final short MASK_CUSTOMER = PiazzaPanic.CATEGORY_COUNTER | PiazzaPanic.CATEGORY_STATION_ONE |  PiazzaPanic.CATEGORY_STATION_TWO
+			| PiazzaPanic.CATEGORY_STATION_THREE | PiazzaPanic.CATEGORY_STATION_FOUR | PiazzaPanic.CATEGORY_STATION_FIVE | PiazzaPanic.CATEGORY_STATION_SIX;
 	
-	public Customer(PlayScreen screen, float x, float y ) {
+	public Customer(PlayScreen screen, float x, float y ){
 		super(screen, x , y);
 		defineNPC();
 		chefIdle = new TextureRegion(screen.getAtlas().findRegion("Chef A1"),21, 9, 9,17); 
@@ -30,7 +31,7 @@ public class Customer extends NPC{
         setBounds(getX(), getY(), 20f/ PiazzaPanic.PPM, 34f / PiazzaPanic.PPM);
         setRegion(chefIdle);
 		itemStack = new Array<Object>();
-		customerPresent = false;
+		customerPresent = true;
 	}
 	
 
@@ -49,7 +50,7 @@ public class Customer extends NPC{
 	@Override
 	protected void defineNPC() {
 		BodyDef bdef = new BodyDef();
-		bdef.position.set((((float) getX()) + 55) / PiazzaPanic.PPM, (((float) getY()) -35) / PiazzaPanic.PPM);
+		bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -57,7 +58,7 @@ public class Customer extends NPC{
         CircleShape shape = new CircleShape();
         shape.setRadius(10f/ PiazzaPanic.PPM);
         fdef.filter.categoryBits = PiazzaPanic.CATEGORY_CUSTOMER;
-        fdef.filter.maskBits = -1;
+        fdef.filter.maskBits = MASK_CUSTOMER;
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
