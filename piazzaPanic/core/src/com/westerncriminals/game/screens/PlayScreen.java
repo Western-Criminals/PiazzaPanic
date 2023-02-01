@@ -89,9 +89,9 @@ public class PlayScreen implements Screen{
         world = new World(new Vector2(0,0), true);
         b2dr = new Box2DDebugRenderer();
 
-        chefOne = new Chef(world, this, 1, 55);
-        chefTwo = new Chef(world, this, 2, 250);
-		new B2WorldCreator(world, map, chefOne, chefTwo);
+		chefOne = new Chef(this, 55);
+		chefTwo = new Chef(this, 250);
+		new B2WorldCreator(this);
 		burger = new Dish(world, dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
 		salad = new Dish(world, dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
 		List<Dish> menu = new ArrayList<Dish>(Arrays.asList(burger, salad));
@@ -185,6 +185,22 @@ public class PlayScreen implements Screen{
 		
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 		hud.stage.draw();
+	}
+
+	public TiledMap getMap() {
+		return map;
+	}
+
+	public World getWorld() {
+		return world;
+	}
+
+	public Chef getChefOne(){
+		return chefOne;
+	}
+
+	public Chef getChefTwo() {
+		return chefTwo;
 	}
 
 	@Override

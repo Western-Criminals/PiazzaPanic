@@ -20,6 +20,7 @@ public class Customer extends Sprite{
     public Body b2body;
     private TextureRegion chefIdle;
     float timeCount;
+    float startX, startY;
 
     public Customer(World world, PlayScreen screen) {
         super(screen.getAtlas().findRegion("Chef A1"));
@@ -54,15 +55,9 @@ public class Customer extends Sprite{
     }
     public void update(float dt) {
         setPosition(b2body.getPosition().x - getWidth() /2, b2body.getPosition().y - getHeight()/4);
+        walkTowardCounter(dt);
     }
 
     public void walkTowardCounter(float dt) {
-        while(true) {
-            timeCount += dt;
-            if (timeCount <= 5)
-                this.b2body.setLinearVelocity(new Vector2(5, 0));
-            else
-                break;
-        }
     }
 }

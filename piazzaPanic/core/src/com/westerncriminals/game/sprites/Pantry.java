@@ -6,37 +6,32 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.westerncriminals.game.screens.PlayScreen;
 
 public class Pantry extends InteractiveTileObject{
-	final short CATEGORY_STATION_TWO = 0x0010;
-	public Chef chefOne;
-	public Chef chefTwo;
+	final short CATEGORY_STATION_THREE = 0x0011;
 	String example;
 
-	public Pantry(World world, TiledMap map, Rectangle bounds, Chef chefOne, Chef chefTwo) {
-		super(world, map, bounds);
-    	fixture.setUserData(this);
-    	this.chefOne = chefOne;
-    	this.chefTwo = chefTwo;
+	public Pantry(PlayScreen screen, Rectangle bounds) {
+		super(screen, bounds);
+		fixture.setUserData(this);
 	}
 
 	@Override
 	public void onInteraction(Fixture chefBody) {
-		if (chefBody.getUserData() == "chefOne") 
+		if (chefBody.getUserData() == "chefOne")
 		{
-			Gdx.app.log("Chef","This is here sink");
-			//if (chefOne.itemStack.notEmpty())
-				//example = (String) chefOne.itemStack.pop();
-				//Gdx.app.log("Tester", example);
-			
-			chefOne.itemStack.add("Patty");
+			Gdx.app.log("Chef","This is pantry");
+			if (chefOne.itemStack.contains("Patty", true) || chefOne.itemStack.contains("Burger", true))
+				Gdx.app.log("No", "Already contains patty or burger");
+			else
+				chefOne.itemStack.insert(0, "Patty");
+
 		}
-		else 
+		else
 		{
 			if (chefTwo.itemStack.notEmpty())
 				chefTwo.itemStack.pop();
 		}
 	}
-	
-
 }

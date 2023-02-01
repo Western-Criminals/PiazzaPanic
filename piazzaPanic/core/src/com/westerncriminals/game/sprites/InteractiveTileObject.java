@@ -20,38 +20,42 @@ import com.westerncriminals.game.screens.PlayScreen;
 public abstract class InteractiveTileObject {
 	final short CATEGORY_STATION_ONE = 0x0004;
 	protected World world;
-    protected TiledMap map;
-    protected Rectangle bounds;
-    protected Body body;
-    protected PlayScreen screen;
-    protected MapObject object;
+	protected TiledMap map;
+	protected Rectangle bounds;
+	protected Body body;
+	protected PlayScreen screen;
+	protected MapObject object;
+	protected Chef chefOne;
+	protected Chef chefTwo;
 
-    protected Fixture fixture;
+	protected Fixture fixture;
 
-    public InteractiveTileObject(World world, TiledMap map, Rectangle bounds) {
-    	
-    	this.world = world;
-    	this.map = map;
-    	this.bounds = bounds;
-    	
-    	BodyDef bdef = new BodyDef();
+	public InteractiveTileObject(PlayScreen screen, Rectangle bounds) {
+
+		this.world = screen.getWorld();
+		this.map = screen.getMap();
+		this.chefOne = screen.getChefOne();
+		this.chefTwo = screen.getChefTwo();
+		this.bounds = bounds;
+
+		BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-    	
-    	bdef.type = BodyDef.BodyType.StaticBody;
-    	bdef.position.set((bounds.getX() + bounds.getWidth() /2) / PiazzaPanic.PPM, (bounds.getY() + bounds.getHeight() /2)/ PiazzaPanic.PPM);
-    	
-    	body = world.createBody(bdef);
-    	
-    	shape.setAsBox(bounds.getWidth()/ 2 / PiazzaPanic.PPM, bounds.getHeight()/ 2 / PiazzaPanic.PPM);
-    	fdef.shape = shape;
-    	fdef.filter.categoryBits = CATEGORY_STATION_ONE;
+
+		bdef.type = BodyDef.BodyType.StaticBody;
+		bdef.position.set((bounds.getX() + bounds.getWidth() /2) / PiazzaPanic.PPM, (bounds.getY() + bounds.getHeight() /2)/ PiazzaPanic.PPM);
+
+		body = world.createBody(bdef);
+
+		shape.setAsBox(bounds.getWidth()/ 2 / PiazzaPanic.PPM, bounds.getHeight()/ 2 / PiazzaPanic.PPM);
+		fdef.shape = shape;
+		fdef.filter.categoryBits = CATEGORY_STATION_ONE;
 		fdef.filter.maskBits = -1;
-    	fixture = body.createFixture(fdef);
-    	
-    }
-    
-    
+		fixture = body.createFixture(fdef);
+
+	}
+
+
 
 	public abstract void onInteraction(Fixture chefBody);
 
