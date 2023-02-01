@@ -27,6 +27,7 @@ public class PiazzaPanic extends Game {
 	public static final short CATEGORY_STATION_FOUR = 32;
 	public static final short CATEGORY_STATION_FIVE = 64;
 	public static final short CATEGORY_STATION_SIX = 128;
+	public static final short CATEGORY_CUSTOMER = 256;
 	
 	
 	public SpriteBatch batch;

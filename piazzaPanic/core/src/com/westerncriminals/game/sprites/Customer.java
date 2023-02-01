@@ -1,6 +1,7 @@
 package com.westerncriminals.game.sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -13,56 +14,53 @@ import com.badlogic.gdx.utils.Array;
 import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 
-public class Customer extends Sprite{
+public class Customer extends NPC{
+
+	private float stateTime;
+	public Array<Object> itemStack;
+	private TextureRegion chefIdle;
+	private boolean customerPresent
 
 	
-	public Array<Object> itemStack;
-	public World world;
-	public Body b2body; 
-	private TextureRegion chefIdle;
-	float timeCount;
-	float startX, startY;
-	
-	public boolean finished;
-	
-	public Customer(World world, PlayScreen screen) {
-		super(screen.getAtlas().findRegion("Chef A1"));
-		this.world = world;
-		defineCustomer();
-		chefIdle = new TextureRegion(getTexture(), 21, 10, 10,17); // 6 , 3 , 3 , 3
-		setBounds(0, 0, 20f/PiazzaPanic.PPM, 34f/PiazzaPanic.PPM);
-		setRegion(chefIdle); 
+	public Customer(PlayScreen screen, float x, float y ) {
+		super(screen, x , y);
+		defineNPC();
+		chefIdle = new TextureRegion(screen.getAtlas().findRegion("Chef A1"),21, 9, 9,17); 
+		stateTime = 0;
+        setBounds(getX(), getY(), 20f/ PiazzaPanic.PPM, 34f / PiazzaPanic.PPM);
+        setRegion(chefIdle);
 		itemStack = new Array<Object>();
+		customerPresent = true;
 	}
 	
-	public void defineCustomer() {
+
+	 public void update(float dt){
+	        stateTime += dt;
+	        b2body.setLinearVelocity(velocity);
+	        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+	        
+	    }
+	
+
+	@Override
+	protected void defineNPC() {
 		BodyDef bdef = new BodyDef();
-		timeCount = 0;
-		bdef.position.set( -15 / PiazzaPanic.PPM, 30/ PiazzaPanic.PPM);
-		bdef.type = BodyDef.BodyType.DynamicBody;
-		b2body = world.createBody(bdef);
-		
-		FixtureDef fdef = new FixtureDef();
-		CircleShape shape = new CircleShape();
-		shape.setRadius(10f/ PiazzaPanic.PPM);
-		
-		fdef.shape = shape;
-		
-		
-		b2body.createFixture(fdef).setUserData("customer");
-		
-		
-				
-		// may need to create a new fixture for contact, maybe
-		
-	}
-	public void update(float dt) {
-		setPosition(b2body.getPosition().x - getWidth() /2, b2body.getPosition().y - getHeight()/4);
-		walkTowardCounter(dt);
+		bdef.position.set((((float) getX()) + 55) / PiazzaPanic.PPM, (((float) getY()) -35) / PiazzaPanic.PPM);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        b2body = world.createBody(bdef);
+
+        FixtureDef fdef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(10f/ PiazzaPanic.PPM);
+        fdef.filter.categoryBits = PiazzaPanic.CATEGORY_CUSTOMER;
+        fdef.filter.maskBits = -1;
+
+        fdef.shape = shape;
+        b2body.createFixture(fdef).setUserData(this);
 	}
 	
-	public void walkTowardCounter(float dt) {
-		
-	}
-	
+	public void draw(Batch batch){
+		if (customerPresent)
+			super.draw(batch);
+    }
 }
