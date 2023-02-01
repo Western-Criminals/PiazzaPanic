@@ -18,7 +18,7 @@ public abstract class NPC extends Sprite{
         this.screen = screen;
         setPosition(x, y);
         defineNPC();
-        velocity = new Vector2(0, 1);
+        velocity = new Vector2(0, (float) 0.5);
     }
 
     protected abstract void defineNPC();

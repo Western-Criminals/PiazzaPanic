@@ -12,14 +12,12 @@ import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 
 public class Chef extends Sprite {
-	final short CATEGORY_PLAYER = 0x0001;
-	final short CATEGORY_COUNTER = 0X0002;
-	final short CATEGORY_STATION_ONE = 0X0004;
-	final short MASK_PLAYER = CATEGORY_COUNTER | CATEGORY_STATION_ONE;
-	
+	final short MASK_PLAYER = PiazzaPanic.CATEGORY_COUNTER | PiazzaPanic.CATEGORY_STATION_ONE |  PiazzaPanic.CATEGORY_STATION_TWO
+			| PiazzaPanic.CATEGORY_STATION_THREE | PiazzaPanic.CATEGORY_STATION_FOUR | PiazzaPanic.CATEGORY_STATION_FIVE | PiazzaPanic.CATEGORY_STATION_SIX;
+
 	public Array<Object> itemStack;
 	public World world;
-	public Body b2body; 
+	public Body b2body;
 	private TextureRegion chefIdle;
 	
 	public Chef(PlayScreen screen, float xPos, String imgPath) {
@@ -30,7 +28,6 @@ public class Chef extends Sprite {
 		setBounds(0, 0, 20f/PiazzaPanic.PPM, 34f/PiazzaPanic.PPM);
 		setRegion(chefIdle); 
 		itemStack = new Array<Object>();
-		itemStack.add("Hello");
 	}
 	
 	public void defineChef(float x, float y) {
@@ -38,15 +35,15 @@ public class Chef extends Sprite {
 		bdef.position.set(x/ PiazzaPanic.PPM,y/ PiazzaPanic.PPM);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
-		
+
 		FixtureDef fdef = new FixtureDef();
 		CircleShape shape = new CircleShape();
 		shape.setRadius(10f/ PiazzaPanic.PPM);
-		
+
 		fdef.shape = shape;
-		fdef.filter.categoryBits = CATEGORY_PLAYER;
+		fdef.filter.categoryBits = PiazzaPanic.CATEGORY_PLAYER;
 		fdef.filter.maskBits = MASK_PLAYER;
-		
+
 		if (x == 55)
 			b2body.createFixture(fdef).setUserData("chefOne");
 		else
