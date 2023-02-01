@@ -50,7 +50,7 @@ public class PlayScreen implements Screen{
 	private int chefControlled;
 	private Dish burger;
 	private Dish salad;
-	private List<Dish> orders = new ArrayList<Dish>();
+	public List<Dish> orders = new ArrayList<Dish>();
 	
 	private TmxMapLoader maploader;
     private TiledMap map;
@@ -71,12 +71,11 @@ public class PlayScreen implements Screen{
 		}
 
 		atlas = new TextureAtlas("chefAtlas.txt");
-		
+
 		this.game = game;
 		gamecam = new OrthographicCamera();
-		gamePort = new FitViewport(PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,PiazzaPanic.V_HEIGHT /  PiazzaPanic.PPM , gamecam);
+		gamePort = new FitViewport((float) PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,(float) PiazzaPanic.V_HEIGHT /  PiazzaPanic.PPM , gamecam);
 		gamePort.apply();
-		hud = new Hud(game.batch);
 		chefControlled = 1;
 
 		maploader = new TmxMapLoader();
@@ -87,7 +86,7 @@ public class PlayScreen implements Screen{
         
         world = new World(new Vector2(0,0), true);
         b2dr = new Box2DDebugRenderer();
-        
+
         chefOne = new Chef(world, this, 1, 55);
         chefTwo = new Chef(world, this, 2, 250);
 		new B2WorldCreator(world, map, chefOne, chefTwo);
@@ -97,6 +96,8 @@ public class PlayScreen implements Screen{
 		for (int i = 0; i < 5; i++) {
 			orders.add(menu.get(new Random().nextInt(menu.size())));
 		}
+
+		hud = new Hud(game.batch, orders);
         
         world.setContactListener(new WorldContactListener());
 	}
