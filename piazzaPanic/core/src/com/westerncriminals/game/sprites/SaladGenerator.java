@@ -36,8 +36,19 @@ public class SaladGenerator extends InteractiveTileObject{
 		}
 		else 
 		{
-			if (chefTwo.itemStack.notEmpty())
-				chefTwo.itemStack.pop();
+			Gdx.app.log("Chef","This is here saladGen");
+			if (chefTwo.itemStack.contains("Lettuce", true )) {
+				Gdx.app.log("DebugMsg", "No more lettuce for you");
+			}
+			else {
+				chefTwo.itemStack.add("Lettuce");
+			}
+			if (chefOne.itemStack.contains("Tomato", true )) {
+				Gdx.app.log("DebugMsg", "No more Tomato for you");
+			}
+			else {
+				chefTwo.itemStack.add("Tomato");
+			}
 		}
 	}
 

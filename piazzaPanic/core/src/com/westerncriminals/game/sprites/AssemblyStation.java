@@ -36,8 +36,17 @@ public class AssemblyStation extends InteractiveTileObject{
 		}
 		else 
 		{
-			if (chefTwo.itemStack.notEmpty())
-				chefTwo.itemStack.pop();
+			Gdx.app.log("Chef","This is here AssemblyStation");
+			if (chefTwo.itemStack.contains("Bun", true) && chefTwo.itemStack.contains("Burger", true)) {
+				chefTwo.itemStack.removeValue("Bun", true);
+				chefTwo.itemStack.removeValue("Burger", true);
+				chefTwo.itemStack.add("Finished Burger");
+			}
+			if (chefTwo.itemStack.contains("Chopped Tomato", true) && chefTwo.itemStack.contains("Chopped Lettuce", true)) {
+				chefTwo.itemStack.removeValue("Chopped Tomato", true);
+				chefTwo.itemStack.removeValue("Chopped Lettuce", true);
+				chefTwo.itemStack.add("Finished Salad"); 
+			}
 		}
 	}
 }

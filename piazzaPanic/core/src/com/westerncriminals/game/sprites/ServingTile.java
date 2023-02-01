@@ -32,8 +32,17 @@ public class ServingTile extends InteractiveTileObject{
 		}
 		else 
 		{
-			if (chefTwo.itemStack.notEmpty())
-				chefTwo.itemStack.pop();
+			Gdx.app.log("Chef","This is here SERVING STATION");
+			if (chefTwo.itemStack.contains("Finished Burger", true)) {
+				chefTwo.itemStack.removeValue("Finished Burger", true);
+				if (hud.bCount > 0);
+					hud.bCount--;
+			}
+			if (chefTwo.itemStack.contains("Finished Salad", true)) {
+				chefTwo.itemStack.removeValue("Finished Salad", true);
+				if (hud.saladCount > 0);
+					hud.saladCount--;
+			}
 		}
 	}
 }

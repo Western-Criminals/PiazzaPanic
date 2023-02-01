@@ -31,8 +31,13 @@ public class BunBox extends InteractiveTileObject{
 		}
 		else 
 		{
-			if (chefTwo.itemStack.notEmpty())
-				chefTwo.itemStack.pop();
+			Gdx.app.log("Chef","This is here bunBox");
+			if (chefTwo.itemStack.contains("Bun", true)) {
+				Gdx.app.log("DebugMsg", "No more buns for you");
+			}
+			else {
+				chefTwo.itemStack.add("Bun");
+			}
 		}
 	}
 

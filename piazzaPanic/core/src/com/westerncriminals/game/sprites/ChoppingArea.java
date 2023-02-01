@@ -36,8 +36,16 @@ public class ChoppingArea extends InteractiveTileObject
 		}
 		else 
 		{
+			Gdx.app.log("Chef","This is here chop1");
 			if (chefTwo.itemStack.notEmpty())
-				chefTwo.itemStack.pop();
+				if (chefTwo.itemStack.contains("Lettuce", true)) {
+					chefTwo.itemStack.removeValue("Lettuce", true);
+					chefTwo.itemStack.add("Chopped Lettuce");
+			}
+			if (chefTwo.itemStack.contains("Tomato", true)) {
+				chefTwo.itemStack.removeValue("Tomato", true);
+				chefTwo.itemStack.add("Chopped Tomato");
+			}
 		}
 	}
 	

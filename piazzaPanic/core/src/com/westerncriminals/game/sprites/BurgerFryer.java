@@ -29,27 +29,34 @@ public class BurgerFryer extends InteractiveTileObject{
     	setCategoryFilter(PiazzaPanic.CATEGORY_STATION_ONE);
 	}
 
-	public void onInteraction(Fixture chefBody){
+	public void onInteraction(Fixture chefBody)
+	{
 		if (chefBody.getUserData() == "chefOne") 
 		{
 			Gdx.app.log("Chef","This is here fryer");
-			if (chefOne.itemStack.notEmpty()) {
+			if (chefOne.itemStack.notEmpty()) 
+			{
 				if (chefOne.itemStack.contains("Patty", true)){
 					chefOne.itemStack.removeValue("Patty", true);
 					chefOne.itemStack.add("Burger");
 					Gdx.app.log("Tester", "patty now cooked");
 				}
+			}
+				
 		}
 		else 
 		{
-			if (chefTwo.itemStack.notEmpty())
-				chefTwo.itemStack.pop();
+			Gdx.app.log("Chef","This is here fryer");
+			if (chefTwo.itemStack.notEmpty()) 
+			{
+				if (chefTwo.itemStack.contains("Patty", true)){
+					chefTwo.itemStack.removeValue("Patty", true);
+					chefTwo.itemStack.add("Burger");
+					Gdx.app.log("Tester", "patty now cooked");
+				}
+			}
 		}
-	}
-
 	
-		
 	}
-	
 
 }

@@ -31,8 +31,11 @@ public class Pantry extends InteractiveTileObject{
 		}
 		else 
 		{
-			if (chefTwo.itemStack.notEmpty())
-				chefTwo.itemStack.pop();
+			if (chefTwo.itemStack.contains("Patty", true) || chefTwo.itemStack.contains("Burger", true))
+				Gdx.app.log("No", "Already contains patty or burger");
+			else
+				chefTwo.itemStack.insert(0, "Patty");
+			
 		}
 	}
 	

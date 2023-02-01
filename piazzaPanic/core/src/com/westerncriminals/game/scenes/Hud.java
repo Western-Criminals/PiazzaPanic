@@ -95,7 +95,7 @@ public class Hud implements Disposable{
 		}
 		bLabelNum.setText(String.format("%01d", (bCount)));
 		sLabel.setText(String.format("%01d", (saladCount)));
-		if (bCount == 0 && saladCount == 0 && finished == true) {
+		if (bCount == 0 && saladCount == 0 && numOrders > 4) {
 			Gdx.app.exit();
 			Gdx.app.log("Game state", "Gameover, you took this many seconds to complete the game");
 			Gdx.app.log("Game state", String.format("%03d", worldTime));

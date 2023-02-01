@@ -154,6 +154,10 @@ public class PlayScreen implements Screen{
 			Gdx.app.log("I", (String) chefOne.itemStack.toString());
 			Gdx.app.log("Amount", String.format("%03d", chefOne.itemStack.size));
 		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.R) && chefTwo.itemStack.notEmpty()) {
+			Gdx.app.log("I", (String) chefTwo.itemStack.toString());
+			Gdx.app.log("Amount", String.format("%03d", chefTwo.itemStack.size));
+		}
 	    if(Gdx.input.isKeyPressed(Input.Keys.W)) {
 	        velY = 10.0f ;
 	    } else if(Gdx.input.isKeyPressed(Input.Keys.D)) {
