@@ -22,6 +22,7 @@ public class ServingTile extends InteractiveTileObject{
 				chefOne.itemStack.removeValue("Finished Burger", true);
 				if (hud.bCount > 0);
 					hud.bCount--;
+					hud.finished = true;
 			}
 			if (chefOne.itemStack.contains("Finished Salad", true)) {
 				chefOne.itemStack.removeValue("Finished Salad", true);

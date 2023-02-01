@@ -38,7 +38,8 @@ public class Hud implements Disposable{
 	Label saladLabel;
 	Label sLabel;
 	
-	boolean customerFlag;
+	public boolean finished;
+	
 	
 	public Hud(SpriteBatch sb, Customer customer, PlayScreen screen) {
 		first = 5;
@@ -48,7 +49,7 @@ public class Hud implements Disposable{
 		saladCount = 0;
 		worldTime = 0;
 		timeCount = 0;
-		this.customerFlag = false;
+		finished = false;
 		
 		viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, sb);
@@ -94,7 +95,11 @@ public class Hud implements Disposable{
 		}
 		bLabelNum.setText(String.format("%01d", (bCount)));
 		sLabel.setText(String.format("%01d", (saladCount)));
-		
+		if (bCount == 0 && saladCount == 0 && finished == true) {
+			Gdx.app.exit();
+			Gdx.app.log("Game state", "Gameover, you took this many seconds to complete the game");
+			Gdx.app.log("Game state", String.format("%03d", worldTime));
+		}
 	}
 	
 	public void addOrder() {
