@@ -1,6 +1,7 @@
 package com.westerncriminals.game.scenes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import java.util.Random;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,7 +20,6 @@ import com.westerncriminals.game.sprites.Customer;
 public class Hud implements Disposable{
 	public Stage stage;
 	private Viewport viewport;
-	private Customer customer;
 	
 	private Integer scoreCount;
 	private Integer bCount;
@@ -39,16 +39,17 @@ public class Hud implements Disposable{
 	Label sLabel;
 	
 	boolean customerFlag;
+	private Customer customer;
 	
-	public Hud(SpriteBatch sb, Customer customer) {
-		first = 5;
+	public Hud(SpriteBatch sb, Customer customer, PlayScreen screen) {
+		this.customer = screen.getCustomer();
+		first = 10;
 		numOrders = 0;
 		scoreCount = 0;
 		bCount = 0;
 		saladCount = 0;
 		worldTime = 0;
 		timeCount = 0;
-		this.customer = customer;
 		this.customerFlag = false;
 		
 		viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
@@ -92,6 +93,7 @@ public class Hud implements Disposable{
 			if (worldTime  == first) {
 				if (numOrders < 6) {
 					addOrder();
+					customer.customerPresent = true;
 					
 				}
 			}
@@ -101,7 +103,7 @@ public class Hud implements Disposable{
 	
 	public void addOrder() {
 		float percentos =  rand.nextFloat();
-		first += 5;
+		first += 10;
 		numOrders++;
 		if (percentos < 0.5 && numOrders < 6) {
 			bLabelNum.setText(String.format("%01d", (bCount++)));

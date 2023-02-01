@@ -28,7 +28,7 @@ public class B2WorldCreator {
 		World world = screen.getWorld();
 		TiledMap map = screen.getMap();
        
-        BodyDef bdef = new BodyDef(); 
+        BodyDef bdef = new BodyDef();  
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
         Body body;

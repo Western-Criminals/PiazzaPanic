@@ -19,7 +19,7 @@ public class Customer extends NPC{
 	private float stateTime;
 	public Array<Object> itemStack;
 	private TextureRegion chefIdle;
-	private boolean customerPresent
+	public boolean customerPresent;
 
 	
 	public Customer(PlayScreen screen, float x, float y ) {
@@ -30,15 +30,19 @@ public class Customer extends NPC{
         setBounds(getX(), getY(), 20f/ PiazzaPanic.PPM, 34f / PiazzaPanic.PPM);
         setRegion(chefIdle);
 		itemStack = new Array<Object>();
-		customerPresent = true;
+		customerPresent = false;
 	}
 	
 
 	 public void update(float dt){
-	        stateTime += dt;
+		 stateTime += dt;
+		 if (!customerPresent) {
+			 //world.destroyBody(b2body);
+			 stateTime = 0;
+		 }
+		 else if (customerPresent)
 	        b2body.setLinearVelocity(velocity);
 	        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-	        
 	    }
 	
 

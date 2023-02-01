@@ -89,11 +89,10 @@ public class PlayScreen implements Screen{
         b2dr = new Box2DDebugRenderer();
         
         customer = new Customer(this, (float) 100f, (float) 50f);
-		hud = new Hud(game.batch, customer);
-        
+	
         chefOne = new Chef(this, 55);
         chefTwo = new Chef(this, 250); 
-        
+        hud = new Hud(game.batch, customer, this);
         new B2WorldCreator(this);
 		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
 		salad = new Dish(dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
@@ -190,6 +189,9 @@ public class PlayScreen implements Screen{
 	
 	public Chef getChefTwo() {
 		return chefTwo;
+	}
+	public Customer getCustomer() {
+		return customer;
 	}
 
 	@Override
