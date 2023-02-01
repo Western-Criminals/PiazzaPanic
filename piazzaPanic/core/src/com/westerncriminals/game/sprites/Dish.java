@@ -17,6 +17,7 @@ public class Dish extends Sprite {
     private String name;
     private int duration;
     private JSONArray ingredients;
+    public Body b2body;
     public Dish(String n, int d, JSONArray i) {
         name = n;
         duration = d;

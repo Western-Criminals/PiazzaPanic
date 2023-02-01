@@ -123,7 +123,7 @@ public class PlayScreen implements Screen{
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
 				chefControlled = 3 - chefControlled;
-		if (Gdx.input.isKeyPressed(Input.Keys.I) && chefOne.itemStack.notEmpty()) {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.I) && chefOne.itemStack.notEmpty()) {
 			Gdx.app.log("I", (String) chefOne.itemStack.toString());
 			Gdx.app.log("Amount", String.format("%03d", chefOne.itemStack.size));
 		}
