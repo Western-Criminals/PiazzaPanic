@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.westerncriminals.game.PiazzaPanic;
+import com.westerncriminals.game.screens.PlayScreen;
 import com.westerncriminals.game.sprites.Customer;
 import com.westerncriminals.game.sprites.Dish;
 
@@ -20,7 +21,6 @@ import java.util.List;
 public class Hud implements Disposable{
 	public Stage stage;
 	private Viewport viewport;
-	private Customer customer;
 	
 	private Integer scoreCount;
 	private Integer bCount;
@@ -38,28 +38,35 @@ public class Hud implements Disposable{
 	Label saladLabel;
 	Label sLabel;
 
+	boolean customerFlag;
+	private Customer customer;
+	private PlayScreen screen;
+
 	List<Dish> orders;
 	Dish nextOrder;
 	
-	public Hud(SpriteBatch sb, Customer customer, List<Dish> orders) {
+	public Hud(SpriteBatch sb, Customer customer, PlayScreen screen, List<Dish> orders) {
 		this.orders = orders;
 
-		first = 2;
+		this.screen = screen;
+		this.customer = screen.getCustomer();
+		first = 5;
 		numOrders = 0;
 		scoreCount = 0;
 		bCount = 0;
 		saladCount = 0;
 		worldTime = 0;
 		timeCount = 0;
-		this.customer = customer;
-		
+		this.customerFlag = false;
+
 		viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, sb);
-		
+
+
 		Table table = new Table();
 		table.bottom();
 		table.setFillParent(true);
-		
+
 		burgLabel = new Label("Burgers", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		saladLabel = new Label("Salads", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -67,12 +74,12 @@ public class Hud implements Disposable{
 		table.add(timeLabel).expandX();
 		table.add(burgLabel).expandX();
 		table.add(saladLabel).expandX();
-		
+
 		table.row();
-		
+
 		scoreLabel = new Label(String.format("%06d",scoreCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		timerLabel = new Label(String.format("%06d",worldTime), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		bLabelNum = new Label(String.format("%01d", getbCount()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		bLabelNum = new Label(String.format("%01d", bCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		sLabel = new Label(String.format("%01d", saladCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
 		table.add(timerLabel).expandX();
@@ -82,8 +89,6 @@ public class Hud implements Disposable{
 		stage.addActor(table);
 		bLabelNum.setText(String.format("%01d", (bCount++)));
 		sLabel.setText(String.format("%01d", (saladCount++)));
-		
-		
 	}
 	
 	public void update(float dt) {
@@ -94,7 +99,7 @@ public class Hud implements Disposable{
 			timeCount = 0;
 			if (worldTime  == first) {
 				if (numOrders <= orders.size() + 1) {
-					customer.walkTowardCounter(dt);
+					customer.customerPresent = true;
 					addOrder();
 				}
 				else {
@@ -120,13 +125,5 @@ public class Hud implements Disposable{
 		stage.dispose();
 		
 		
-	}
-
-	public Integer getbCount() {
-		return bCount;
-	}
-
-	public void setbCount(Integer bCount) {
-		this.bCount = bCount;
 	}
 }
