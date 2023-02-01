@@ -27,7 +27,7 @@ public class Inventory extends PiazzaPanic {
     private Pair<Integer, Integer> MIDDLE;
     private List<String> inv_lst;
     private List<Label> invLabels = new ArrayList<Label>();
-    private boolean visible;
+    private static boolean visible;
 
     private void updateLabels(List<String> inv_lst) {
         this.invLabels.clear();
