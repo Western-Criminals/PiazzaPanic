@@ -1,20 +1,15 @@
 package com.westerncriminals.game.sprites;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 
-public class Customer extends NPC{
+public class Customer extends NPC {
 
 	private float stateTime;
 	public Array<Object> itemStack;
@@ -62,10 +57,10 @@ public class Customer extends NPC{
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
-	}
-	
-	public void draw(Batch batch){
-		if (customerPresent)
-			super.draw(batch);
+    }
+
+    public void walkTowardCounter(Batch batch) {
+        if (customerPresent)
+            super.draw(batch);
     }
 }
