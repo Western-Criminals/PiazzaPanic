@@ -18,7 +18,7 @@ import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 
 public abstract class InteractiveTileObject {
-	final short CATEGORY_STATION_ONE = 0x0004;
+
 	protected World world;
     protected TiledMap map;
     protected Rectangle bounds;
@@ -49,13 +49,14 @@ public abstract class InteractiveTileObject {
     	
     	shape.setAsBox(bounds.getWidth()/ 2 / PiazzaPanic.PPM, bounds.getHeight()/ 2 / PiazzaPanic.PPM);
     	fdef.shape = shape;
-    	fdef.filter.categoryBits = CATEGORY_STATION_ONE;
-		fdef.filter.maskBits = -1;
     	fixture = body.createFixture(fdef);
-    	
     }
     
-    
+    public void setCategoryFilter(short filterBit){
+        Filter filter = new Filter();
+        filter.categoryBits = filterBit;
+        fixture.setFilterData(filter);
+    }
 
 	public abstract void onInteraction(Fixture chefBody);
 

@@ -5,15 +5,17 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 
 public class BunBox extends InteractiveTileObject{
-	final short CATEGORY_STATION_FOUR = 0x0012;
+
 
 
 	public BunBox(PlayScreen screen, Rectangle bounds) {
 		super(screen, bounds);
     	fixture.setUserData(this);
+    	setCategoryFilter(PiazzaPanic.CATEGORY_STATION_FOUR);
 	}
 
 	public void onInteraction(Fixture chefBody){

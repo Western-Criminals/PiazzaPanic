@@ -15,12 +15,11 @@ import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 
 public class Chef extends Sprite {
-	final short CATEGORY_PLAYER = 0x0001;
-	final short CATEGORY_COUNTER = 0X0002;
-	final short CATEGORY_STATION_ONE = 0X0004;
 	
 	
-	final short MASK_PLAYER = CATEGORY_COUNTER | CATEGORY_STATION_ONE;
+	
+	final short MASK_PLAYER = PiazzaPanic.CATEGORY_COUNTER | PiazzaPanic.CATEGORY_STATION_ONE |  PiazzaPanic.CATEGORY_STATION_TWO
+			| PiazzaPanic.CATEGORY_STATION_THREE | PiazzaPanic.CATEGORY_STATION_FOUR | PiazzaPanic.CATEGORY_STATION_FIVE | PiazzaPanic.CATEGORY_STATION_SIX;
 	
 	public Array<Object> itemStack;
 	public World world;
@@ -48,7 +47,7 @@ public class Chef extends Sprite {
 		shape.setRadius(10f/ PiazzaPanic.PPM);
 		
 		fdef.shape = shape;
-		fdef.filter.categoryBits = CATEGORY_PLAYER;
+		fdef.filter.categoryBits = PiazzaPanic.CATEGORY_PLAYER;
 		fdef.filter.maskBits = MASK_PLAYER;
 		
 		if (x == 55)

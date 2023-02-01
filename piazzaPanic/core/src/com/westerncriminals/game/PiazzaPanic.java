@@ -19,6 +19,16 @@ public class PiazzaPanic extends Game {
 	public static final int PPM = 20;
 	public static final int V_WIDTH = 320;
 	public static final int V_HEIGHT = 280;
+	public static final short CATEGORY_PLAYER = 1;
+	public static final short CATEGORY_COUNTER = 2;
+	public static final short CATEGORY_STATION_ONE = 4;
+	public static final short CATEGORY_STATION_TWO = 8;
+	public static final short CATEGORY_STATION_THREE = 16;
+	public static final short CATEGORY_STATION_FOUR = 32;
+	public static final short CATEGORY_STATION_FIVE = 64;
+	public static final short CATEGORY_STATION_SIX = 128;
+	
+	
 	public SpriteBatch batch;
 	
 	@Override

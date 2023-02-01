@@ -1,6 +1,5 @@
 package com.westerncriminals.game.sprites;
 
-import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -18,7 +17,6 @@ import com.westerncriminals.game.screens.PlayScreen;
 
 
 public class BurgerFryer extends InteractiveTileObject{
-	final short CATEGORY_STATION_ONE = 0x0004;
 	
 	String example;
 	Integer fryTimer;
@@ -28,7 +26,7 @@ public class BurgerFryer extends InteractiveTileObject{
 	public BurgerFryer(PlayScreen screen, Rectangle bounds) {
 		super(screen, bounds);
     	fixture.setUserData(this);
-    
+    	setCategoryFilter(PiazzaPanic.CATEGORY_STATION_ONE);
 	}
 
 	public void onInteraction(Fixture chefBody){
