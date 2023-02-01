@@ -125,7 +125,7 @@ public class PlayScreen implements Screen{
 	private void handleInput() {
 		float velX = 0, velY = 0;
 		
-		if (Gdx.input.isKeyPressed(Input.Keys.Q))
+		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
 				chefControlled = 3 - chefControlled;
 	    if(Gdx.input.isKeyPressed(Input.Keys.W)) {
 	        velY = 10.0f ;
@@ -136,14 +136,18 @@ public class PlayScreen implements Screen{
 	    } else if(Gdx.input.isKeyPressed(Input.Keys.A)) {
 	         velX = -10.0f;
 	    }
-	    if (chefControlled == 1)
-	    	chefOne.b2body.setLinearVelocity(new Vector2(velX, velY));
-	    else
-	    	chefTwo.b2body.setLinearVelocity(new Vector2(velX, velY));
+	    if (chefControlled == 1) {
+			chefTwo.b2body.setLinearVelocity(new Vector2(0f, 0f));
+			chefOne.b2body.setLinearVelocity(new Vector2(velX, velY));
+		}
+	    else{
+			chefOne.b2body.setLinearVelocity(new Vector2(0f, 0f));
+			chefTwo.b2body.setLinearVelocity(new Vector2(velX, velY));
+		}
 		if (Gdx.input.isKeyPressed(Input.Keys.I) && chefOne.itemStack.notEmpty()) {
 			inv.setVisibility(!(inv.getVisibility()));
 			if (inv.getVisibility()) {
-				Gdx.app.log("I", (String) chefOne.itemStack.pop());
+				Gdx.app.log("I", (String) chefOne.itemStack.peek());
 				List<String> inv_lst = new ArrayList<String>();
 				while (chefOne.itemStack.notEmpty()) {
 					inv_lst.add(chefOne.itemStack.pop().toString());
