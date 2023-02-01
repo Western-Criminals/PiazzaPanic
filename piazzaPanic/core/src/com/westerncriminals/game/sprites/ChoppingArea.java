@@ -13,29 +13,35 @@ public class ChoppingArea extends InteractiveTileObject
 	public Chef chefTwo;
 	String example;
 
-	public ChoppingArea(World world, TiledMap map, Rectangle bounds, Chef chefOne, Chef chefTwo) 
+	public ChoppingArea(World world, TiledMap map, Rectangle bounds, Chef chefOne, Chef chefTwo)
 	{
 		super(world, map, bounds);
-    	fixture.setUserData(this);
-    	this.chefOne = chefOne;
-    	this.chefTwo = chefTwo;
+		fixture.setUserData(this);
+		this.chefOne = chefOne;
+		this.chefTwo = chefTwo;
 	}
 
 	@Override
 	public void onInteraction(Fixture chefBody){
-		if (chefBody.getUserData() == "chefOne") 
+		if (chefBody.getUserData() == "chefOne")
 		{
 			Gdx.app.log("Chef","This is here chop1");
 			if (chefOne.itemStack.notEmpty())
-				example = (String) chefOne.itemStack.pop();
-				Gdx.app.log("Tester", example);
+				if (chefOne.itemStack.contains("Lettuce", true)) {
+					chefOne.itemStack.removeValue("Lettuce", true);
+					chefOne.itemStack.add("Chopped Lettuce");
+				}
+			if (chefOne.itemStack.contains("Tomato", true)) {
+				chefOne.itemStack.removeValue("Tomato", true);
+				chefOne.itemStack.add("Chopped Tomato");
+			}
 		}
-		else 
+		else
 		{
 			if (chefTwo.itemStack.notEmpty())
 				chefTwo.itemStack.pop();
 		}
 	}
-	
+
 
 }

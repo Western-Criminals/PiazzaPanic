@@ -1,5 +1,7 @@
 package com.westerncriminals.game.sprites;
 
+import java.util.concurrent.TimeUnit;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -20,28 +22,41 @@ public class BurgerFryer extends InteractiveTileObject{
 	public Chef chefOne;
 	public Chef chefTwo;
 	String example;
+	Integer fryTimer;
+	Boolean cooking;
+	Integer timerCount;
 
 	public BurgerFryer(World world, TiledMap map, Rectangle bounds, Chef chefOne, Chef chefTwo) {
 		super(world, map, bounds);
-    	fixture.setUserData(this);
-    	this.chefOne = chefOne;
-    	this.chefTwo = chefTwo;
+		fixture.setUserData(this);
+		this.chefOne = chefOne;
+		this.chefTwo = chefTwo;
+		timerCount = 0;
+		fryTimer = 2;
+		cooking = false;
 	}
 
-	public void onInteraction(Fixture chefBody) {
-		if (chefBody.getUserData() == "chefOne") 
+	public void onInteraction(Fixture chefBody){
+		if (chefBody.getUserData() == "chefOne")
 		{
 			Gdx.app.log("Chef","This is here fryer");
-			if (chefOne.itemStack.notEmpty())
-				example = (String) chefOne.itemStack.pop();
-				Gdx.app.log("Tester", example);
+			if (chefOne.itemStack.notEmpty()) {
+				if (chefOne.itemStack.contains("Patty", true)){
+					chefOne.itemStack.removeValue("Patty", true);
+					chefOne.itemStack.add("Burger");
+					Gdx.app.log("Tester", "patty now cooked");
+				}
+			}
+			else
+			{
+				if (chefTwo.itemStack.notEmpty())
+					chefTwo.itemStack.pop();
+			}
 		}
-		else 
-		{
-			if (chefTwo.itemStack.notEmpty())
-				chefTwo.itemStack.pop();
-		}
+
+
+
 	}
-	
+
 
 }
