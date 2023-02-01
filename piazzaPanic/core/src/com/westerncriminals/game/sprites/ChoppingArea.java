@@ -6,36 +6,40 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class ChoppingArea extends InteractiveTileObject
-{
-	final short CATEGORY_STATION_TWO = 0x0008;
-	public Chef chefOne;
-	public Chef chefTwo;
-	String example;
+public class SaladGenerator extends InteractiveTileObject{
+    final short CATEGORY_STATION_TWO = 0x0010;
+    public Chef chefOne;
+    public Chef chefTwo;
 
-	public ChoppingArea(World world, TiledMap map, Rectangle bounds, Chef chefOne, Chef chefTwo) 
-	{
-		super(world, map, bounds);
-    	fixture.setUserData(this);
-    	this.chefOne = chefOne;
-    	this.chefTwo = chefTwo;
-	}
+    public SaladGenerator(World world, TiledMap map, Rectangle bounds, Chef chefOne, Chef chefTwo) {
+        super(world, map, bounds);
+        fixture.setUserData(this);
+        this.chefOne = chefOne;
+        this.chefTwo = chefTwo;
+    }
 
-	@Override
-	public void onInteraction(Fixture chefBody){
-		if (chefBody.getUserData() == "chefOne") 
-		{
-			Gdx.app.log("Chef","This is here chop1");
-			if (chefOne.itemStack.notEmpty())
-				example = (String) chefOne.itemStack.pop();
-				Gdx.app.log("Tester", example);
-		}
-		else 
-		{
-			if (chefTwo.itemStack.notEmpty())
-				chefTwo.itemStack.pop();
-		}
-	}
-	
+    public void onInteraction(Fixture chefBody){
+        if (chefBody.getUserData() == "chefOne")
+        {
+            Gdx.app.log("Chef","This is here saladGen");
+            if (chefOne.itemStack.contains("Lettuce", true )) {
+                Gdx.app.log("DebugMsg", "No more lettuce for you");
+            }
+            else {
+                chefOne.itemStack.add("Lettuce");
+            }
+            if (chefOne.itemStack.contains("Tomato", true )) {
+                Gdx.app.log("DebugMsg", "No more Tomato for you");
+            }
+            else {
+                chefOne.itemStack.add("Tomato");
+            }
+        }
+        else
+        {
+            if (chefTwo.itemStack.notEmpty())
+                chefTwo.itemStack.pop();
+        }
+    }
 
 }
