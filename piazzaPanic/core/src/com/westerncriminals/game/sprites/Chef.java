@@ -1,8 +1,5 @@
 package com.westerncriminals.game.sprites;
 
-
-import java.util.Stack;
-
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
