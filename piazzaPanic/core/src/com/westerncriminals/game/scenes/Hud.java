@@ -11,6 +11,9 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.westerncriminals.game.PiazzaPanic;
+import com.westerncriminals.game.sprites.Dish;
+
+import java.util.List;
 
 public class Hud implements Disposable{
 	public Stage stage;
@@ -29,8 +32,12 @@ public class Hud implements Disposable{
 	Label timeLabel;
 	Label saladLabel;
 	Label sLabel;
+
+	List<Dish> orders;
 	
-	public Hud(SpriteBatch sb) {
+	public Hud(SpriteBatch sb, List<Dish> orders) {
+		this.orders = orders;
+
 		scoreCount = 0;
 		setbCount(0);
 		saladCount = 0;
