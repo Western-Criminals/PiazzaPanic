@@ -1,5 +1,6 @@
 package com.westerncriminals.game.scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import java.util.Random;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,17 +13,20 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.westerncriminals.game.PiazzaPanic;
+import com.westerncriminals.game.sprites.Customer;
 
 public class Hud implements Disposable{
 	public Stage stage;
 	private Viewport viewport;
+	private Customer customer;
 	
 	private Integer scoreCount;
 	private Integer bCount;
 	private Integer saladCount;
 	private float timeCount;
 	private Integer worldTime;
-	Integer first = 3;
+	Integer first;
+	Integer numOrders;
 	Random rand = new Random();
 
 	Label timerLabel;
@@ -33,12 +37,16 @@ public class Hud implements Disposable{
 	Label saladLabel;
 	Label sLabel;
 	
-	public Hud(SpriteBatch sb) {
+	
+	public Hud(SpriteBatch sb, Customer customer) {
+		first = 2;
+		numOrders = 0;
 		scoreCount = 0;
-		setbCount(0);
+		bCount = 0;
 		saladCount = 0;
 		worldTime = 0;
 		timeCount = 0;
+		this.customer = customer;
 		
 		viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, sb);
@@ -60,16 +68,16 @@ public class Hud implements Disposable{
 		
 		scoreLabel = new Label(String.format("%06d",scoreCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		timerLabel = new Label(String.format("%06d",worldTime), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		bLabelNum = new Label(String.format("%01d", getbCount()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		bLabelNum = new Label(String.format("%01d", bCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		sLabel = new Label(String.format("%01d", saladCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		
-		table.add(timerLabel).expandX();//.padTop(10);
-		//.padTop(10);
-		table.add(bLabelNum).expandX();//.padTop(10);
+		table.add(timerLabel).expandX();
+		table.add(bLabelNum).expandX();
 		table.add(sLabel);
 		
 		stage.addActor(table);
-		
+		bLabelNum.setText(String.format("%01d", (bCount++)));
+		sLabel.setText(String.format("%01d", (saladCount++)));
 	}
 	
 	public void update(float dt) {
@@ -79,15 +87,30 @@ public class Hud implements Disposable{
 			timerLabel.setText(String.format("%06d",(worldTime)));
 			timeCount = 0;
 			if (worldTime  == first) {
-				first = first + 3;
-				float percentos =  rand.nextFloat();
-				if (percentos < 0.5) {
-					bLabelNum.setText(String.format("%06d", (bCount++)));
+				if (numOrders == 5) {
+					Gdx.app.log("Limit", "limit reached");
 				}
+				else
+					customer.walkTowardCounter(dt);
+					addOrder();
 			}
 		}
 		
 	}
+	
+	public void addOrder() {
+		float percentos =  rand.nextFloat();
+		first += 2;
+		numOrders++;
+		if (percentos < 0.5) {
+			bLabelNum.setText(String.format("%01d", (bCount++)));
+		}
+		else {
+			sLabel.setText(String.format("%01d", (saladCount++)));
+		}
+		
+	}
+	
 
 	@Override
 	public void dispose() {
@@ -96,9 +119,6 @@ public class Hud implements Disposable{
 		
 	}
 
-	public Integer getbCount() {
-		return bCount;
-	}
 
 	public void setbCount(Integer bCount) {
 		this.bCount = bCount;

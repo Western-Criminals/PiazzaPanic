@@ -21,6 +21,7 @@ import com.westerncriminals.game.tools.B2WorldCreator;
 import com.westerncriminals.game.tools.WorldContactListener;
 import com.westerncriminals.game.sprites.BurgerFryer;
 import com.westerncriminals.game.sprites.Chef;
+import com.westerncriminals.game.sprites.Customer;
 import com.westerncriminals.game.sprites.Dish;
 import com.westerncriminals.game.screens.Inventory;
 
@@ -46,6 +47,8 @@ public class PlayScreen implements Screen{
 	private Inventory inv;
 	private Chef chefOne;
 	private Chef chefTwo;
+	private Customer customer;
+	
 	private int chefControlled;
 	private Dish burger;
 	private Dish salad;
@@ -73,7 +76,7 @@ public class PlayScreen implements Screen{
 		gamecam = new OrthographicCamera();
 		gamePort = new FitViewport(PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,PiazzaPanic.V_HEIGHT /  PiazzaPanic.PPM , gamecam);
 		gamePort.apply();
-		hud = new Hud(game.batch);
+		
 		chefControlled = 1;
 
 		maploader = new TmxMapLoader();
@@ -85,10 +88,12 @@ public class PlayScreen implements Screen{
         world = new World(new Vector2(0,0), true);
         b2dr = new Box2DDebugRenderer();
         
-        
+        customer = new Customer(world, this);
+		hud = new Hud(game.batch, customer);
         
         chefOne = new Chef(world, this, 1, 55);
         chefTwo = new Chef(world, this, 2, 250);
+        
         new B2WorldCreator(world, map, chefOne, chefTwo);
 		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
 		salad = new Dish(dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
@@ -109,9 +114,10 @@ public class PlayScreen implements Screen{
 	
 	public void update(float dt) {
 		handleInput();
-		chefOne.update(dt);
 		hud.update(dt);
+		chefOne.update(dt);
 		chefTwo.update(dt);
+		customer.update(dt);
 		world.step(1/60f, 6, 2);
 		gamecam.update();
 		renderer.setView(gamecam);
@@ -159,6 +165,7 @@ public class PlayScreen implements Screen{
 		game.batch.begin();
 		chefOne.draw(game.batch);
 		chefTwo.draw(game.batch);
+		customer.draw(game.batch);
 		game.batch.end();
 
 		//if (inv.getVisibility()) {
