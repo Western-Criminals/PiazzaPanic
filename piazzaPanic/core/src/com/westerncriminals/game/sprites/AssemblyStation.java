@@ -5,16 +5,17 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 
 public class AssemblyStation extends InteractiveTileObject{
-    final short CATEGORY_STATION_FIVE = 0x0014;
+
 
 
     public AssemblyStation(PlayScreen screen, Rectangle bounds) {
         super(screen, bounds);
         fixture.setUserData(this);
-
+        setCategoryFilter(PiazzaPanic.CATEGORY_STATION_FIVE);
 
     }
 
