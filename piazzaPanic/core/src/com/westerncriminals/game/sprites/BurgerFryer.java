@@ -19,21 +19,16 @@ import com.westerncriminals.game.screens.PlayScreen;
 
 public class BurgerFryer extends InteractiveTileObject{
 	final short CATEGORY_STATION_ONE = 0x0004;
-	public Chef chefOne;
-	public Chef chefTwo;
+	
 	String example;
 	Integer fryTimer;
 	Boolean cooking;
 	Integer timerCount;
 
-	public BurgerFryer(World world, TiledMap map, Rectangle bounds, Chef chefOne, Chef chefTwo) {
-		super(world, map, bounds);
+	public BurgerFryer(PlayScreen screen, Rectangle bounds) {
+		super(screen, bounds);
     	fixture.setUserData(this);
-    	this.chefOne = chefOne;
-    	this.chefTwo = chefTwo;
-    	timerCount = 0;
-    	fryTimer = 2;
-    	cooking = false;
+    
 	}
 
 	public void onInteraction(Fixture chefBody){

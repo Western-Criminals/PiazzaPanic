@@ -21,6 +21,7 @@ public class Customer extends Sprite{
 	public Body b2body; 
 	private TextureRegion chefIdle;
 	float timeCount;
+	float startX, startY;
 	
 	public boolean finished;
 	
@@ -57,16 +58,11 @@ public class Customer extends Sprite{
 	}
 	public void update(float dt) {
 		setPosition(b2body.getPosition().x - getWidth() /2, b2body.getPosition().y - getHeight()/4);
-		//walkTowardCounter(dt);
+		walkTowardCounter(dt);
 	}
 	
 	public void walkTowardCounter(float dt) {
-		timeCount += dt;
-		if (timeCount <= 1.5) {
-			this.b2body.setLinearVelocity(new Vector2(5,0));
-		}
-		else
-			this.b2body.setLinearVelocity(new Vector2(0,0));
+		
 	}
 	
 }

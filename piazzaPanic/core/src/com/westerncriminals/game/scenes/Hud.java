@@ -40,7 +40,7 @@ public class Hud implements Disposable{
 	
 	boolean customerFlag;
 	
-	public Hud(SpriteBatch sb, Customer customer, Boolean customerFlag) {
+	public Hud(SpriteBatch sb, Customer customer) {
 		first = 5;
 		numOrders = 0;
 		scoreCount = 0;
@@ -92,7 +92,7 @@ public class Hud implements Disposable{
 			if (worldTime  == first) {
 				if (numOrders < 6) {
 					addOrder();
-					PlayScreen.customerFlag = true;
+					
 				}
 			}
 		}

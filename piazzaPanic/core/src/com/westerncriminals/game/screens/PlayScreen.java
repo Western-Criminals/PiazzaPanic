@@ -43,7 +43,6 @@ public class PlayScreen implements Screen{
 	private Viewport gamePort;
 	private Hud hud;
 
-	public static Boolean customerFlag;
 
 	private Inventory inv;
 	private Chef chefOne;
@@ -70,7 +69,7 @@ public class PlayScreen implements Screen{
 		catch(IOException e) {
 			e.printStackTrace();
 		}
-		customerFlag = false;
+	
 		atlas = new TextureAtlas("chefAtlas.txt");
 		
 		this.game = game;
@@ -90,12 +89,12 @@ public class PlayScreen implements Screen{
         b2dr = new Box2DDebugRenderer();
         
         customer = new Customer(world, this);
-		hud = new Hud(game.batch, customer, customerFlag);
+		hud = new Hud(game.batch, customer);
         
-        chefOne = new Chef(world, this, 1, 55);
-        chefTwo = new Chef(world, this, 2, 250);
+        chefOne = new Chef(this, 55);
+        chefTwo = new Chef(this, 250);
         
-        new B2WorldCreator(world, map, chefOne, chefTwo);
+        new B2WorldCreator(this);
 		burger = new Dish(dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
 		salad = new Dish(dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
         
@@ -175,6 +174,22 @@ public class PlayScreen implements Screen{
 		
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 		hud.stage.draw();
+	}
+	
+	public TiledMap getMap() {
+		return map;
+	}
+	
+	public World getWorld() {
+		return world;
+	}
+	
+	public Chef getChefOne(){
+		return chefOne;
+	}
+	
+	public Chef getChefTwo() {
+		return chefTwo;
 	}
 
 	@Override

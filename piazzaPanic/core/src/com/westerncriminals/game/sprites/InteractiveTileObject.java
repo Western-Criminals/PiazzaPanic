@@ -25,13 +25,17 @@ public abstract class InteractiveTileObject {
     protected Body body;
     protected PlayScreen screen;
     protected MapObject object;
+    protected Chef chefOne;
+    protected Chef chefTwo;
 
     protected Fixture fixture;
 
-    public InteractiveTileObject(World world, TiledMap map, Rectangle bounds) {
+    public InteractiveTileObject(PlayScreen screen, Rectangle bounds) {
     	
-    	this.world = world;
-    	this.map = map;
+    	this.world = screen.getWorld(); 
+    	this.map = screen.getMap();
+    	this.chefOne = screen.getChefOne();
+    	this.chefTwo = screen.getChefTwo();
     	this.bounds = bounds;
    
     	BodyDef bdef = new BodyDef();
