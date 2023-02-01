@@ -18,6 +18,7 @@ import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.scenes.Hud;
 import com.westerncriminals.game.tools.B2WorldCreator;
 import com.westerncriminals.game.tools.WorldContactListener;
+import com.westerncriminals.game.sprites.BurgerFryer;
 import com.westerncriminals.game.sprites.Chef;
 import com.westerncriminals.game.sprites.Customer;
 import com.westerncriminals.game.sprites.Dish;
@@ -81,7 +82,7 @@ public class PlayScreen implements Screen{
 
 		maploader = new TmxMapLoader();
 		inv = new Inventory(this.game, 200, 200, 0, 0, new ArrayList<String>());
-        map = maploader.load("finalKitchen.tmx");
+        map = maploader.load("finalKitchenFr.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1f/ PiazzaPanic.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2 , gamePort.getWorldHeight() / 2 , 0);
         
