@@ -40,10 +40,12 @@ public class Hud implements Disposable{
 	
 	boolean customerFlag;
 	private Customer customer;
+	private PlayScreen screen;
 	
 	public Hud(SpriteBatch sb, Customer customer, PlayScreen screen) {
+		this.screen = screen;
 		this.customer = screen.getCustomer();
-		first = 10;
+		first = 5;
 		numOrders = 0;
 		scoreCount = 0;
 		bCount = 0;
@@ -94,16 +96,16 @@ public class Hud implements Disposable{
 				if (numOrders < 6) {
 					addOrder();
 					customer.customerPresent = true;
-					
 				}
 			}
 		}
+		
 		
 	}
 	
 	public void addOrder() {
 		float percentos =  rand.nextFloat();
-		first += 10;
+		first += 5;
 		numOrders++;
 		if (percentos < 0.5 && numOrders < 6) {
 			bLabelNum.setText(String.format("%01d", (bCount++)));
