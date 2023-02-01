@@ -31,7 +31,7 @@ public class AssemblyStation extends InteractiveTileObject{
 			if (chefOne.itemStack.contains("Chopped Tomato", true) && chefOne.itemStack.contains("Chopped Lettuce", true)) {
 				chefOne.itemStack.removeValue("Chopped Tomato", true);
 				chefOne.itemStack.removeValue("Chopped Lettuce", true);
-				chefOne.itemStack.add("Finished Salad");
+				chefOne.itemStack.add("Finished Salad"); 
 			}
 		}
 		else 

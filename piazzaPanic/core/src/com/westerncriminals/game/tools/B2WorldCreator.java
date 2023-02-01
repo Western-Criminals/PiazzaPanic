@@ -20,6 +20,7 @@ import com.westerncriminals.game.sprites.ChoppingArea;
 import com.westerncriminals.game.sprites.Customer;
 import com.westerncriminals.game.sprites.Pantry;
 import com.westerncriminals.game.sprites.SaladGenerator;
+import com.westerncriminals.game.sprites.ServingTile;
 
 
 public class B2WorldCreator {
@@ -80,10 +81,14 @@ public class B2WorldCreator {
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			new ChoppingArea(screen, rect);
 		}
+		for(MapObject object: map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
+			Rectangle rect = ((RectangleMapObject) object).getRectangle();
+			new ServingTile(screen, rect);
+		}
 		
 		customers = new Array<Customer>();
 		int i = 0;
-		for(MapObject object: map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
+		for(MapObject object: map.getLayers().get(10).getObjects().getByType(RectangleMapObject.class)){
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			customers.add(new Customer(screen, rect.getX() / PiazzaPanic.PPM,  rect.getY() / PiazzaPanic.PPM, i));
 			i++;

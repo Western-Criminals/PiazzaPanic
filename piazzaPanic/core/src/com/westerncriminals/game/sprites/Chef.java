@@ -19,7 +19,8 @@ public class Chef extends Sprite {
 	
 	
 	final short MASK_PLAYER = PiazzaPanic.CATEGORY_COUNTER | PiazzaPanic.CATEGORY_STATION_ONE |  PiazzaPanic.CATEGORY_STATION_TWO
-			| PiazzaPanic.CATEGORY_STATION_THREE | PiazzaPanic.CATEGORY_STATION_FOUR | PiazzaPanic.CATEGORY_STATION_FIVE | PiazzaPanic.CATEGORY_STATION_SIX;
+			| PiazzaPanic.CATEGORY_STATION_THREE | PiazzaPanic.CATEGORY_STATION_FOUR | PiazzaPanic.CATEGORY_STATION_FIVE | PiazzaPanic.CATEGORY_STATION_SIX
+			| PiazzaPanic.CATEGORY_STATION_SEVEN;
 	
 	public Array<Object> itemStack;
 	public World world;
