@@ -34,7 +34,7 @@ import  java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class PlayScreen implements Screen{
+public class PlayScreen implements Screen {
 	JSONObject settings;
 	JSONObject dishes;
 	JSONObject chefs;
@@ -96,14 +96,14 @@ public class PlayScreen implements Screen{
 		chefOne = new Chef(this, 55, chefs.getString("img"));
 		chefTwo = new Chef(this, 250, chefs.getString("img"));
 		new B2WorldCreator(this);
-		burger = new Dish(world, dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
-		salad = new Dish(world, dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
+		burger = new Dish(world, dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"), dishes.getJSONObject("0").getString("img"));
+		salad = new Dish(world, dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"), dishes.getJSONObject("1").getString("img"));
 		List<Dish> menu = new ArrayList<Dish>(Arrays.asList(burger, salad));
 		for (int i = 0; i <= 6; i++) {
 			orders.add(menu.get(new Random().nextInt(menu.size())));
 		}
 
-		customer = new Customer(world, this);
+		customer = new Customer(world, this, customers.getString("img"));
 		hud = new Hud(game.batch, customer, orders);
         
         world.setContactListener(new WorldContactListener());
