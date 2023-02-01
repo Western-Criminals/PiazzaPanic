@@ -1,5 +1,5 @@
 body {
-      background-image: "piazzaPanic/assets/hell.jpeg";
+      background-image: url("piazzaPanic/assets/hell.jpeg");
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-size: 100% 100%;
