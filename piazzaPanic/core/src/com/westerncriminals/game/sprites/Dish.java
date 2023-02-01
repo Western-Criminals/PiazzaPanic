@@ -27,7 +27,7 @@ public class Dish extends Sprite {
     private TextureRegion dishIdle;
     private SpriteBatch batch = new SpriteBatch();
 
-    public Dish(World world, String n, int d, JSONArray i) {
+    public Dish(World world, String n, int d, JSONArray i, String imgPath) {
         name = n;
         duration = d;
         ingredients = i;
