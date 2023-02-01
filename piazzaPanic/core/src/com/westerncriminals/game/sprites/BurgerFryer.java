@@ -40,15 +40,12 @@ public class BurgerFryer extends InteractiveTileObject{
 		if (chefBody.getUserData() == "chefOne") 
 		{
 			Gdx.app.log("Chef","This is here fryer");
-			if (cooking == false)
-				if (chefOne.itemStack.notEmpty() && chefOne.itemStack.contains("Patty", true))
+			if (chefOne.itemStack.notEmpty()) {
+				if (chefOne.itemStack.contains("Patty", true)){
 					chefOne.itemStack.removeValue("Patty", true);
-					Gdx.app.log("Tester", "patty now cooking");
-					//Thread.sleep(1000);
-					cooking = true;
-			if (cooking == true && !(chefOne.itemStack.contains("Burger", true))) {
-				chefOne.itemStack.add("Burger");
-				cooking = false;
+					chefOne.itemStack.add("Burger");
+					Gdx.app.log("Tester", "patty now cooked");
+				}
 		}
 		else 
 		{
