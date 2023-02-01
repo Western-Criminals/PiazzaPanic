@@ -61,6 +61,9 @@ public class PlayScreen implements Screen{
     private Box2DDebugRenderer b2dr;
     private B2WorldCreator creator;
     
+    public Integer mileStoneTime;
+    public Integer currentId;
+    
 	
 	public PlayScreen(PiazzaPanic game) {
 		try {
@@ -69,12 +72,14 @@ public class PlayScreen implements Screen{
 			dishes = settings.getJSONObject("dishes");
 		}
 		catch(IOException e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 	
 		atlas = new TextureAtlas("chefAtlas.txt");
 		
 		this.game = game;
+		mileStoneTime = 0;
+		currentId = 0;
 		gamecam = new OrthographicCamera();
 		gamePort = new FitViewport(PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,PiazzaPanic.V_HEIGHT /  PiazzaPanic.PPM , gamecam);
 		gamePort.apply();
@@ -120,8 +125,16 @@ public class PlayScreen implements Screen{
 		hud.update(dt);
 		chefOne.update(dt);
 		chefTwo.update(dt);
-		for(NPC npc : creator.getCustomers())
+		for(NPC npc : creator.getCustomers()) {
 			npc.update(dt);
+			if (hud.worldTime > mileStoneTime)
+				if(npc.getId() == currentId) {
+					npc.b2body.setActive(true);
+					mileStoneTime += 5;
+					currentId++;
+				}
+			
+		}
 		world.step(1/60f, 6, 2);
 		gamecam.update();
 		renderer.setView(gamecam);

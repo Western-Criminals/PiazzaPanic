@@ -82,9 +82,11 @@ public class B2WorldCreator {
 		}
 		
 		customers = new Array<Customer>();
+		int i = 0;
 		for(MapObject object: map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			customers.add(new Customer(screen, rect.getX() / PiazzaPanic.PPM,  rect.getY() / PiazzaPanic.PPM));
+			customers.add(new Customer(screen, rect.getX() / PiazzaPanic.PPM,  rect.getY() / PiazzaPanic.PPM, i));
+			i++;
 		}		
 	}
 	public Array<Customer> getCustomers(){

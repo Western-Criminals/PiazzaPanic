@@ -25,7 +25,7 @@ public class Hud implements Disposable{
 	private Integer bCount;
 	private Integer saladCount;
 	private float timeCount;
-	private Integer worldTime;
+	public Integer worldTime;
 	Integer first;
 	Integer numOrders;
 	Random rand = new Random();
@@ -39,12 +39,8 @@ public class Hud implements Disposable{
 	Label sLabel;
 	
 	boolean customerFlag;
-	private Customer customer;
-	private PlayScreen screen;
 	
 	public Hud(SpriteBatch sb, Customer customer, PlayScreen screen) {
-		this.screen = screen;
-		this.customer = screen.getCustomer();
 		first = 5;
 		numOrders = 0;
 		scoreCount = 0;

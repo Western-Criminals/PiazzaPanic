@@ -18,12 +18,13 @@ public abstract class NPC extends Sprite{
 	        this.screen = screen;
 	        setPosition(x, y);
 	        defineNPC();
-	        velocity = new Vector2(0, (float) 0.5);
+	        velocity = new Vector2(0,  1);
+	        b2body.setActive(false);
 	    }
 	 
 	 protected abstract void defineNPC();
 	 public abstract void update(float dt);
-	 
+	 public abstract int getId();
 	 public void reverseVelocity(boolean x, boolean y) {
 		 if(x)
 			 velocity.x = -velocity.x;

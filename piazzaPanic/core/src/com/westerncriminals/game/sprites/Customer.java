@@ -15,30 +15,26 @@ public class Customer extends NPC {
 	public Array<Object> itemStack;
 	private TextureRegion chefIdle;
 	public boolean customerPresent;
+	public int id;
 	final short MASK_CUSTOMER = PiazzaPanic.CATEGORY_COUNTER | PiazzaPanic.CATEGORY_STATION_ONE |  PiazzaPanic.CATEGORY_STATION_TWO
 			| PiazzaPanic.CATEGORY_STATION_THREE | PiazzaPanic.CATEGORY_STATION_FOUR | PiazzaPanic.CATEGORY_STATION_FIVE | PiazzaPanic.CATEGORY_STATION_SIX;
 	
-	public Customer(PlayScreen screen, float x, float y ){
+	public Customer(PlayScreen screen, float x, float y , int id){
 		super(screen, x , y);
+		this.id = id;
 		defineNPC();
 		chefIdle = new TextureRegion(screen.getAtlas().findRegion("Chef A1"),21, 9, 9,17); 
 		stateTime = 0;
         setBounds(getX(), getY(), 20f/ PiazzaPanic.PPM, 34f / PiazzaPanic.PPM);
         setRegion(chefIdle);
 		itemStack = new Array<Object>();
-		customerPresent = true;
 	}
 	
 
 	 public void update(float dt){
 		 stateTime += dt;
-		 if (!customerPresent) {
-			 //world.destroyBody(b2body);
-			 stateTime = 0;
-		 }
-		 else if (customerPresent)
-	        b2body.setLinearVelocity(velocity);
-	        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+		 b2body.setLinearVelocity(velocity);
+	     setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
 	    }
 	
 
@@ -57,10 +53,10 @@ public class Customer extends NPC {
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
+        b2body.setActive(false);
     }
 
-    public void walkTowardCounter(Batch batch) {
-        if (customerPresent)
-            super.draw(batch);
+    public int getId() {
+    	return id;
     }
 }
