@@ -1,5 +1,6 @@
 package com.westerncriminals.game.scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -11,16 +12,23 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.westerncriminals.game.PiazzaPanic;
+import com.westerncriminals.game.sprites.Customer;
+import com.westerncriminals.game.sprites.Dish;
+
+import java.util.List;
 
 public class Hud implements Disposable{
 	public Stage stage;
 	private Viewport viewport;
+	private Customer customer;
 	
 	private Integer scoreCount;
 	private Integer bCount;
 	private Integer saladCount;
 	private float timeCount;
 	private Integer worldTime;
+	private int first;
+	private int numOrders;
 
 	Label timerLabel;
 	Label scoreLabel;
@@ -29,13 +37,21 @@ public class Hud implements Disposable{
 	Label timeLabel;
 	Label saladLabel;
 	Label sLabel;
+
+	List<Dish> orders;
+	Dish nextOrder;
 	
-	public Hud(SpriteBatch sb) {
+	public Hud(SpriteBatch sb, Customer customer, List<Dish> orders) {
+		this.orders = orders;
+
+		first = 2;
+		numOrders = 0;
 		scoreCount = 0;
-		setbCount(0);
+		bCount = 0;
 		saladCount = 0;
 		worldTime = 0;
 		timeCount = 0;
+		this.customer = customer;
 		
 		viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, sb);
@@ -47,7 +63,7 @@ public class Hud implements Disposable{
 		burgLabel = new Label("Burgers", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		saladLabel = new Label("Salads", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		
+
 		table.add(timeLabel).expandX();
 		table.add(burgLabel).expandX();
 		table.add(saladLabel).expandX();
@@ -58,13 +74,14 @@ public class Hud implements Disposable{
 		timerLabel = new Label(String.format("%06d",worldTime), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		bLabelNum = new Label(String.format("%01d", getbCount()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		sLabel = new Label(String.format("%01d", saladCount), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		
-		table.add(timerLabel).expandX();//.padTop(10);
-		//.padTop(10);
-		table.add(bLabelNum).expandX();//.padTop(10);
+
+		table.add(timerLabel).expandX();
+		table.add(bLabelNum).expandX();
 		table.add(sLabel);
-		
+
 		stage.addActor(table);
+		bLabelNum.setText(String.format("%01d", (bCount++)));
+		sLabel.setText(String.format("%01d", (saladCount++)));
 		
 		
 	}
@@ -75,6 +92,26 @@ public class Hud implements Disposable{
 			worldTime++;
 			timerLabel.setText(String.format("%06d",(worldTime)));
 			timeCount = 0;
+			if (worldTime  == first) {
+				if (numOrders <= orders.size() + 1) {
+					customer.walkTowardCounter(dt);
+					addOrder();
+				}
+				else {
+					Gdx.app.log("Limit", "limit reached");
+				}
+			}
+		}
+	}
+
+	public void addOrder() {
+		first += 2;
+		numOrders++;
+		nextOrder = orders.remove(0);
+		if (nextOrder.getDishName().equals("Burgers")) {
+			bLabelNum.setText(String.format("%01d", (bCount++)));
+		} else {
+			sLabel.setText(String.format("%01d", (saladCount++)));
 		}
 	}
 

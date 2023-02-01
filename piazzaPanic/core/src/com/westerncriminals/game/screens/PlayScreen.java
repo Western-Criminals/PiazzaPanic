@@ -1,6 +1,5 @@
 package com.westerncriminals.game.screens;
 
-// import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -20,6 +19,7 @@ import com.westerncriminals.game.scenes.Hud;
 import com.westerncriminals.game.tools.B2WorldCreator;
 import com.westerncriminals.game.tools.WorldContactListener;
 import com.westerncriminals.game.sprites.Chef;
+import com.westerncriminals.game.sprites.Customer;
 import com.westerncriminals.game.sprites.Dish;
 import com.westerncriminals.game.scenes.Inventory;
 
@@ -47,10 +47,11 @@ public class PlayScreen implements Screen{
 	private Inventory inv;
 	public Chef chefOne;
 	public Chef chefTwo;
+	private Customer customer;
 	private int chefControlled;
 	private Dish burger;
 	private Dish salad;
-	private List<Dish> orders = new ArrayList<Dish>();
+	public List<Dish> orders = new ArrayList<Dish>();
 	
 	private TmxMapLoader maploader;
     private TiledMap map;
@@ -71,12 +72,11 @@ public class PlayScreen implements Screen{
 		}
 
 		atlas = new TextureAtlas("chefAtlas.txt");
-		
+
 		this.game = game;
 		gamecam = new OrthographicCamera();
-		gamePort = new FitViewport(PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,PiazzaPanic.V_HEIGHT /  PiazzaPanic.PPM , gamecam);
+		gamePort = new FitViewport((float) PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,(float) PiazzaPanic.V_HEIGHT /  PiazzaPanic.PPM , gamecam);
 		gamePort.apply();
-		hud = new Hud(game.batch);
 		chefControlled = 1;
 
 		maploader = new TmxMapLoader();
@@ -87,16 +87,19 @@ public class PlayScreen implements Screen{
         
         world = new World(new Vector2(0,0), true);
         b2dr = new Box2DDebugRenderer();
-        
+
         chefOne = new Chef(world, this, 1, 55);
         chefTwo = new Chef(world, this, 2, 250);
 		new B2WorldCreator(world, map, chefOne, chefTwo);
 		burger = new Dish(world, dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
 		salad = new Dish(world, dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
 		List<Dish> menu = new ArrayList<Dish>(Arrays.asList(burger, salad));
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i <= 6; i++) {
 			orders.add(menu.get(new Random().nextInt(menu.size())));
 		}
+
+		customer = new Customer(world, this);
+		hud = new Hud(game.batch, customer, orders);
         
         world.setContactListener(new WorldContactListener());
 	}
@@ -116,6 +119,7 @@ public class PlayScreen implements Screen{
 		handleInput();
 		chefOne.update(dt);
 		chefTwo.update(dt);
+		customer.update(dt);
 		world.step(1/60f, 6, 2);
 		gamecam.update();
 		renderer.setView(gamecam);
@@ -171,6 +175,7 @@ public class PlayScreen implements Screen{
 		game.batch.begin();
 		chefOne.draw(game.batch);
 		chefTwo.draw(game.batch);
+		customer.draw(game.batch);
 		game.batch.end();
 
 		if (inv.getVisibility()) {
