@@ -17,7 +17,7 @@ public class Customer extends NPC {
     public boolean customerPresent;
     float startX, startY;
 
-    public Customer(PlayScreen screen, float x, float y, String imgPath) {
+    public Customer(PlayScreen screen, float x, float y) {
         super(screen, x , y);
         defineNPC();
         customerIdle = new TextureRegion(screen.getAtlas().findRegion("Chef A1"),21, 9, 9,17);
