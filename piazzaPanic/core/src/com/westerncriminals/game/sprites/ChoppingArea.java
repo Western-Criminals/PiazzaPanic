@@ -5,20 +5,17 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.westerncriminals.game.screens.PlayScreen;
 
 public class ChoppingArea extends InteractiveTileObject
 {
 	final short CATEGORY_STATION_TWO = 0x0008;
-	public Chef chefOne;
-	public Chef chefTwo;
 	String example;
 
-	public ChoppingArea(World world, TiledMap map, Rectangle bounds, Chef chefOne, Chef chefTwo)
+	public ChoppingArea(PlayScreen screen, Rectangle bounds)
 	{
-		super(world, map, bounds);
+		super(screen, bounds);
 		fixture.setUserData(this);
-		this.chefOne = chefOne;
-		this.chefTwo = chefTwo;
 	}
 
 	@Override
@@ -42,6 +39,4 @@ public class ChoppingArea extends InteractiveTileObject
 				chefTwo.itemStack.pop();
 		}
 	}
-
-
 }
