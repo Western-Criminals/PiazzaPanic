@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Array;
 import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 
-public class Customer extends Sprite{
+public class Customer extends Sprite {
 
 
     public Array<Object> itemStack;
@@ -22,7 +22,7 @@ public class Customer extends Sprite{
     float timeCount;
     float startX, startY;
 
-    public Customer(World world, PlayScreen screen) {
+    public Customer(World world, PlayScreen screen, String imgPath) {
         super(screen.getAtlas().findRegion("Chef A1"));
         this.world = world;
         defineCustomer();
