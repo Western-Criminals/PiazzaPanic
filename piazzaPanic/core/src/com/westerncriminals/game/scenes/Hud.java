@@ -1,6 +1,7 @@
 package com.westerncriminals.game.scenes;
 
 import com.badlogic.gdx.graphics.Color;
+import java.util.Random;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,6 +22,8 @@ public class Hud implements Disposable{
 	private Integer saladCount;
 	private float timeCount;
 	private Integer worldTime;
+	Integer first = 3;
+	Random rand = new Random();
 
 	Label timerLabel;
 	Label scoreLabel;
@@ -39,6 +42,7 @@ public class Hud implements Disposable{
 		
 		viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, sb);
+		
 		
 		Table table = new Table();
 		table.bottom();
@@ -66,7 +70,6 @@ public class Hud implements Disposable{
 		
 		stage.addActor(table);
 		
-		
 	}
 	
 	public void update(float dt) {
@@ -75,7 +78,15 @@ public class Hud implements Disposable{
 			worldTime++;
 			timerLabel.setText(String.format("%06d",(worldTime)));
 			timeCount = 0;
+			if (worldTime  == first) {
+				first = first + 3;
+				float percentos =  rand.nextFloat();
+				if (percentos < 0.5) {
+					bLabelNum.setText(String.format("%06d", (bCount++)));
+				}
+			}
 		}
+		
 	}
 
 	@Override
