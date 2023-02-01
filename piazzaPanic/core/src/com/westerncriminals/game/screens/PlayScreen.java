@@ -136,10 +136,14 @@ public class PlayScreen implements Screen{
 	    } else if(Gdx.input.isKeyPressed(Input.Keys.A)) {
 	         velX = -10.0f;
 	    }
-	    if (chefControlled == 1)
-	    	chefOne.b2body.setLinearVelocity(new Vector2(velX, velY));
-	    else
-	    	chefTwo.b2body.setLinearVelocity(new Vector2(velX, velY));
+	    if (chefControlled == 1) {
+			chefTwo.b2body.setLinearVelocity(new Vector2(0f, 0f));
+			chefOne.b2body.setLinearVelocity(new Vector2(velX, velY));
+		}
+	    else{
+			chefOne.b2body.setLinearVelocity(new Vector2(0f, 0f));
+			chefTwo.b2body.setLinearVelocity(new Vector2(velX, velY));
+		}
 		if (Gdx.input.isKeyPressed(Input.Keys.I) && chefOne.itemStack.notEmpty()) {
 			inv.setVisibility(!(inv.getVisibility()));
 			if (inv.getVisibility()) {
