@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.westerncriminals.game.PiazzaPanic;
 import com.westerncriminals.game.screens.PlayScreen;
 import com.westerncriminals.game.sprites.AssemblyStation;
@@ -16,18 +17,18 @@ import com.westerncriminals.game.sprites.BunBox;
 import com.westerncriminals.game.sprites.BurgerFryer;
 import com.westerncriminals.game.sprites.Chef;
 import com.westerncriminals.game.sprites.ChoppingArea;
+import com.westerncriminals.game.sprites.Customer;
 import com.westerncriminals.game.sprites.Pantry;
 import com.westerncriminals.game.sprites.SaladGenerator;
 
+
 public class B2WorldCreator {
-	final short CATEGORY_COUNTER = 0X0002;
+	private Array<Customer> customers;
 
 
 	public B2WorldCreator(PlayScreen screen){
 		World world = screen.getWorld();
 		TiledMap map = screen.getMap();
-		Chef chefOne = screen.getChefOne();
-		Chef chefTwo = screen.getChefTwo();
 
 		BodyDef bdef = new BodyDef();
 		PolygonShape shape = new PolygonShape();
@@ -45,7 +46,7 @@ public class B2WorldCreator {
 
 			shape.setAsBox(rect.getWidth()/ 2 / PiazzaPanic.PPM, rect.getHeight()/ 2 / PiazzaPanic.PPM);
 			fdef.shape = shape;
-			fdef.filter.categoryBits = CATEGORY_COUNTER;
+			fdef.filter.categoryBits = PiazzaPanic.CATEGORY_COUNTER;
 			fdef.filter.maskBits = -1;
 			body.createFixture(fdef).setUserData("counter");
 		}
@@ -79,6 +80,14 @@ public class B2WorldCreator {
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			new ChoppingArea(screen, rect);
 		}
-	}
 
+		customers = new Array<Customer>();
+		for(MapObject object: map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
+			Rectangle rect = ((RectangleMapObject) object).getRectangle();
+			customers.add(new Customer(screen, rect.getX() / PiazzaPanic.PPM,  rect.getY() / PiazzaPanic.PPM, "Chef A1"));
+		}
+	}
+	public Array<Customer> getCustomers(){
+		return customers;
+	}
 }
