@@ -43,6 +43,7 @@ public class PlayScreen implements Screen{
 	private Viewport gamePort;
 	private Hud hud;
 
+	public static Boolean customerFlag;
 
 	private Inventory inv;
 	private Chef chefOne;
@@ -69,7 +70,7 @@ public class PlayScreen implements Screen{
 		catch(IOException e) {
 			e.printStackTrace();
 		}
-
+		customerFlag = false;
 		atlas = new TextureAtlas("chefAtlas.txt");
 		
 		this.game = game;
@@ -89,7 +90,7 @@ public class PlayScreen implements Screen{
         b2dr = new Box2DDebugRenderer();
         
         customer = new Customer(world, this);
-		hud = new Hud(game.batch, customer);
+		hud = new Hud(game.batch, customer, customerFlag);
         
         chefOne = new Chef(world, this, 1, 55);
         chefTwo = new Chef(world, this, 2, 250);

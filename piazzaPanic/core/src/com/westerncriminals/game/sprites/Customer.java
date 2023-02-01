@@ -1,5 +1,6 @@
 package com.westerncriminals.game.sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +21,8 @@ public class Customer extends Sprite{
 	public Body b2body; 
 	private TextureRegion chefIdle;
 	float timeCount;
+	
+	public boolean finished;
 	
 	public Customer(World world, PlayScreen screen) {
 		super(screen.getAtlas().findRegion("Chef A1"));
@@ -54,15 +57,16 @@ public class Customer extends Sprite{
 	}
 	public void update(float dt) {
 		setPosition(b2body.getPosition().x - getWidth() /2, b2body.getPosition().y - getHeight()/4);
+		//walkTowardCounter(dt);
 	}
 	
 	public void walkTowardCounter(float dt) {
-		while(true) {
-			timeCount += dt;
-			if (timeCount <= 5)
-				this.b2body.setLinearVelocity(new Vector2(5, 0));
-			else
-				break;
+		timeCount += dt;
+		if (timeCount <= 1.5) {
+			this.b2body.setLinearVelocity(new Vector2(5,0));
 		}
+		else
+			this.b2body.setLinearVelocity(new Vector2(0,0));
 	}
+	
 }

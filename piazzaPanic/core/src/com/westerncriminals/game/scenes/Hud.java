@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.westerncriminals.game.PiazzaPanic;
+import com.westerncriminals.game.screens.PlayScreen;
 import com.westerncriminals.game.sprites.Customer;
 
 public class Hud implements Disposable{
@@ -37,9 +38,10 @@ public class Hud implements Disposable{
 	Label saladLabel;
 	Label sLabel;
 	
+	boolean customerFlag;
 	
-	public Hud(SpriteBatch sb, Customer customer) {
-		first = 2;
+	public Hud(SpriteBatch sb, Customer customer, Boolean customerFlag) {
+		first = 5;
 		numOrders = 0;
 		scoreCount = 0;
 		bCount = 0;
@@ -47,6 +49,7 @@ public class Hud implements Disposable{
 		worldTime = 0;
 		timeCount = 0;
 		this.customer = customer;
+		this.customerFlag = false;
 		
 		viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, sb);
@@ -87,12 +90,10 @@ public class Hud implements Disposable{
 			timerLabel.setText(String.format("%06d",(worldTime)));
 			timeCount = 0;
 			if (worldTime  == first) {
-				if (numOrders == 5) {
-					Gdx.app.log("Limit", "limit reached");
-				}
-				else
-					customer.walkTowardCounter(dt);
+				if (numOrders < 6) {
 					addOrder();
+					PlayScreen.customerFlag = true;
+				}
 			}
 		}
 		
@@ -100,14 +101,16 @@ public class Hud implements Disposable{
 	
 	public void addOrder() {
 		float percentos =  rand.nextFloat();
-		first += 2;
+		first += 5;
 		numOrders++;
-		if (percentos < 0.5) {
+		if (percentos < 0.5 && numOrders < 6) {
 			bLabelNum.setText(String.format("%01d", (bCount++)));
 		}
-		else {
+		else if (percentos > 0.5 && numOrders < 6) {
 			sLabel.setText(String.format("%01d", (saladCount++)));
 		}
+		else
+			Gdx.app.log("Lol", "limit reached");
 		
 	}
 	
@@ -119,8 +122,4 @@ public class Hud implements Disposable{
 		
 	}
 
-
-	public void setbCount(Integer bCount) {
-		this.bCount = bCount;
-	}
 }
