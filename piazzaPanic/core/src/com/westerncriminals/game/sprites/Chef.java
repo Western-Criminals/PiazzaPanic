@@ -18,7 +18,9 @@ public class Chef extends Sprite {
 	final short CATEGORY_PLAYER = 0x0001;
 	final short CATEGORY_COUNTER = 0X0002;
 	final short CATEGORY_STATION_ONE = 0X0004;
-	final short MASK_PLAYER = CATEGORY_COUNTER | CATEGORY_STATION_ONE| -1; // -1 for now;
+	
+	
+	final short MASK_PLAYER = CATEGORY_COUNTER | CATEGORY_STATION_ONE;
 	
 	public Array<Object> itemStack;
 	public World world;
