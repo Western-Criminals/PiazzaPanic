@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.westerncriminals.game.PiazzaPanic;
@@ -19,15 +20,34 @@ import com.westerncriminals.game.screens.PlayScreen;
 import com.westerncriminals.game.sprites.Chef;
 import com.westerncriminals.game.sprites.Customer;
 
-public class InventoryChris {
+public class InventoryChris implements Disposable{
 	public Stage stage;
 	private Viewport viewport;
-	private List<Label> invLabels = new ArrayList<Label>();
+	private List<Label> invLabels;
+	Boolean pattyAdded;
+	Boolean bunAdded;
+	Boolean burgerAdded;
+	Boolean lettuceAdded;
+	Boolean tomatoAdded;
+	Boolean choppedLetAdded;
+	Boolean choppedTAdded;
+	Boolean saladAdded;
+	Integer numTimes;
 	
-
+	Table table;;
 
 	Label ingrediantTextLabel;
 	Label ingrediantLabel;
+	Label pattyLabel;
+	Label bunLabel;
+	Label burgerLabel;
+	Label blankLabel;
+	Label lettuceLabel;
+	Label tomatoLabel;
+	Label choppedLetLabel;
+	Label choppedTLabel;
+	Label saladLabel;
+	
 	
 	
 	private Chef chefOne;
@@ -37,59 +57,82 @@ public class InventoryChris {
 	public InventoryChris(SpriteBatch sb, PlayScreen screen) {
 		this.chefOne = screen.getChefOne();
 		this.chefTwo = screen.getChefTwo();
-
+		invLabels = new ArrayList<Label>();
+		table = new Table();
+		pattyAdded = false;
+		bunAdded = false;
+		burgerAdded = false;
+		lettuceAdded = false;
+		tomatoAdded = false;
+		choppedLetAdded = false;
+		choppedTAdded = false;
+		saladAdded = false;
+		numTimes = 0;
+		
 		viewport = new FitViewport(PiazzaPanic.V_WIDTH, PiazzaPanic.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport, sb);
 		
 		
-		Table table = new Table();
-		table.bottom();
+		
+		table.top();
 		table.setFillParent(true);
 		
-		ingrediantTextLabel = new Label("Ingrediants", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		ingrediantLabel = new Label(, new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		table.add(ingrediantLabel).expandX();
-	
+		ingrediantTextLabel = new Label("INGREDIANTS", new Label.LabelStyle(new BitmapFont(), Color.PURPLE));
+		blankLabel = new Label("", new Label.LabelStyle(new BitmapFont(), Color.PURPLE));
+		table.add(ingrediantTextLabel).expandX();
+		table.add(blankLabel).expandX();
+		table.add(blankLabel).expandX();
+		table.row();
+			
 		
 		stage.addActor(table);
 	}
 	
 	public void update(float dt) {
-		timeCount += dt;
-		if(timeCount >= 1) {
-		
+		if (chefOne.itemStack.contains("Patty", true) && pattyAdded == false) {
+			pattyLabel = new Label("Patty", new Label.LabelStyle(new BitmapFont(), Color.PURPLE));
+			table.add(pattyLabel).expandX();
+			pattyAdded = true;
+			table.row();
 		}
-		bLabelNum.setText(String.format("%01d", (bCount)));
-		sLabel.setText(String.format("%01d", (saladCount)));
-		if (bCount == 0 && saladCount == 0 && numOrders > 4) {
-			Gdx.app.exit();
-			Gdx.app.log("Game state", "Gameover, you took this many seconds to complete the game");
-			Gdx.app.log("Game state", String.format("%03d", worldTime));
+		if (chefOne.itemStack.contains("Bun", true) && bunAdded == false) {
+			bunLabel = new Label("Bun", new Label.LabelStyle(new BitmapFont(), Color.PURPLE));
+			table.add(bunLabel).expandX();
+			bunAdded = true;
+			table.row();
+		}
+		if (chefOne.itemStack.contains("Burger", true) && burgerAdded == false) {
+			burgerLabel = new Label("Burger", new Label.LabelStyle(new BitmapFont(), Color.PURPLE));
+			table.add(burgerLabel).expandX();
+			burgerAdded = true;
+			table.removeActor(pattyLabel);
+			table.row();
+		}
+		if (chefOne.itemStack.contains("Lettuce", true) && lettuceAdded == false) {
+			lettuceLabel = new Label("Lettuce", new Label.LabelStyle(new BitmapFont(), Color.PURPLE));
+			table.add(lettuceLabel).expandX();
+			lettuceAdded = true;
+			table.row();
+		}
+		if (chefOne.itemStack.contains("Tomato", true) && lettuceAdded == false) {
+			tomatoLabel = new Label("Tomato", new Label.LabelStyle(new BitmapFont(), Color.PURPLE));
+			table.add(tomatoLabel).expandX();
+			tomatoAdded = true;
+			table.row();
+		}
+		if (chefOne.itemStack.contains("Chopped Lettuce", true) && choppedLetAdded == false) {
+			choppedLetLabel = new Label("Chopped Lettuce", new Label.LabelStyle(new BitmapFont(), Color.PURPLE));
+			table.add(choppedLetLabel).expandX();
+			choppedLetAdded = true;
+			table.row();
 		}
 	}
-	
-	public void addOrder() {
-		float percentos =  rand.nextFloat();
-		first += 5;
-		numOrders++;
-		if (percentos < 0.5 && numOrders < 6) {
-			bCount++;
-			bLabelNum.setText(String.format("%01d", (bCount)));
-		}
-		else if (percentos > 0.5 && numOrders < 6) {
-			saladCount++;
-			sLabel.setText(String.format("%01d", (saladCount)));
-		}
-		else
-			Gdx.app.log("Lol", "limit reached");
-		
-	}
+
 	
 
 	@Override
 	public void dispose() {
 		stage.dispose();
-		
 		
 	}
 

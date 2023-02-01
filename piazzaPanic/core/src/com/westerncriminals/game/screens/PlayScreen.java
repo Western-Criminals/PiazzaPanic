@@ -24,7 +24,8 @@ import com.westerncriminals.game.sprites.Chef;
 import com.westerncriminals.game.sprites.Customer;
 import com.westerncriminals.game.sprites.Dish;
 import com.westerncriminals.game.sprites.NPC;
-import com.westerncriminals.game.screens.Inventory;
+import com.westerncriminals.game.scenes.Inventory;
+import com.westerncriminals.game.scenes.InventoryChris;
 
 import org.json.JSONObject;
 
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayScreen implements Screen{
 	JSONObject settings;
@@ -66,6 +68,9 @@ public class PlayScreen implements Screen{
     public Integer mileStoneTime;
     public Integer currentId;
     
+    public InventoryChris cInv;
+    public Boolean menuState;
+    
 	
 	public PlayScreen(PiazzaPanic game) {
 		try {
@@ -87,11 +92,11 @@ public class PlayScreen implements Screen{
 		gamecam = new OrthographicCamera();
 		gamePort = new FitViewport(PiazzaPanic.V_WIDTH / PiazzaPanic.PPM ,PiazzaPanic.V_HEIGHT /  PiazzaPanic.PPM , gamecam);
 		gamePort.apply();
+		menuState = false;
 		
 		chefControlled = 1;
 
 		maploader = new TmxMapLoader();
-		//inv = new Inventory(this.game, 200, 200, 0, 0, new ArrayList<String>());
         map = maploader.load("finalKitchenFr.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1f/ PiazzaPanic.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2 , gamePort.getWorldHeight() / 2 , 0);
@@ -103,14 +108,17 @@ public class PlayScreen implements Screen{
         chefOne = new Chef(this, 55);
         chefTwo = new Chef(this, 250); 
         hud = new Hud(game.batch, customer, this);
+        cInv = new InventoryChris(game.batch, this);
         
         creator = new B2WorldCreator(this);
         
         
-	// burger = new Dish(world, dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"), dishes.getJSONObject("0").getString("img"));
-	// salad = new Dish(world, dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"), dishes.getJSONObject("1").getString("img"));
+	   burger = new Dish(world, dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"), dishes.getJSONObject("0").getString("img"));
+	   salad = new Dish(world, dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"), dishes.getJSONObject("1").getString("img"));
         
         world.setContactListener(new WorldContactListener());
+        inv = new Inventory(this.game, 200, 200, 0, 0, new ArrayList<String>());
+    
 	}
 	
 	public TextureAtlas getAtlas() {
@@ -127,6 +135,7 @@ public class PlayScreen implements Screen{
 	public void update(float dt) {
 		handleInput();
 		hud.update(dt);
+		cInv.update(dt);
 		chefOne.update(dt);
 		chefTwo.update(dt);
 		for(NPC npc : creator.getCustomers()) {
@@ -150,9 +159,16 @@ public class PlayScreen implements Screen{
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
 				chefControlled = 3 - chefControlled;
-		if (Gdx.input.isKeyJustPressed(Input.Keys.I) && chefOne.itemStack.notEmpty()) {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.I)){
+				if (menuState)
+					menuState = false;
+				else
+					menuState = true;
+		}
+		if (chefOne.itemStack.notEmpty()) {
 			Gdx.app.log("I", (String) chefOne.itemStack.toString());
 			Gdx.app.log("Amount", String.format("%03d", chefOne.itemStack.size));
+			
 		}
 		if (Gdx.input.isKeyJustPressed(Input.Keys.R) && chefTwo.itemStack.notEmpty()) {
 			Gdx.app.log("I", (String) chefTwo.itemStack.toString());
@@ -171,15 +187,22 @@ public class PlayScreen implements Screen{
 	    	chefOne.b2body.setLinearVelocity(new Vector2(velX, velY));
 	    else
 	    	chefTwo.b2body.setLinearVelocity(new Vector2(velX, velY));
-		//if (Gdx.input.isKeyPressed(Input.Keys.I))
-			// inv.setInv(stuff);
-			//inv.setVisibility(!(inv.getVisibility()));
+	    /*
+	    if (Gdx.input.isKeyJustPressed(Input.Keys.I)da) {
+	    	Gdx.app.log("I", (String) chefOne.itemStack.peek());
+			List<String> inv_lst = new ArrayList<String>();
+			while (chefOne.itemStack.notEmpty()) {
+				inv_lst.add(chefOne.itemStack.get(0).toString());
+				chefOne.itemStack.pop();
+			}
+			inv.setInv(inv_lst);
+	    }
+	    */
 	}
 
 	@Override
 	public void render(float delta) {
 		update(delta);
-		;
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -200,6 +223,9 @@ public class PlayScreen implements Screen{
 		
 		game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
 		hud.stage.draw();
+		game.batch.setProjectionMatrix(cInv.stage.getCamera().combined);
+		if (menuState == true)
+			cInv.stage.draw();
 	}
 	
 	public TiledMap getMap() {

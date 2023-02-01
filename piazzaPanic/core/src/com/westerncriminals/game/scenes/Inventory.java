@@ -11,8 +11,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.westerncriminals.game.PiazzaPanic;
 
-import org.javatuples.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +22,8 @@ public class Inventory extends PiazzaPanic {
     private Table invTable = new Table();
     private int INV_WIDTH;
     private int INV_HEIGHT;
-    private Pair<Integer, Integer> MIDDLE;
+    private int midX;
+    private int midY;
     private List<String> inv_lst;
     private List<Label> invLabels = new ArrayList<Label>();
     private static boolean visible;
@@ -40,7 +39,8 @@ public class Inventory extends PiazzaPanic {
         this.game = game;
         INV_WIDTH = w;
         INV_HEIGHT = h;
-        MIDDLE = new Pair<Integer, Integer> (PiazzaPanic.V_WIDTH/2 + xpos, PiazzaPanic.V_HEIGHT/2 + ypos);
+        midX = PiazzaPanic.V_WIDTH/2 + xpos;
+        midY = PiazzaPanic.V_HEIGHT/2 + ypos;
         this.inv_lst = inv_lst;
         updateLabels(inv_lst);
 
@@ -62,18 +62,17 @@ public class Inventory extends PiazzaPanic {
         this.visible = visible;
     }
     public boolean getVisibility() {
-        return this.visible;
+        return visible;
     }
 
     public void render(PiazzaPanic game) {
-        this.game = game;
+        this.game = game; 
         this.game.batch.begin();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(0, 0, 0, 255);
-        shapeRenderer.rect(MIDDLE.getValue0(), MIDDLE.getValue1(), INV_WIDTH, INV_HEIGHT);
+        shapeRenderer.rect(midX, midY, INV_WIDTH, INV_HEIGHT);
         shapeRenderer.end();
-
         this.game.batch.end();
     }
     @Override
