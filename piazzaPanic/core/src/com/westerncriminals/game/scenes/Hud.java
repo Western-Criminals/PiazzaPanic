@@ -22,8 +22,8 @@ public class Hud implements Disposable{
 	private Viewport viewport;
 	
 	private Integer scoreCount;
-	private Integer bCount;
-	private Integer saladCount;
+	public Integer bCount;
+	public Integer saladCount;
 	private float timeCount;
 	public Integer worldTime;
 	Integer first;
@@ -78,8 +78,6 @@ public class Hud implements Disposable{
 		table.add(sLabel);
 		
 		stage.addActor(table);
-		bLabelNum.setText(String.format("%01d", (bCount++)));
-		sLabel.setText(String.format("%01d", (saladCount++)));
 	}
 	
 	public void update(float dt) {
@@ -94,7 +92,8 @@ public class Hud implements Disposable{
 				}
 			}
 		}
-		
+		bLabelNum.setText(String.format("%01d", (bCount)));
+		sLabel.setText(String.format("%01d", (saladCount)));
 		
 	}
 	
@@ -103,10 +102,12 @@ public class Hud implements Disposable{
 		first += 5;
 		numOrders++;
 		if (percentos < 0.5 && numOrders < 6) {
-			bLabelNum.setText(String.format("%01d", (bCount++)));
+			bCount++;
+			bLabelNum.setText(String.format("%01d", (bCount)));
 		}
 		else if (percentos > 0.5 && numOrders < 6) {
-			sLabel.setText(String.format("%01d", (saladCount++)));
+			saladCount++;
+			sLabel.setText(String.format("%01d", (saladCount)));
 		}
 		else
 			Gdx.app.log("Lol", "limit reached");

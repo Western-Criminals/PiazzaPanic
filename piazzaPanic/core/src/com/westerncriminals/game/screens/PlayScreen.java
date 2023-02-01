@@ -216,6 +216,9 @@ public class PlayScreen implements Screen{
 	public Customer getCustomer() {
 		return customer;
 	}
+	public Hud getHud() {
+		return hud;
+	}
 
 	@Override
 	public void resize(int width, int height) {

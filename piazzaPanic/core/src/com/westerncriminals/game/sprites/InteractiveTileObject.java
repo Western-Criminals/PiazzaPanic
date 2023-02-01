@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.westerncriminals.game.PiazzaPanic;
+import com.westerncriminals.game.scenes.Hud;
 import com.westerncriminals.game.screens.PlayScreen;
 
 public abstract class InteractiveTileObject {
@@ -27,6 +28,7 @@ public abstract class InteractiveTileObject {
     protected MapObject object;
     protected Chef chefOne;
     protected Chef chefTwo;
+    protected Hud hud;
 
     protected Fixture fixture;
 
@@ -37,6 +39,7 @@ public abstract class InteractiveTileObject {
     	this.chefOne = screen.getChefOne();
     	this.chefTwo = screen.getChefTwo();
     	this.bounds = bounds;
+    	this.hud = screen.getHud();
    
     	BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();
