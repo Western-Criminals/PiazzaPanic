@@ -37,6 +37,8 @@ import java.util.Random;
 public class PlayScreen implements Screen{
 	JSONObject settings;
 	JSONObject dishes;
+	JSONObject chefs;
+	JSONObject customers;
 	
 	private PiazzaPanic game;
 	private TextureAtlas atlas;
@@ -67,6 +69,8 @@ public class PlayScreen implements Screen{
 			String contents = new String(Files.readString(Paths.get("./settings.json")));
 			settings = new JSONObject(contents);
 			dishes = settings.getJSONObject("dishes");
+			chefs = settings.getJSONObject("chefs");
+			customers = settings.getJSONObject("customers");
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -89,8 +93,8 @@ public class PlayScreen implements Screen{
         world = new World(new Vector2(0,0), true);
         b2dr = new Box2DDebugRenderer();
 
-		chefOne = new Chef(this, 55);
-		chefTwo = new Chef(this, 250);
+		chefOne = new Chef(this, 55, chefs.getString("img"));
+		chefTwo = new Chef(this, 250, chefs.getString("img"));
 		new B2WorldCreator(this);
 		burger = new Dish(world, dishes.getJSONObject("0").getString("name"), dishes.getJSONObject("0").getInt("duration"), dishes.getJSONObject("0").getJSONArray("ingredients"));
 		salad = new Dish(world, dishes.getJSONObject("1").getString("name"), dishes.getJSONObject("1").getInt("duration"), dishes.getJSONObject("1").getJSONArray("ingredients"));
