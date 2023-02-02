@@ -1,7 +1,40 @@
 body {
-      background-image: url('https://i.4cdn.org/g/1594686838367.png');
+      background-image: url('piazzaPanic/assets/hell.jpeg'), url('https://i.4cdn.org/g/1594686838367.png');
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-size: 100% 100%;
       font-family: Arial;
+}
+h1 {
+    color: #df00ff;
+    font-family: papyrus;
+}
+h2 {
+    color: #ff2400;
+}
+h6 {
+    color: #ff69b4;
+}
+#bob0 {
+    background-color: Aqua;
+    border: 5px solid Lavender;
+    opacity:0.75;
+    margin-left: auto;
+    margin-right: auto;
+    border-spacing: 5px;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
+    font-family: Andale Mono;
+    vertical-align: middle;
+}
+#bob1 {
+    background-color: LightYellow;
+}
+#bob2 {
+    background-color: Magenta;
+}
+#bob3 {
+    color: #ff2400;
+    background-color: Snow;
 }
