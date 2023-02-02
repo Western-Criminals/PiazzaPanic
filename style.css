@@ -14,10 +14,7 @@ h2 {
 h6 {
     color: #ff69b4;
 }
-mark {
-    background-color: Snow;
-}
-#bob1 {
+#bob0 {
     background-color: Aqua;
     border: 5px solid Lavender;
     opacity:0.75;
@@ -28,4 +25,10 @@ mark {
     padding: 15px;
     text-align: center;
     vertical-align: middle;
+}
+#bob1 {
+    background-color: Snow;
+}
+#bob2 {
+    background-color: LightYellow;
 }
