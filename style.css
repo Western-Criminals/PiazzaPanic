@@ -14,3 +14,12 @@ h2 {
 h6 {
     color: #ff69b4;
 }
+#bob1 {
+    background-color: Aqua;
+    border: 1px solid Lavender;
+    border-spacing: 5px;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
