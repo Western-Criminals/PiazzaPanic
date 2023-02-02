@@ -28,12 +28,12 @@ h6 {
     vertical-align: middle;
 }
 #bob1 {
-    background-color: Snow;
+    background-color: LightYellow;
 }
 #bob2 {
-    background-color: LightYellow;
+    background-color: Magenta;
 }
 #bob3 {
     color: #ff2400;
-    background-color: Magenta;
+    background-color: Snow;
 }
