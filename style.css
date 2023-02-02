@@ -7,7 +7,7 @@ body {
 }
 h1 {
     color: #df00ff;
-    font-family: Fantai;
+    font-family: papyrus;
 }
 h2 {
     color: #ff2400;
@@ -34,5 +34,6 @@ h6 {
     background-color: LightYellow;
 }
 #bob3 {
+    color: #ff2400;
     background-color: Magenta;
 }
